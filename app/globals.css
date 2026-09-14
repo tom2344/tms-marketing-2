@@ -86,6 +86,15 @@
   .calc-slider { @apply h-2 w-full cursor-pointer appearance-none rounded-full bg-secondary accent-primary; }
   .calc-slider::-webkit-slider-thumb { @apply size-5 appearance-none rounded-full border-4 border-background bg-primary shadow-sm; }
   .calc-slider::-moz-range-thumb { @apply size-5 rounded-full border-4 border-background bg-primary shadow-sm; }
+  .price-card { @apply flex flex-col gap-5 rounded-2xl border border-border bg-background p-7 shadow-sm lg:p-9; }
+  .price-card h3 { @apply font-serif text-4xl tracking-tight; }
+  .price-card strong { @apply text-2xl text-primary; }
+  .price-card > p:not(.eyebrow) { @apply min-h-12 leading-relaxed text-muted-foreground; }
+  .price-card ul { @apply flex flex-col gap-3 border-t border-border pt-5 text-sm; }
+  .price-card li { @apply flex items-start gap-2; }
+  .price-card li svg { @apply mt-0.5 size-4 shrink-0 text-primary; }
+  .price-card .button-primary, .price-card .button-outline { @apply mt-auto w-full; }
+  .price-card.featured { @apply border-primary bg-accent/40; }
 }
 
 @media (prefers-reduced-motion: reduce) {

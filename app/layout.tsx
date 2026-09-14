@@ -6,16 +6,16 @@ import './globals.css'
 const serif = Cormorant_Garamond({ subsets: ['latin', 'latin-ext'], variable: '--font-serif', weight: ['500', '600', '700'] })
 const sans = Manrope({ subsets: ['latin', 'latin-ext'], variable: '--font-sans' })
 
-const siteUrl = 'https://ttamasmarketing.com'
-const title = 'TMS Marketing | Weboldal készítés helyi vállalkozásoknak'
-const description = 'Professzionális weboldal készítés helyi vállalkozásoknak. Top 3 helyezés a Google Térképen 90 napon belül, mobilbarát dizájn, kapcsolatfelvételi űrlapok, foglalási rendszerek és Google Cégprofil optimalizálás.'
+const siteUrl = 'https://kiszelymarketing.com'
+const title = 'Kiszely Marketing | Weboldal és Google Térkép marketing'
+const description = 'Professzionális weboldal készítés és Top 3 Google Térkép-helyezés helyi vállalkozásoknak 90 napon belül.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
   alternates: { canonical: '/' },
-  openGraph: { title, description, url: siteUrl, siteName: 'TMS Marketing', locale: 'hu_HU', type: 'website', images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'TMS Marketing' }] },
+  openGraph: { title, description, url: siteUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'website', images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'TMS Marketing' }] },
   twitter: { card: 'summary_large_image', title, description, images: ['/og-image.jpg'] },
   robots: { index: true, follow: true },
 }
@@ -25,7 +25,7 @@ export const viewport: Viewport = { themeColor: '#f4f0e8', colorScheme: 'light',
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'TMS Marketing',
+  name: 'Kiszely Marketing',
   url: siteUrl,
   image: `${siteUrl}/og-image.jpg`,
   email: 'tokolitamas7@gmail.com',
