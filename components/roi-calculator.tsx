@@ -5,137 +5,35 @@ import { ArrowRight } from 'lucide-react'
 
 type Language = 'hu' | 'en'
 
+const businessOptions = ['Ácsmunkák', 'Bádogos munkák', 'Burkolás', 'Duguláselhárítás', 'Favágás', 'Fürdőszoba felújítás', 'Gipszkartonozás', 'Kerítésépítés', 'Kertépítés', 'Klímaszerelés', 'Kocsibeálló építés', 'Kőműves munkák', 'Konyha felújítás', 'Külső festés', 'Lakásfelújítás', 'Napelem telepítés', 'Nyílászárócsere', 'Térkövezés', 'Terasz építés', 'Tetőjavítás', 'Tetőszigetelés', 'Villanyszerelés', 'Vízvezeték szerelés', 'Zárszerviz']
+const cityOptions = ['Kisváros', 'Közepes város', 'Nagyváros']
+const conversionOptions = [{ label: '5 hívásból 1 munka', value: 5 }, { label: '4 hívásból 1 munka', value: 4 }, { label: '3 hívásból 1 munka', value: 3 }, { label: '2 hívásból 1 munka', value: 2 }]
+
 const copy = {
   hu: {
-    label: 'Kalkulátor',
-    title: 'Becsülje meg, mekkora értéket jelenthet egy jobb weboldal és online láthatóság.',
-    intro: 'Állítsa be a saját számait, és nézze meg, mekkora havi többletbevételt hozhatnak az extra megkeresések egy profi weboldalból és jobb Google-láthatóságból.',
-    visitors: 'Havi online látogatók',
-    visitorsHint: 'weboldal + Google profil együtt',
-    enquiryRate: 'Érdeklődési arány',
-    enquiryRateHint: 'látogatókból megkeresés',
-    conversion: 'Érdeklődőből ügyfél arány',
-    value: 'Egy ügyfél átlagos értéke',
-    improvement: 'Becsült javulás',
-    improvementHint: 'profi weboldal + Google Térkép helyezés hatása',
-    resultCurrent: 'Jelenlegi becsült havi megkeresés',
-    resultImproved: 'Javított becsült havi megkeresés',
-    resultExtra: 'Becsült havi többletbevétel',
-    note: 'Az eredmény tájékoztató becslés, nem garantált üzleti eredmény. A tényleges számok az ajánlattól, a piactól és a kivitelezéstől függenek.',
-    cta: 'Kérek pontos ajánlatot',
-    currency: (n: number) => new Intl.NumberFormat('hu-HU').format(Math.round(n)) + ' Ft',
-    plain: (n: number) => new Intl.NumberFormat('hu-HU', { maximumFractionDigits: 1 }).format(n),
-    per: '/ hó',
+    label: 'Kalkulátor', title: 'Google Térkép megtérülési kalkulátor', intro: 'Becsüld meg, hogy a jobb Google Térkép-helyezés mennyi hívást és munkát hozhat reálisan.', business: 'Válaszd ki, mivel foglalkozik a vállalkozásod.', city: 'Add meg, mekkora településen dolgozol leggyakrabban.', conversion: 'Írd be, átlagosan hány telefonhívásból lesz valódi megrendelés.', value: 'Add meg, mennyit keresel egy átlagos munkával.', calls: 'Becsült extra hívások / hó', jobs: 'Becsült extra munkák / hó', revenue: 'Becsült extra árbevétel / hó', note: 'Ez becslés, nem garantált eredmény.', cta: 'Kérek pontos ajánlatot', placeholder: 'Válassz', currency: (n: number) => new Intl.NumberFormat('hu-HU').format(Math.round(n)) + ' Ft', number: (n: number) => new Intl.NumberFormat('hu-HU', { maximumFractionDigits: 1 }).format(n),
   },
   en: {
-    label: 'Calculator',
-    title: 'Estimate the value a better website and online visibility could bring.',
-    intro: 'Adjust your own numbers and see the monthly revenue potential from extra enquiries through a professional website and improved Google visibility.',
-    visitors: 'Monthly online visitors',
-    visitorsHint: 'website + Google profile combined',
-    enquiryRate: 'Enquiry rate',
-    enquiryRateHint: 'visitors who contact you',
-    conversion: 'Enquiry-to-customer rate',
-    value: 'Average customer value',
-    improvement: 'Estimated improvement',
-    improvementHint: 'impact of pro website + local SEO',
-    resultCurrent: 'Current estimated monthly enquiries',
-    resultImproved: 'Improved estimated monthly enquiries',
-    resultExtra: 'Estimated extra monthly revenue',
-    note: 'This result is an informational estimate, not a guaranteed business outcome. Actual figures depend on your offer, market and execution.',
-    cta: 'Request an exact quote',
-    currency: (n: number) => new Intl.NumberFormat('en-US').format(Math.round(n)) + ' Ft',
-    plain: (n: number) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(n),
-    per: '/ mo',
+    label: 'Calculator', title: 'Google Maps return calculator', intro: 'Estimate how many calls and jobs better Google Maps visibility could realistically bring.', business: 'Choose what your business does.', city: 'Choose the size of the town where you work most often.', conversion: 'Enter how many calls typically become a real job.', value: 'Enter what you earn from an average job.', calls: 'Estimated extra calls / mo', jobs: 'Estimated extra jobs / mo', revenue: 'Estimated extra revenue / mo', note: 'This is an estimate, not a guaranteed result.', cta: 'Request an exact quote', placeholder: 'Choose', currency: (n: number) => new Intl.NumberFormat('en-US').format(Math.round(n)) + ' Ft', number: (n: number) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 }).format(n),
   },
 } as const
 
-function Slider({
-  id, label, hint, min, max, step, value, onChange, display,
-}: {
-  id: string; label: string; hint?: string; min: number; max: number; step: number; value: number; onChange: (v: number) => void; display: string
-}) {
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-baseline justify-between gap-4">
-        <div className="flex flex-col gap-0.5">
-          <label htmlFor={id} className="text-sm font-semibold">{label}</label>
-          {hint && <span className="text-xs text-muted-foreground">{hint}</span>}
-        </div>
-        <span className="font-serif text-xl text-primary">{display}</span>
-      </div>
-      <input
-        id={id}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="calc-slider"
-        aria-valuetext={display}
-      />
-    </div>
-  )
-}
-
 export function RoiCalculator({ language }: { language: Language }) {
   const t = copy[language]
-  const [visitors, setVisitors] = useState(300)
-  const [enquiryRate, setEnquiryRate] = useState(3)
-  const [conversion, setConversion] = useState(25)
-  const [customerValue, setCustomerValue] = useState(40000)
-  const [improvement, setImprovement] = useState(40)
+  const [business, setBusiness] = useState('')
+  const [city, setCity] = useState('')
+  const [conversion, setConversion] = useState(4)
+  const [jobValue, setJobValue] = useState(150000)
 
-  const { currentEnquiries, improvedEnquiries, extraRevenue } = useMemo(() => {
-    const current = visitors * (enquiryRate / 100)
-    const improved = current * (1 + improvement / 100)
-    const extraCustomers = (improved - current) * (conversion / 100)
-    return {
-      currentEnquiries: current,
-      improvedEnquiries: improved,
-      extraRevenue: extraCustomers * customerValue,
-    }
-  }, [visitors, enquiryRate, conversion, customerValue, improvement])
+  const { extraCalls, extraJobs, extraRevenue } = useMemo(() => {
+    const cityCalls = city === 'Nagyváros' ? 24 : city === 'Közepes város' ? 16 : 10
+    const businessFactor = business === 'Napelem telepítés' || business === 'Konyha felújítás' ? 1.15 : 1
+    const calls = cityCalls * businessFactor
+    const jobs = calls / conversion
+    return { extraCalls: calls, extraJobs: jobs, extraRevenue: jobs * jobValue }
+  }, [business, city, conversion, jobValue])
 
-  const results = [
-    { label: t.resultCurrent, value: t.plain(currentEnquiries) },
-    { label: t.resultImproved, value: t.plain(improvedEnquiries) },
-    { label: t.resultExtra, value: t.currency(extraRevenue), highlight: true },
-  ]
+  const results = [{ label: t.calls, value: t.number(extraCalls) }, { label: t.jobs, value: t.number(extraJobs) }, { label: t.revenue, value: t.currency(extraRevenue), highlight: true }]
 
-  return (
-    <section className="section muted-section">
-      <div className="site-shell flex flex-col gap-12">
-        <div className="flex max-w-3xl flex-col gap-4">
-          <p className="eyebrow">{t.label}</p>
-          <h2 className="font-serif text-4xl leading-tight tracking-tight text-balance md:text-6xl">{t.title}</h2>
-          <p className="text-lg leading-relaxed text-muted-foreground">{t.intro}</p>
-        </div>
-
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
-          <div className="flex flex-col gap-8 rounded-2xl border border-border bg-background p-7 lg:p-9">
-            <Slider id="visitors" label={t.visitors} hint={t.visitorsHint} min={50} max={5000} step={50} value={visitors} onChange={setVisitors} display={t.plain(visitors)} />
-            <Slider id="enquiry" label={t.enquiryRate} hint={t.enquiryRateHint} min={0.5} max={10} step={0.5} value={enquiryRate} onChange={setEnquiryRate} display={`${enquiryRate}%`} />
-            <Slider id="conversion" label={t.conversion} min={5} max={60} step={1} value={conversion} onChange={setConversion} display={`${conversion}%`} />
-            <Slider id="value" label={t.value} min={5000} max={500000} step={5000} value={customerValue} onChange={setCustomerValue} display={t.currency(customerValue)} />
-            <Slider id="improvement" label={t.improvement} hint={t.improvementHint} min={10} max={100} step={5} value={improvement} onChange={setImprovement} display={`+${improvement}%`} />
-          </div>
-
-          <div className="flex flex-col gap-4 rounded-2xl border border-border bg-foreground p-7 text-background lg:p-9">
-            <div className="flex flex-1 flex-col justify-center gap-6">
-              {results.map((r) => (
-                <div key={r.label} className="flex flex-col gap-1 border-b border-background/15 pb-5 last:border-b-0 last:pb-0">
-                  <span className="text-sm text-background/60">{r.label} {t.per}</span>
-                  <span className={r.highlight ? 'font-serif text-5xl text-background' : 'font-serif text-4xl text-background/90'}>{r.value}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-xs leading-relaxed text-background/55">{t.note}</p>
-            <a href="#kapcsolat" className="button-light w-full">{t.cta}<ArrowRight data-icon="inline-end" /></a>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+  return <section className="section muted-section"><div className="site-shell flex flex-col gap-12"><div className="flex max-w-3xl flex-col gap-4"><p className="eyebrow">{t.label}</p><h2 className="font-serif text-4xl leading-tight tracking-tight text-balance md:text-6xl">{t.title}</h2><p className="text-lg leading-relaxed text-muted-foreground">{t.intro}</p></div><div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]"><div className="flex flex-col gap-6 rounded-2xl border border-border bg-background p-7 lg:p-9"><label className="form-field"><span>{t.business}</span><select value={business} onChange={e => setBusiness(e.target.value)}><option value="">{t.placeholder}</option>{businessOptions.map(option => <option key={option}>{option}</option>)}</select></label><label className="form-field"><span>{t.city}</span><select value={city} onChange={e => setCity(e.target.value)}><option value="">{t.placeholder}</option>{cityOptions.map(option => <option key={option}>{option}</option>)}</select></label><label className="form-field"><span>{t.conversion}</span><select value={conversion} onChange={e => setConversion(Number(e.target.value))}>{conversionOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label><label className="form-field"><span>{t.value}</span><div className="relative"><input type="number" min="0" step="10000" value={jobValue} onChange={e => setJobValue(Math.max(0, Number(e.target.value)))} inputMode="numeric" /><span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">Ft</span></div></label></div><div className="flex flex-col gap-4 rounded-2xl border border-border bg-foreground p-7 text-background lg:p-9"><div className="flex flex-1 flex-col justify-center gap-6">{results.map(result => <div key={result.label} className="flex flex-col gap-1 border-b border-background/15 pb-5 last:border-b-0 last:pb-0"><span className="text-sm text-background/60">{result.label}</span><span className={result.highlight ? 'font-serif text-5xl text-background' : 'font-serif text-4xl text-background/90'}>{result.value}</span></div>)}</div><p className="text-xs leading-relaxed text-background/55">{t.note}</p><a href="#kapcsolat" className="button-light w-full">{t.cta}<ArrowRight data-icon="inline-end" /></a></div></div></div></section>
 }

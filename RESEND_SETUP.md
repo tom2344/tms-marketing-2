@@ -53,7 +53,7 @@ The sender email should be in one of these formats:
 
 ✅ **With friendly name** (recommended):
 ```
-TMS Marketing <noreply@tmsmarketing.hu>
+Kiszely Marketing <noreply@kiszelymarketing.com>
 ```
 
 ✅ **Plain email address**:

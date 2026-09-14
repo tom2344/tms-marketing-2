@@ -7,15 +7,15 @@ const serif = Cormorant_Garamond({ subsets: ['latin', 'latin-ext'], variable: '-
 const sans = Manrope({ subsets: ['latin', 'latin-ext'], variable: '--font-sans' })
 
 const siteUrl = 'https://kiszelymarketing.com'
-const title = 'Kiszely Marketing | Weboldal és Google Térkép marketing'
-const description = 'Professzionális weboldal készítés és Top 3 Google Térkép-helyezés helyi vállalkozásoknak 90 napon belül.'
+const title = 'Kiszely Marketing | Google Térkép Top 3 kisvállalkozásoknak'
+const description = 'Google Térkép Top 3 helyezés kisvállalkozásoknak Magyarországon 90 napon belül, weboldal készítéssel és Google Cégprofil-optimalizálással.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
   alternates: { canonical: '/' },
-  openGraph: { title, description, url: siteUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'website', images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'TMS Marketing' }] },
+  openGraph: { title, description, url: siteUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'website', images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Kiszely Marketing' }] },
   twitter: { card: 'summary_large_image', title, description, images: ['/og-image.jpg'] },
   robots: { index: true, follow: true },
 }

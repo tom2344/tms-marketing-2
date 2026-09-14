@@ -35,7 +35,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
   try {
     const apiKey = process.env.RESEND_API_KEY
     if (!apiKey) {
-      console.error('[TMS contact] RESEND_API_KEY environment variable is missing')
+      console.error('[Kiszely contact] RESEND_API_KEY environment variable is missing')
       throw new Error('RESEND_API_KEY is not configured')
     }
 
@@ -44,7 +44,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       ['Név', name], ['E-mail', email], ['Telefon', phone || 'Nincs megadva'], ['Vállalkozás', company || 'Nincs megadva'], ['Érdeklődés', service], ['Üzenet', message],
     ]
 
-    console.log('[TMS contact] Attempting to send email with form data:', {
+    console.log('[Kiszely contact] Attempting to send email with form data:', {
       name,
       email,
       service,
@@ -59,7 +59,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
     // If not configured, the form will fail. Please set RESEND_FROM_EMAIL environment variable.
     const senderEmail = process.env.RESEND_FROM_EMAIL
     if (!senderEmail) {
-      console.error('[TMS contact] RESEND_FROM_EMAIL not configured. Set this environment variable to your verified domain email.')
+      console.error('[Kiszely contact] RESEND_FROM_EMAIL not configured. Set this environment variable to your verified domain email.')
       throw new Error('RESEND_FROM_EMAIL environment variable is required for production')
     }
 
@@ -68,11 +68,11 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       to: ['tokolitamas7@gmail.com'],
       replyTo: email,
       subject: `Új érdeklődés – ${name}`,
-      html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#171717"><h1 style="font-size:24px">Új érdeklődés a TMS Marketing weboldalról</h1><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="text-align:left;padding:12px;border-bottom:1px solid #ddd;vertical-align:top;width:140px">${escapeHtml(label)}</th><td style="padding:12px;border-bottom:1px solid #ddd;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join('')}</table></div>`,
+      html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#171717"><h1 style="font-size:24px">Új érdeklődés a Kiszely Marketing weboldalról</h1><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="text-align:left;padding:12px;border-bottom:1px solid #ddd;vertical-align:top;width:140px">${escapeHtml(label)}</th><td style="padding:12px;border-bottom:1px solid #ddd;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join('')}</table></div>`,
     })
 
     if (error) {
-      console.error('[TMS contact] Resend API error:', {
+      console.error('[Kiszely contact] Resend API error:', {
         error: error.message,
         code: (error as any).code,
         details: (error as any).details,
@@ -81,7 +81,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       throw error
     }
 
-    console.log('[TMS contact] Email sent successfully:', {
+    console.log('[Kiszely contact] Email sent successfully:', {
       messageId: data?.id,
       timestamp: new Date().toISOString(),
     })
@@ -89,7 +89,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
     return { status: 'success', message: messages.success }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    console.error('[TMS contact] Email delivery failed:', {
+    console.error('[Kiszely contact] Email delivery failed:', {
       error: errorMessage,
       type: error instanceof Error ? error.name : typeof error,
       timestamp: new Date().toISOString(),
