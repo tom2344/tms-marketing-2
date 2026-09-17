@@ -41,7 +41,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
 
     const resend = new Resend(apiKey)
     const rows = [
-      ['Név', name], ['E-mail', email], ['Telefon', phone || 'Nincs megadva'], ['Vállalkozás', company || 'Nincs megadva'], ['Érdeklődés', service], ['Üzenet', message],
+      ['Név', name], ['E-mail', email], ['Telefonszám', phone || 'Nincs megadva'], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message],
     ]
 
     console.log('[Kiszely contact] Attempting to send email with form data:', {
@@ -53,10 +53,10 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
     })
 
     const { data, error } = await resend.emails.send({
-      from: 'Kiszely Marketing <idopnt@kiszelymarketing.com>',
+      from: 'Kiszely Marketing <idopont@kiszelymarketing.com>',
       to: ['tokolitamas7@gmail.com'],
       replyTo: email,
-      subject: 'Új érdeklődő - Kiszely Marketing',
+      subject: 'Új érdeklődő – Kiszely Marketing',
       html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#171717"><h1 style="font-size:24px">Új érdeklődés a Kiszely Marketing weboldalról</h1><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="text-align:left;padding:12px;border-bottom:1px solid #ddd;vertical-align:top;width:140px">${escapeHtml(label)}</th><td style="padding:12px;border-bottom:1px solid #ddd;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join('')}</table></div>`,
     })
 
