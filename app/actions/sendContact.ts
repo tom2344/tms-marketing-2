@@ -28,7 +28,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
   if (honeypot) return { status: 'success', message: messages.success }
 
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  if (!name || !validEmail || !service || !message || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
+  if (!name || !validEmail || !service || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
     return { status: 'error', message: messages.invalid }
   }
 
@@ -41,7 +41,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
 
     const resend = new Resend(apiKey)
     const rows = [
-      ['Név', name], ['E-mail', email], ['Telefonszám', phone || 'Nincs megadva'], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message],
+      ['Név', name], ['E-mail', email], ['Telefonszám', phone || 'Nincs megadva'], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message || 'Nincs megadva'],
     ]
 
     const { data, error } = await resend.emails.send({

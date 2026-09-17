@@ -8,7 +8,7 @@ const initialState: ContactState = { status: 'idle', message: '' }
 
 const copy = {
   hu: {
-    fields: { name: 'Név', email: 'E-mail cím', phone: 'Telefonszám', company: 'Vállalkozás neve', service: 'Miben segíthetünk?', message: 'Röviden a projektről' },
+    fields: { name: 'Név', email: 'E-mail cím', phone: 'Telefonszám', company: 'Vállalkozás neve', service: 'Miben segíthetünk?', message: 'Röviden a projektről (opcionális)' },
     optional: 'opcionális',
     choose: 'Válasszon szolgáltatást',
     services: ['Google Térkép Top 3', 'Weboldal készítés', 'Más / még nem tudom'],
@@ -18,7 +18,7 @@ const copy = {
     privacy: 'A megadott adatokat kizárólag a megkeresés megválaszolására használjuk.',
   },
   en: {
-    fields: { name: 'Name', email: 'Email address', phone: 'Phone number', company: 'Company name', service: 'How can we help?', message: 'Brief project details' },
+    fields: { name: 'Name', email: 'Email address', phone: 'Phone number', company: 'Company name', service: 'How can we help?', message: 'Brief project details (optional)' },
     optional: 'optional',
     choose: 'Choose a service',
     services: ['Google Maps Top 3', 'Website creation', 'Other / not sure yet'],
@@ -44,7 +44,7 @@ export function ContactForm({ language }: { language: 'hu' | 'en' }) {
         <label className="form-field"><span>{t.fields.company} <small>({t.optional})</small></span><input name="company" maxLength={180} autoComplete="organization" /></label>
       </div>
       <label className="form-field"><span>{t.fields.service} *</span><select name="service" required defaultValue=""><option value="" disabled>{t.choose}</option>{t.services.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
-      <label className="form-field"><span>{t.fields.message} *</span><textarea name="message" required maxLength={4000} rows={6} placeholder={t.placeholder} /></label>
+      <label className="form-field"><span>{t.fields.message}</span><textarea name="message" maxLength={4000} rows={6} placeholder={t.placeholder} /></label>
       {state.message && <p role="status" className={state.status === 'success' ? 'form-success' : 'form-error'}>{state.message}</p>}
       <button type="submit" className="button-primary w-full" disabled={pending}>{pending ? <><LoaderCircle data-icon="inline-start" className="animate-spin" />{t.pending}</> : <>{t.submit}<ArrowRight data-icon="inline-end" /></>}</button>
       <p className="text-xs leading-relaxed text-muted-foreground">{t.privacy}</p>
