@@ -39,8 +39,8 @@ export function ContactForm({ language }: { language: 'hu' | 'en' }) {
       <div className="absolute -left-[9999px]" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" /></div>
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="form-field"><span>{t.fields.name} *</span><input name="name" required maxLength={120} autoComplete="name" /></label>
-        <label className="form-field"><span>{t.fields.email} *</span><input name="email" type="email" required maxLength={180} autoComplete="email" /></label>
-        <label className="form-field"><span>{t.fields.phone} <small>({t.optional})</small></span><input name="phone" type="tel" maxLength={80} autoComplete="tel" /></label>
+        <label className="form-field"><span>{t.fields.email} <small>({t.optional})</small></span><input name="email" type="email" maxLength={180} autoComplete="email" /></label>
+        <label className="form-field"><span>{t.fields.phone} *</span><input name="phone" type="tel" required maxLength={80} autoComplete="tel" /></label>
         <label className="form-field"><span>{t.fields.company} <small>({t.optional})</small></span><input name="company" maxLength={180} autoComplete="organization" /></label>
       </div>
       <label className="form-field"><span>{t.fields.service} *</span><select name="service" required defaultValue=""><option value="" disabled>{t.choose}</option>{t.services.map(item => <option key={item} value={item}>{item}</option>)}</select></label>

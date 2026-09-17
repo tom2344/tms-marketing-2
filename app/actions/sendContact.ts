@@ -27,8 +27,8 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
 
   if (honeypot) return { status: 'success', message: messages.success }
 
-  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  if (!name || !validEmail || !service || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
+  const validEmail = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  if (!name || !validEmail || !phone || !service || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
     return { status: 'error', message: messages.invalid }
   }
 
@@ -47,7 +47,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
     const { data, error } = await resend.emails.send({
       from: 'Kiszely Marketing <idopont@kiszelymarketing.com>',
       to: ['tokolitamas7@gmail.com'],
-      replyTo: email,
+      ...(email ? { replyTo: email } : {}),
       subject: 'Új érdeklődő – Kiszely Marketing',
       html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#171717"><h1 style="font-size:24px">Új érdeklődés a Kiszely Marketing weboldalról</h1><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="text-align:left;padding:12px;border-bottom:1px solid #ddd;vertical-align:top;width:140px">${escapeHtml(label)}</th><td style="padding:12px;border-bottom:1px solid #ddd;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join('')}</table></div>`,
     })
