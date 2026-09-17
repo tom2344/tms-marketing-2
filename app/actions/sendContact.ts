@@ -52,22 +52,11 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       timestamp: new Date().toISOString(),
     })
 
-    // Use a verified domain email for production. 
-    // IMPORTANT: onboarding@resend.dev only works for testing. For production:
-    // 1. Verify your domain in Resend dashboard: https://dashboard.resend.com/domains
-    // 2. Set RESEND_FROM_EMAIL to your verified domain email (e.g., noreply@yourdomain.com)
-    // If not configured, the form will fail. Please set RESEND_FROM_EMAIL environment variable.
-    const senderEmail = process.env.RESEND_FROM_EMAIL
-    if (!senderEmail) {
-      console.error('[Kiszely contact] RESEND_FROM_EMAIL not configured. Set this environment variable to your verified domain email.')
-      throw new Error('RESEND_FROM_EMAIL environment variable is required for production')
-    }
-
     const { data, error } = await resend.emails.send({
-      from: senderEmail,
+      from: 'Kiszely Marketing <idopnt@kiszelymarketing.com>',
       to: ['tokolitamas7@gmail.com'],
       replyTo: email,
-      subject: `Új érdeklődés – ${name}`,
+      subject: 'Új érdeklődő - Kiszely Marketing',
       html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#171717"><h1 style="font-size:24px">Új érdeklődés a Kiszely Marketing weboldalról</h1><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="text-align:left;padding:12px;border-bottom:1px solid #ddd;vertical-align:top;width:140px">${escapeHtml(label)}</th><td style="padding:12px;border-bottom:1px solid #ddd;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join('')}</table></div>`,
     })
 

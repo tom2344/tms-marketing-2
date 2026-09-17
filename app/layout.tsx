@@ -28,7 +28,7 @@ const structuredData = {
   name: 'Kiszely Marketing',
   url: siteUrl,
   image: `${siteUrl}/og-image.jpg`,
-  email: 'tokolitamas7@gmail.com',
+  email: 'tamas@kiszelymarketing.com',
   areaServed: 'Hungary',
   description,
   founder: { '@type': 'Person', name: 'Tamás' },
