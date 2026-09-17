@@ -44,14 +44,6 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       ['Név', name], ['E-mail', email], ['Telefonszám', phone || 'Nincs megadva'], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message],
     ]
 
-    console.log('[Kiszely contact] Attempting to send email with form data:', {
-      name,
-      email,
-      service,
-      messageLength: message.length,
-      timestamp: new Date().toISOString(),
-    })
-
     const { data, error } = await resend.emails.send({
       from: 'Kiszely Marketing <idopont@kiszelymarketing.com>',
       to: ['tokolitamas7@gmail.com'],
@@ -69,11 +61,6 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       })
       throw error
     }
-
-    console.log('[Kiszely contact] Email sent successfully:', {
-      messageId: data?.id,
-      timestamp: new Date().toISOString(),
-    })
 
     return { status: 'success', message: messages.success }
   } catch (error) {

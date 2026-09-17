@@ -21,7 +21,7 @@ const copy = {
     fields: { name: 'Name', email: 'Email address', phone: 'Phone number', company: 'Company name', service: 'How can we help?', message: 'Brief project details' },
     optional: 'optional',
     choose: 'Choose a service',
-    services: ['New website', 'Existing website improvement', 'Top 3 ranking on Google Maps within 90 days / Google Business Profile', 'Not sure, request a consultation'],
+    services: ['Google Maps Top 3', 'Website creation', 'Other / not sure yet'],
     placeholder: 'What does your business do, and what kind of website or online solution do you need?',
     submit: 'Send enquiry',
     pending: 'Sending…',
