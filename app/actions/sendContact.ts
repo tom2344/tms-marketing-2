@@ -27,8 +27,8 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
 
   if (honeypot) return { status: 'success', message: messages.success }
 
-  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  if (!name || !validEmail || !service || !message || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
+  const validEmail = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  if (!name || !validEmail || !phone || !service || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
     return { status: 'error', message: messages.invalid }
   }
 
@@ -41,33 +41,14 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
 
     const resend = new Resend(apiKey)
     const rows = [
-      ['Név', name], ['E-mail', email], ['Telefon', phone || 'Nincs megadva'], ['Vállalkozás', company || 'Nincs megadva'], ['Érdeklődés', service], ['Üzenet', message],
+      ['Név', name], ['E-mail', email || 'Nincs megadva'], ['Telefonszám', phone], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message || 'Nincs megadva'],
     ]
 
-    console.log('[Kiszely contact] Attempting to send email with form data:', {
-      name,
-      email,
-      service,
-      messageLength: message.length,
-      timestamp: new Date().toISOString(),
-    })
-
-    // Use a verified domain email for production. 
-    // IMPORTANT: onboarding@resend.dev only works for testing. For production:
-    // 1. Verify your domain in Resend dashboard: https://dashboard.resend.com/domains
-    // 2. Set RESEND_FROM_EMAIL to your verified domain email (e.g., noreply@yourdomain.com)
-    // If not configured, the form will fail. Please set RESEND_FROM_EMAIL environment variable.
-    const senderEmail = process.env.RESEND_FROM_EMAIL
-    if (!senderEmail) {
-      console.error('[Kiszely contact] RESEND_FROM_EMAIL not configured. Set this environment variable to your verified domain email.')
-      throw new Error('RESEND_FROM_EMAIL environment variable is required for production')
-    }
-
-    const { data, error } = await resend.emails.send({
-      from: senderEmail,
+    const { error } = await resend.emails.send({
+      from: 'Kiszely Marketing <idopont@kiszelymarketing.com>',
       to: ['tokolitamas7@gmail.com'],
-      replyTo: email,
-      subject: `Új érdeklődés – ${name}`,
+      ...(email ? { replyTo: email } : {}),
+      subject: 'Új érdeklődő – Kiszely Marketing',
       html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto;color:#171717"><h1 style="font-size:24px">Új érdeklődés a Kiszely Marketing weboldalról</h1><table style="width:100%;border-collapse:collapse">${rows.map(([label, value]) => `<tr><th style="text-align:left;padding:12px;border-bottom:1px solid #ddd;vertical-align:top;width:140px">${escapeHtml(label)}</th><td style="padding:12px;border-bottom:1px solid #ddd;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`).join('')}</table></div>`,
     })
 
@@ -80,11 +61,6 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       })
       throw error
     }
-
-    console.log('[Kiszely contact] Email sent successfully:', {
-      messageId: data?.id,
-      timestamp: new Date().toISOString(),
-    })
 
     return { status: 'success', message: messages.success }
   } catch (error) {

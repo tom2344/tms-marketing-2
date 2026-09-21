@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: { unoptimized: true },
+  trailingSlash: true,
+  images: { formats: ['image/avif', 'image/webp'] },
+  async redirects() {
+    return [{ source: '/', destination: '/hu/', permanent: true }]
+  },
   async headers() {
     return [{ source: '/(.*)', headers: [
       { key: 'X-Content-Type-Options', value: 'nosniff' },

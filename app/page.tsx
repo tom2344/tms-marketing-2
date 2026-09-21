@@ -1,5 +1,5 @@
-import { SiteContent } from '@/components/site-content'
+import { permanentRedirect } from 'next/navigation'
 
 export default function Page() {
-  return <SiteContent />
+  permanentRedirect('/hu/')
 }
