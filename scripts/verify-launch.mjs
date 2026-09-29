@@ -3,8 +3,13 @@ import assert from 'node:assert/strict'
 const baseUrl = process.env.VERIFY_BASE_URL ?? 'http://127.0.0.1:3000'
 const finalOrigin = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${finalOrigin}/hu/`
+const indexNowKey = 'bc8b780878dc40d5ab398ab4c13ab26a'
 
 const request = (path, options = {}) => fetch(new URL(path, baseUrl), { redirect: 'manual', ...options })
+
+const indexNowKeyResponse = await request(`/${indexNowKey}.txt`)
+assert.equal(indexNowKeyResponse.status, 200, 'IndexNow key file must be publicly accessible')
+assert.equal((await indexNowKeyResponse.text()).trim(), indexNowKey, 'IndexNow key file contents are wrong')
 
 const root = await request('/')
 assert.equal(root.status, 308, 'Root must permanently redirect')
