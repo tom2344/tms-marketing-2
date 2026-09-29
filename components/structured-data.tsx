@@ -20,6 +20,7 @@ const structuredData = {
       },
       image: `${siteUrl}/images/og-image.webp`,
       email: 'tamas@kiszelymarketing.com',
+      sameAs: ['https://www.facebook.com/profile.php?id=61580542712105&locale=hu_HU'],
       areaServed: {
         '@type': 'Country',
         name: 'Magyarország',
