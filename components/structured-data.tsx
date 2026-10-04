@@ -3,12 +3,21 @@ const homeUrl = `${siteUrl}/hu/`
 
 const organizationId = `${siteUrl}/#organization`
 const founderId = `${siteUrl}/#founder`
+const websiteId = `${siteUrl}/#website`
 const mapsServiceId = `${siteUrl}/#service-google-terkep-top-3`
 const websiteServiceId = `${siteUrl}/#service-weboldal-keszites`
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      name: 'Kiszely Marketing',
+      url: homeUrl,
+      inLanguage: 'hu-HU',
+      publisher: { '@id': organizationId },
+    },
     {
       '@type': 'Organization',
       '@id': organizationId,
@@ -36,6 +45,7 @@ const structuredData = {
       '@id': founderId,
       name: 'Tamás',
       jobTitle: 'Alapító',
+      url: `${siteUrl}/hu/rolunk/`,
       worksFor: { '@id': organizationId },
       image: `${siteUrl}/images/tamas-founder.webp`,
     },
@@ -46,7 +56,7 @@ const structuredData = {
       serviceType: 'Google Cégprofil- és weboldal-optimalizálás helyi keresésekhez',
       provider: { '@id': organizationId },
       areaServed: { '@type': 'Country', name: 'Magyarország' },
-      url: `${homeUrl}#top3`,
+      url: `${siteUrl}/hu/google-terkep-top-3/`,
     },
     {
       '@type': 'Service',
@@ -55,7 +65,7 @@ const structuredData = {
       serviceType: 'Professzionális weboldal-készítés kisvállalkozásoknak',
       provider: { '@id': organizationId },
       areaServed: { '@type': 'Country', name: 'Magyarország' },
-      url: `${homeUrl}#weboldal`,
+      url: `${siteUrl}/hu/weboldal-keszites-budapest/`,
     },
   ],
 }
