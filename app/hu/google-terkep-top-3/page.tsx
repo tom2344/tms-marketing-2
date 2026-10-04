@@ -125,7 +125,10 @@ export default function GoogleMapsTopThreePage() {
           </div>
         </section>
 
-        <ContactBand title="Nézzük meg, reális-e a Top 3 cél az Ön piacán." />
+        <ContactBand
+          title="Indítsuk el a 90 napos Top 3 folyamatot."
+          description="Az első egyeztetésen áttekintjük vállalkozása jelenlegi helyzetét, rögzítjük a célzott keresést és szolgáltatási területet, majd bemutatjuk a következő lépéseket."
+        />
       </main>
       <JsonLd data={serviceData} />
       <JsonLd data={breadcrumbData([{ name: 'Kezdőlap', url: `${siteUrl}/hu/` }, { name: 'Google Térkép Top 3', url: canonicalUrl }])} />

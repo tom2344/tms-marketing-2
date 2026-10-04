@@ -45,14 +45,20 @@ export function SectionHeading({ eyebrow, title, description }: { eyebrow?: stri
   )
 }
 
-export function ContactBand({ title = 'Beszéljük át az Ön helyzetét.' }: { title?: string }) {
+export function ContactBand({
+  title = 'Beszéljük át az Ön helyzetét.',
+  description = 'Az első egyeztetésen tisztázzuk a célt, a szükséges munkát és azt is, hogy a szolgáltatás megfelelő-e az Ön vállalkozásának.',
+}: {
+  title?: string
+  description?: React.ReactNode
+}) {
   return (
     <section className="section bg-foreground text-background">
       <div className="site-shell flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
           <p className="eyebrow text-accent">Következő lépés</p>
           <h2 className="mt-4 font-serif text-4xl leading-tight md:text-6xl">{title}</h2>
-          <p className="mt-4 max-w-2xl leading-relaxed text-background/70">Az első egyeztetésen tisztázzuk a célt, a szükséges munkát és azt is, hogy a szolgáltatás megfelelő-e az Ön vállalkozásának.</p>
+          <p className="mt-4 max-w-2xl leading-relaxed text-background/70">{description}</p>
         </div>
         <Link href="/hu/kapcsolat/" className="button-light shrink-0">Ingyenes konzultáció <ArrowRight data-icon="inline-end" /></Link>
       </div>

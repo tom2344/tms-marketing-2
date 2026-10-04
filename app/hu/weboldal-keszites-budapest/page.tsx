@@ -7,7 +7,7 @@ import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 const siteUrl = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${siteUrl}/hu/weboldal-keszites-budapest/`
 const title = 'Weboldal készítés Budapest | Kisvállalkozásoknak'
-const description = 'Professzionális, mobilbarát weboldal-készítés budapesti kisvállalkozásoknak online együttműködéssel. Átlátható csomagok 90.000 Ft-tól.'
+const description = 'Professzionális, mobilbarát weboldal-készítés Budapesten és országosan. Átlátható csomagok kisvállalkozásoknak 160.000 Ft-tól.'
 
 export const metadata: Metadata = {
   title,
@@ -38,7 +38,7 @@ const serviceData = {
   areaServed: [{ '@type': 'City', name: 'Budapest' }, { '@type': 'Country', name: 'Magyarország' }],
   offers: {
     '@type': 'AggregateOffer',
-    lowPrice: '90000',
+    lowPrice: '160000',
     priceCurrency: 'HUF',
     offerCount: '2',
   },
@@ -50,8 +50,8 @@ export default function WebsiteBudapestPage() {
       <main>
         <PageHero
           eyebrow="Weboldal készítés · Budapest és országosan"
-          title="Weboldal készítés budapesti kisvállalkozásoknak."
-          lead={<><p>Átlátható, mobilbarát weboldal, amely bemutatja a szolgáltatását és megkönnyíti a kapcsolatfelvételt. Budapesti vállalkozásokkal online dolgozunk együtt; nem állítjuk, hogy budapesti irodával rendelkezünk.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
+          title="Az Ön vállalkozására szabott weboldal."
+          lead={<><p>Érthető szerkezet, mobilbarát megjelenés és egyszerű kapcsolatfelvétel. A tartalmat és a funkciókat az Ön céljaihoz igazítjuk, a terjedelmet és a díjat pedig előre, írásban rögzítjük.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Weboldal készítés Budapest' }]}
         />
 
@@ -69,12 +69,14 @@ export default function WebsiteBudapestPage() {
             <SectionHeading eyebrow="Árak" title="Átlátható weboldalcsomagok." description="A végleges tartalmat, funkciókat és árat az egyeztetés után, írásban rögzítjük." />
             <div className="grid gap-5 lg:grid-cols-2">
               <article className="price-card">
-                <p className="eyebrow">Weboldal</p><h2>Starter</h2><strong>90.000–160.000 Ft</strong><p>Professzionális, mobilbarát bemutatkozó weboldal.</p>
+                <p className="eyebrow">Weboldal</p><h2>Starter</h2><strong>160.000–200.000 Ft</strong><p>Professzionális, mobilbarát bemutatkozó weboldal.</p>
+                <p><strong>Minden fontos elem egy oldalon.</strong> Az ajánlat, a bemutatkozás és a kapcsolatfelvétel egyetlen, könnyen átlátható oldalon jelenik meg.</p>
                 <ul>{['Egyedi dizájn', 'Mobilbarát kialakítás', 'Kapcsolatfelvételi űrlap', 'Keresőbarát technikai alapok'].map(item => <li key={item}><Check />{item}</li>)}</ul>
                 <Link href="/hu/kapcsolat/" className="button-outline">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link>
               </article>
               <article className="price-card featured">
-                <p className="eyebrow">Weboldal</p><h2>Premium</h2><strong>170.000 Ft+</strong><p>Összetettebb igényekre, több oldallal és funkcióval.</p>
+                <p className="eyebrow">Weboldal</p><h2>Premium</h2><strong>250.000 Ft+</strong><p>Összetettebb igényekre, több oldallal és funkcióval.</p>
+                <p><strong>Külön aloldalak minden fontos témának.</strong> A szolgáltatások, a vállalkozás bemutatása és a korábbi munkák külön oldalakon kaphatnak helyet.</p>
                 <ul>{['Több tartalmi aloldal', 'Egyedi funkciók', 'Foglalási rendszerek', 'Fejlett keresőbarát alapok'].map(item => <li key={item}><Check />{item}</li>)}</ul>
                 <Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link>
               </article>

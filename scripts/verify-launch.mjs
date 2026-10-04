@@ -79,6 +79,33 @@ assert.ok(mapsService.includes('300.000 Ft'), 'Maps setup price changed')
 assert.ok(mapsService.includes('35.000 Ft / hónap'), 'Maps maintenance price changed')
 assert.ok(mapsService.includes('Ha addig nem érjük el a megbeszélt Top 3 helyezést, Ön nem fizet tovább, és az addig befizetett teljes összeget visszafizetjük. Nincs kilépési díj, nincs vita, minden addig befizetett forintot visszakap.'), 'Money-back guarantee explanation changed')
 assert.ok(!mapsService.includes('ingyen dolgozunk tovább'), 'Old guarantee remains on Maps service page')
+assert.ok(mapsService.includes('Indítsuk el a 90 napos Top 3 folyamatot.'), 'Top 3 call to action changed')
+assert.ok(!mapsService.includes('Nézzük meg, reális-e a Top 3 cél az Ön piacán.'), 'Old doubtful Top 3 call to action remains')
+
+const websiteServiceResponse = await request('/hu/weboldal-keszites-budapest/')
+const websiteService = await websiteServiceResponse.text()
+assert.ok(websiteService.includes('Az Ön vállalkozására szabott weboldal.'), 'Website service hero changed')
+assert.ok(websiteService.includes('weboldal-készítés Budapesten és országosan'), 'Nationwide website-service scope is missing')
+assert.ok(!websiteService.includes('Weboldal készítés budapesti kisvállalkozásoknak.'), 'Old Budapest-only website hero remains')
+assert.ok(!websiteService.includes('nem állítjuk, hogy budapesti irodával rendelkezünk'), 'Defensive Budapest office disclaimer remains')
+assert.ok(websiteService.includes('160.000–200.000 Ft'), 'Starter website price changed')
+assert.ok(websiteService.includes('250.000 Ft+'), 'Premium website price changed')
+assert.ok(websiteService.includes('Minden fontos elem egy oldalon.'), 'Starter website scope clarification is missing')
+assert.ok(websiteService.includes('Külön aloldalak minden fontos témának.'), 'Premium website scope clarification is missing')
+assert.ok(!websiteService.includes('90.000–160.000 Ft'), 'Old Starter website price remains')
+assert.ok(!websiteService.includes('170.000 Ft+'), 'Old Premium website price remains')
+for (const feature of [
+  'Egyedi dizájn',
+  'Mobilbarát kialakítás',
+  'Kapcsolatfelvételi űrlap',
+  'Keresőbarát technikai alapok',
+  'Több tartalmi aloldal',
+  'Egyedi funkciók',
+  'Foglalási rendszerek',
+  'Fejlett keresőbarát alapok',
+]) {
+  assert.ok(websiteService.includes(feature), `Website package feature is missing: ${feature}`)
+}
 
 const notFoundResponse = await request('/nem-letezo-oldal/')
 assert.equal(notFoundResponse.status, 404, 'Unknown route must return 404')
