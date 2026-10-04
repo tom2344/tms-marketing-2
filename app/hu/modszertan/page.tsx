@@ -43,6 +43,15 @@ export default function MethodologyPage() {
         </section>
 
         <section className="section muted-section">
+          <div className="site-shell max-w-4xl">
+            <p className="eyebrow">Részletes útmutató</p>
+            <h2 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">Mit mutat a helyi helyezésmérő rács?</h2>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">A rács ugyanazt a keresést több rögzített földrajzi pontról vizsgálja. Így láthatóvá válik, hogyan változik a térképes sorrend a szolgáltatási területen belül, és milyen feltételeket kell az összehasonlítható méréshez előre rögzíteni.</p>
+            <Link href="/hu/tudastar/helyi-helyezesmero-racs/" className="button-primary mt-8">A teljes mérési útmutató <ArrowRight data-icon="inline-end" /></Link>
+          </div>
+        </section>
+
+        <section className="section muted-section">
           <div className="site-shell grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
             <SectionHeading eyebrow="Mitől változhat az eredmény?" title="A helyi találat valóban helyi." description="Ugyanaz a keresés két különböző városrészből vagy településről eltérő vállalkozásokat mutathat. A személyre szabás, a kereső pontos helye és a profilok relevanciája egyaránt számít." />
             <div className="grid gap-4 sm:grid-cols-2">

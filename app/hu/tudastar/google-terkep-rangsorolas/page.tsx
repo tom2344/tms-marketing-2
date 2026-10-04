@@ -88,6 +88,7 @@ export default function MapsRankingArticlePage() {
               </div>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground"><strong className="text-foreground">Elsődleges forrás:</strong> <a href="https://support.google.com/business/answer/7091?hl=hu" target="_blank" rel="noreferrer" className="text-primary underline">A helyi rangsorolás javítása a Google-on – Google Cégprofil Súgó</a>.</div>
               <Link href="/hu/google-terkep-top-3/" className="button-primary mt-8">Google Térkép Top 3 szolgáltatás</Link>
+              <Link href="/hu/tudastar/helyi-helyezesmero-racs/" className="button-outline mt-8 ml-3">Helyi helyezésmérő rács</Link>
             </div>
           </section>
         </article>

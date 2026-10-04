@@ -28,6 +28,9 @@ const collectionData = {
     { '@type': 'Article', url: `${canonicalUrl}google-terkep-rangsorolas/`, headline: 'Mi alapján rangsorol a Google Térkép?' },
     { '@type': 'Article', url: `${canonicalUrl}google-cegprofil-optimalizalas/`, headline: 'Google Cégprofil-optimalizálási ellenőrzőlista' },
     { '@type': 'Article', url: `${canonicalUrl}organikus-talalat-vagy-google-terkep/`, headline: 'Organikus találat vagy Google Térkép?' },
+    { '@type': 'Article', url: `${canonicalUrl}google-cegprofil-kategoria-valasztas/`, headline: 'Google Cégprofil-kategória választása lépésről lépésre' },
+    { '@type': 'Article', url: `${canonicalUrl}szolgaltatasi-terulet-beallitas/`, headline: 'Google Cégprofil szolgáltatási terület beállítása' },
+    { '@type': 'Article', url: `${canonicalUrl}helyi-helyezesmero-racs/`, headline: 'Helyi helyezésmérő rács: mit mutat és hogyan mérünk?' },
   ],
 }
 
@@ -54,6 +57,17 @@ export default function KnowledgeHubPage() {
         </section>
 
         <section className="section muted-section">
+          <div className="site-shell flex flex-col gap-10">
+            <SectionHeading eyebrow="Gyakorlati beállítások és mérés" title="A következő lépések részletesen." description="Egy kérdés, egy önálló útmutató: kategóriadöntés, szolgáltatási terület és összehasonlítható helyezésmérés." />
+            <div className="grid gap-5 md:grid-cols-3">
+              <ArticleCard href="/hu/tudastar/google-cegprofil-kategoria-valasztas/" title="Google Cégprofil-kategória választása" description="A fő és további kategóriák kiválasztása a Google hivatalos szabályai alapján." />
+              <ArticleCard href="/hu/tudastar/szolgaltatasi-terulet-beallitas/" title="Szolgáltatási terület beállítása" description="Útmutató kiszálló és hibrid vállalkozásoknak a címről és a kiszolgált területről." />
+              <ArticleCard href="/hu/tudastar/helyi-helyezesmero-racs/" title="Helyi helyezésmérő rács" description="Mit mutat a területi mérés, és hogyan marad összehasonlítható az eredmény?" />
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
           <div className="site-shell grid gap-10 lg:grid-cols-2">
             <div>
               <p className="eyebrow">Szerkesztési elv</p>

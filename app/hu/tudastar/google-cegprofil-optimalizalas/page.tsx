@@ -98,6 +98,10 @@ export default function BusinessProfileChecklistPage() {
                 <a href="https://support.google.com/business/answer/13763036?hl=en-419" target="_blank" rel="noreferrer" className="text-primary underline">Business eligibility and ownership guidelines</a>.
               </div>
               <div className="mt-8 flex flex-wrap gap-3"><Link href="/hu/google-terkep-top-3/" className="button-primary">Google Térkép Top 3 szolgáltatás</Link><Link href="/hu/modszertan/" className="button-outline">Mérési módszertan</Link></div>
+              <div className="mt-8 grid gap-5 md:grid-cols-2">
+                <Link href="/hu/tudastar/google-cegprofil-kategoria-valasztas/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Kategóriaválasztási útmutató →</Link>
+                <Link href="/hu/tudastar/szolgaltatasi-terulet-beallitas/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Szolgáltatási terület beállítása →</Link>
+              </div>
             </div>
           </section>
         </article>

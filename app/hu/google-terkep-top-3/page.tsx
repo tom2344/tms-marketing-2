@@ -118,6 +118,9 @@ export default function GoogleMapsTopThreePage() {
               <ArticleCard href="/hu/tudastar/google-terkep-rangsorolas/" title="Mi alapján rangsorol a Google Térkép?" description="A relevancia, a távolság és az ismertség szerepe közérthetően." />
               <ArticleCard href="/hu/tudastar/google-cegprofil-optimalizalas/" title="Google Cégprofil-optimalizálási ellenőrzőlista" description="A legfontosabb profil-, weboldal- és bizalmi elemek rendszerezve." />
               <ArticleCard href="/hu/tudastar/organikus-talalat-vagy-google-terkep/" title="Organikus találat vagy Térképes Top 3?" description="Miért lehet egy weboldal elöl akkor is, ha a vállalkozás nincs a térképes találatok között?" />
+              <ArticleCard href="/hu/tudastar/google-cegprofil-kategoria-valasztas/" title="Google Cégprofil-kategória választása" description="A fő és további kategóriák szerepe és szabályos kiválasztása." />
+              <ArticleCard href="/hu/tudastar/szolgaltatasi-terulet-beallitas/" title="Szolgáltatási terület beállítása" description="Cím és kiszolgált terület helyes megadása kiszálló vállalkozásoknál." />
+              <ArticleCard href="/hu/tudastar/helyi-helyezesmero-racs/" title="Helyi helyezésmérő rács" description="A térképes láthatóság összehasonlítható területi mérése." />
             </div>
           </div>
         </section>

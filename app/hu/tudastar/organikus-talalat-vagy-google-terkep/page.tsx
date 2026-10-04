@@ -84,6 +84,10 @@ export default function OrganicVsMapsArticlePage() {
               </div>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground"><strong className="text-foreground">Elsődleges források:</strong> <a href="https://support.google.com/business/answer/7091?hl=hu" target="_blank" rel="noreferrer" className="text-primary underline">A helyi rangsorolás javítása – Google</a> és <a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noreferrer" className="text-primary underline">AI-funkciók és a webhely – Google Kereső dokumentáció</a>.</div>
               <div className="mt-8 flex flex-wrap gap-3"><Link href="/hu/weboldal-keszites-budapest/" className="button-primary">Weboldalkészítés budapesti vállalkozásoknak</Link><Link href="/hu/google-terkep-top-3/" className="button-outline">Google Térkép Top 3</Link></div>
+              <div className="mt-8 grid gap-5 md:grid-cols-2">
+                <Link href="/hu/tudastar/szolgaltatasi-terulet-beallitas/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Szolgáltatási területes Cégprofil →</Link>
+                <Link href="/hu/tudastar/helyi-helyezesmero-racs/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Térképes helyezésmérés →</Link>
+              </div>
             </div>
           </section>
         </article>
