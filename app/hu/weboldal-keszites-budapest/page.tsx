@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Check } from 'lucide-react'
-import { ContactBand, ContentPage, PageHero, SectionHeading } from '@/components/content-page'
+import { ArticleCard, ContactBand, ContentPage, PageHero, SectionHeading } from '@/components/content-page'
 import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 
 const siteUrl = 'https://www.kiszelymarketing.com'
@@ -27,6 +27,13 @@ const features = [
   ['Gyors betöltés', 'Optimalizált képek és a szükséges funkciókra koncentráló felépítés.'],
 ] as const
 
+const projectQuestions = [
+  ['Cél és célközönség', 'Mit kell megértenie vagy megtennie a látogatónak, és kinek szól az ajánlat?'],
+  ['Tartalom és arculat', 'Mely szövegek, képek és arculati elemek állnak rendelkezésre, és miben szükséges segítség?'],
+  ['Funkciók és hozzáférések', 'Kell-e foglalás, mérés vagy külső rendszer, és ki kezeli a domaint, tárhelyet és hozzáféréseket?'],
+  ['Jóváhagyás és átadás', 'Ki ad végleges visszajelzést, hány módosítási kör része az ajánlatnak, és mi történik az átadás után?'],
+] as const
+
 const serviceData = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -50,7 +57,7 @@ export default function WebsiteBudapestPage() {
       <main>
         <PageHero
           eyebrow="Weboldal készítés · Budapest és országosan"
-          title="Az Ön vállalkozására szabott weboldal."
+          title="Weboldal-készítés kisvállalkozásoknak, Budapesten és országosan."
           lead={<><p>Érthető szerkezet, mobilbarát megjelenés és egyszerű kapcsolatfelvétel. A tartalmat és a funkciókat az Ön céljaihoz igazítjuk, a terjedelmet és a díjat pedig előre, írásban rögzítjük.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Weboldal készítés Budapest' }]}
         />
@@ -60,6 +67,15 @@ export default function WebsiteBudapestPage() {
             <SectionHeading eyebrow="Mit kap?" title="A szükséges alapok egy rendszerben." description="Az oldal célja nem az, hogy technikai kifejezésekkel terhelje Önt, hanem hogy a látogató gyorsan megértse az ajánlatot és könnyen kapcsolatba léphessen." />
             <div className="grid gap-px border-y border-border bg-border md:grid-cols-2 lg:grid-cols-3">
               {features.map(([heading, text], index) => <article key={heading} className="flex min-h-56 flex-col justify-between gap-8 bg-background p-7 lg:p-9"><span className="font-serif text-3xl text-primary">0{index + 1}</span><div><h2 className="text-xl font-bold">{heading}</h2><p className="mt-3 leading-relaxed text-muted-foreground">{text}</p></div></article>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="site-shell flex flex-col gap-10">
+            <SectionHeading eyebrow="Indulás előtt" title="A fontos döntéseket előre, írásban tisztázzuk." description="Így nem csak az ár lesz egyértelmű: a tartalomért, hozzáférésekért, jóváhagyásért és későbbi működtetésért való felelősség is követhető marad." />
+            <div className="grid gap-5 md:grid-cols-2">
+              {projectQuestions.map(([heading, text]) => <article key={heading} className="rounded-2xl border border-border bg-background p-7"><h2 className="text-xl font-bold">{heading}</h2><p className="mt-3 leading-relaxed text-muted-foreground">{text}</p></article>)}
             </div>
           </div>
         </section>
@@ -107,6 +123,23 @@ export default function WebsiteBudapestPage() {
               <article><h2 className="text-xl font-bold">Önálló szolgáltatás a weboldal-készítés?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Igen. A weboldal-készítés külön szolgáltatás, és nem szükséges hozzá Google Térkép Top 3 csomagot választani.</p></article>
               <article><h2 className="text-xl font-bold">Garantálja a weboldal az első Google-helyezést?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Nem. A weboldal keresőbarát technikai és tartalmi alapokkal készül, de egy konkrét organikus helyezést felelősen nem lehet garantálni.</p></article>
               <article><h2 className="text-xl font-bold">Kötelező a havi karbantartás?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Nem. A 15.000 Ft / hó weboldal-karbantartás opcionális.</p></article>
+              <article><h2 className="text-xl font-bold">Ki biztosítja a szöveget és a képeket?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Ezt a projekt előtt tisztázzuk. Írásban rögzítjük, mely anyagokat adja át Ön, és mely tartalmi feladatokhoz kér segítséget.</p></article>
+              <article><h2 className="text-xl font-bold">Mi történik a domainnel, tárhellyel és hozzáférésekkel?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Az ajánlatban rögzítjük, milyen szolgáltatások szükségesek, ki a tulajdonosuk vagy kezelőjük, és milyen egyszeri vagy ismétlődő díj tartozik hozzájuk.</p></article>
+              <article><h2 className="text-xl font-bold">Hány módosítás fér bele?</h2><p className="mt-3 leading-relaxed text-muted-foreground">A módosítási körök számát és a jóváhagyás menetét a konkrét ajánlat tartalmazza. Az új funkció vagy a jóváhagyott terjedelem későbbi bővítése külön egyeztetést igényelhet.</p></article>
+              <article><h2 className="text-xl font-bold">Mit tartalmaz az átadás?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Az átadás előtt ellenőrizzük a mobilos és asztali megjelenést, a linkeket, a kapcsolatfelvételt és az indexelhetőség technikai alapjait. Az átadás pontos tartalma és a későbbi támogatás az írásos ajánlat része.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="site-shell flex flex-col gap-10">
+            <SectionHeading eyebrow="Weboldal-készítési útmutatók" title="Részletes válaszok az ajánlatkérés előtt." description="A kapcsolódó útmutatók segítenek meghatározni a szükséges oldalstruktúrát, tartalmat, időkeretet és technikai alapokat." />
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <ArticleCard href="/hu/tudastar/weboldal-keszites-arak-2026/" title="Weboldal-készítés árak 2026-ban" description="Mi határozza meg a végleges összeget, és hogyan hasonlíthatók össze az ajánlatok?" />
+              <ArticleCard href="/hu/tudastar/egyoldalas-vagy-tobboldalas-weboldal/" title="Egyoldalas vagy többoldalas weboldal?" description="Mikor elég egy bemutatkozó oldal, és mikor indokoltak külön aloldalak?" />
+              <ArticleCard href="/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/" title="Mennyi idő alatt készül el?" description="A munkafázisok, az irányadó idő és a leggyakoribb késések." />
+              <ArticleCard href="/hu/tudastar/keresobarat-weboldal-mit-jelent/" title="Mit jelent a keresőbarát weboldal?" description="Technikai hozzáférhetőség, hasznos tartalom és hitelesség egy rendszerben." />
+              <ArticleCard href="/hu/tudastar/weboldal-keszites-elokeszites/" title="Mire van szükség a kezdéshez?" description="Gyakorlati ellenőrzőlista tartalomhoz, hozzáférésekhez és jóváhagyáshoz." />
             </div>
           </div>
         </section>

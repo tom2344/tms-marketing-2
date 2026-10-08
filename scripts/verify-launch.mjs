@@ -15,9 +15,21 @@ const publicPages = [
   '/hu/tudastar/google-cegprofil-kategoria-valasztas/',
   '/hu/tudastar/szolgaltatasi-terulet-beallitas/',
   '/hu/tudastar/helyi-helyezesmero-racs/',
+  '/hu/tudastar/weboldal-keszites-arak-2026/',
+  '/hu/tudastar/egyoldalas-vagy-tobboldalas-weboldal/',
+  '/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/',
+  '/hu/tudastar/keresobarat-weboldal-mit-jelent/',
+  '/hu/tudastar/weboldal-keszites-elokeszites/',
   '/hu/modszertan/',
   '/hu/rolunk/',
   '/hu/kapcsolat/',
+]
+const websiteGuidePages = [
+  '/hu/tudastar/weboldal-keszites-arak-2026/',
+  '/hu/tudastar/egyoldalas-vagy-tobboldalas-weboldal/',
+  '/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/',
+  '/hu/tudastar/keresobarat-weboldal-mit-jelent/',
+  '/hu/tudastar/weboldal-keszites-elokeszites/',
 ]
 
 const request = (path, options = {}) => fetch(new URL(path, baseUrl), { redirect: 'manual', ...options })
@@ -63,14 +75,33 @@ assert.deepEqual(services.map(item => item.url).sort(), [
   `${finalOrigin}/hu/weboldal-keszites-budapest/`,
 ], 'Homepage Service entities must link to the canonical commercial pages')
 
+const publicPageHtml = new Map()
 for (const path of publicPages) {
   const response = await request(path)
   assert.equal(response.status, 200, `${path} must return 200`)
   const html = await response.text()
+  publicPageHtml.set(path, html)
   const expectedCanonical = `${finalOrigin}${path}`
   assert.match(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="${expectedCanonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${path} canonical is wrong`)
   assert.ok(!html.includes('ttamasmarketing.com'), `${path} contains the old domain`)
   assert.ok(!/name="robots" content="noindex/.test(html), `${path} must be indexable`)
+}
+
+for (const path of websiteGuidePages) {
+  const html = publicPageHtml.get(path)
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]))
+  const items = blocks.flatMap(block => block['@graph'] ?? [block])
+  assert.ok(items.some(item => item['@type'] === 'Article' && item.url === `${finalOrigin}${path}`), `${path} Article structured data is missing or points to the wrong URL`)
+  assert.ok(items.some(item => item['@type'] === 'BreadcrumbList'), `${path} breadcrumb structured data is missing`)
+}
+
+const internalLinks = new Set(
+  [home, ...publicPageHtml.values()]
+    .flatMap(html => [...html.matchAll(/<a[^>]+href="(\/[^"#?]*)/g)].map(match => match[1]))
+)
+for (const href of internalLinks) {
+  const response = await request(href)
+  assert.ok([200, 308].includes(response.status), `Internal link ${href} returned ${response.status}`)
 }
 
 const mapsServiceResponse = await request('/hu/google-terkep-top-3/')
@@ -84,7 +115,7 @@ assert.ok(!mapsService.includes('Nézzük meg, reális-e a Top 3 cél az Ön pia
 
 const websiteServiceResponse = await request('/hu/weboldal-keszites-budapest/')
 const websiteService = await websiteServiceResponse.text()
-assert.ok(websiteService.includes('Az Ön vállalkozására szabott weboldal.'), 'Website service hero changed')
+assert.ok(websiteService.includes('Weboldal-készítés kisvállalkozásoknak, Budapesten és országosan.'), 'Website service hero changed')
 assert.ok(websiteService.includes('weboldal-készítés Budapesten és országosan'), 'Nationwide website-service scope is missing')
 assert.ok(!websiteService.includes('Weboldal készítés budapesti kisvállalkozásoknak.'), 'Old Budapest-only website hero remains')
 assert.ok(!websiteService.includes('nem állítjuk, hogy budapesti irodával rendelkezünk'), 'Defensive Budapest office disclaimer remains')
@@ -94,6 +125,11 @@ assert.ok(websiteService.includes('Minden fontos elem egy oldalon.'), 'Starter w
 assert.ok(websiteService.includes('Külön aloldalak minden fontos témának.'), 'Premium website scope clarification is missing')
 assert.ok(!websiteService.includes('90.000–160.000 Ft'), 'Old Starter website price remains')
 assert.ok(!websiteService.includes('170.000 Ft+'), 'Old Premium website price remains')
+assert.ok(websiteService.includes('A fontos döntéseket előre, írásban tisztázzuk.'), 'Website project clarification section is missing')
+assert.ok(websiteService.includes('Mi történik a domainnel, tárhellyel és hozzáférésekkel?'), 'Website ownership and access clarification is missing')
+for (const guidePath of websiteGuidePages) {
+  assert.ok(websiteService.includes(`href="${guidePath}"`), `Website service page must link to ${guidePath}`)
+}
 for (const feature of [
   'Egyedi dizájn',
   'Mobilbarát kialakítás',
