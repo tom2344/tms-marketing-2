@@ -97,7 +97,6 @@ export default function WebsiteBudapestPage() {
                 <Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link>
               </article>
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground"><strong>Weboldal-karbantartás:</strong> 15.000 Ft / hó, opcionális. Ez nem azonos a Google Térkép Top 3 fenntartási díjával.</p>
           </div>
         </section>
 
@@ -122,7 +121,6 @@ export default function WebsiteBudapestPage() {
               <article><h2 className="text-xl font-bold">Csak budapesti vállalkozásoknak készül weboldal?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Nem. Az együttműködés online történik, ezért Budapest mellett Magyarország más részeiről is vállalunk projekteket.</p></article>
               <article><h2 className="text-xl font-bold">Önálló szolgáltatás a weboldal-készítés?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Igen. A weboldal-készítés külön szolgáltatás, és nem szükséges hozzá Google Térkép Top 3 csomagot választani.</p></article>
               <article><h2 className="text-xl font-bold">Garantálja a weboldal az első Google-helyezést?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Nem. A weboldal keresőbarát technikai és tartalmi alapokkal készül, de egy konkrét organikus helyezést felelősen nem lehet garantálni.</p></article>
-              <article><h2 className="text-xl font-bold">Kötelező a havi karbantartás?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Nem. A 15.000 Ft / hó weboldal-karbantartás opcionális.</p></article>
               <article><h2 className="text-xl font-bold">Ki biztosítja a szöveget és a képeket?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Ezt a projekt előtt tisztázzuk. Írásban rögzítjük, mely anyagokat adja át Ön, és mely tartalmi feladatokhoz kér segítséget.</p></article>
               <article><h2 className="text-xl font-bold">Mi történik a domainnel, tárhellyel és hozzáférésekkel?</h2><p className="mt-3 leading-relaxed text-muted-foreground">Az ajánlatban rögzítjük, milyen szolgáltatások szükségesek, ki a tulajdonosuk vagy kezelőjük, és milyen egyszeri vagy ismétlődő díj tartozik hozzájuk.</p></article>
               <article><h2 className="text-xl font-bold">Hány módosítás fér bele?</h2><p className="mt-3 leading-relaxed text-muted-foreground">A módosítási körök számát és a jóváhagyás menetét a konkrét ajánlat tartalmazza. Az új funkció vagy a jóváhagyott terjedelem későbbi bővítése külön egyeztetést igényelhet.</p></article>

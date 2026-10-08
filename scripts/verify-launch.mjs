@@ -61,6 +61,15 @@ assert.ok(!home.includes('ingyen dolgozunk tovább'), 'Old free-work guarantee r
 assert.ok(!home.includes('díjmentesen folytatjuk'), 'Old free-continuation guarantee remains')
 assert.ok(!home.includes('ttamasmarketing.com'), 'Old domain remains in homepage')
 assert.ok(!/href="#/.test(home), 'Root-relative hash navigation remains')
+assert.ok(home.includes('href="/icon-48x48.png"'), '48px branded favicon link is missing')
+assert.ok(home.includes('href="/icon-192x192.png"'), '192px branded favicon link is missing')
+assert.ok(home.includes('href="/apple-icon.png"'), 'Apple touch icon link is missing')
+
+for (const iconPath of ['/icon-48x48.png', '/icon-192x192.png', '/apple-icon.png']) {
+  const iconResponse = await request(iconPath)
+  assert.equal(iconResponse.status, 200, `${iconPath} must return 200`)
+  assert.match(iconResponse.headers.get('content-type') ?? '', /^image\/png/, `${iconPath} must be a PNG image`)
+}
 
 const jsonLdBlocks = [...home.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]))
 assert.ok(jsonLdBlocks.length > 0, 'Structured data is missing')
@@ -86,6 +95,9 @@ for (const path of publicPages) {
   assert.ok(!html.includes('ttamasmarketing.com'), `${path} contains the old domain`)
   assert.ok(!/name="robots" content="noindex/.test(html), `${path} must be indexable`)
   assert.ok(!html.includes('hogy a szolgáltatás megfelelő-e az Ön vállalkozásának'), `${path} contains the rejected doubtful consultation copy`)
+  assert.ok(!html.toLocaleLowerCase('hu-HU').includes('weboldal-karbantartás'), `${path} contains the discontinued website-maintenance offer`)
+  assert.ok(!html.includes('Kötelező a havi karbantartás?'), `${path} contains the discontinued website-maintenance FAQ`)
+  assert.ok(!html.includes('A képek illusztrációk; nem valós ügyféleredményt vagy garantált javulást mutatnak.'), `${path} contains the removed illustration note`)
 }
 
 for (const path of websiteGuidePages) {

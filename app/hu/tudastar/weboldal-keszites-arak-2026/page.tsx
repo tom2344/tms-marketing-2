@@ -15,7 +15,7 @@ const sections = [
       'A Premium csomag 250.000 Ft-tól indul. Akkor indokolt, ha több tartalmi aloldalra, külön szolgáltatási oldalakra, referenciákra, foglalási rendszerre vagy más egyedi funkcióra van szükség.',
       'A végleges tartalmat, funkciókat, határidőt és árat az egyeztetés után írásos ajánlat rögzíti. A csomagnév önmagában nem helyettesíti a pontos feladatleírást.',
     ],
-    points: ['Starter: 160.000–200.000 Ft', 'Premium: 250.000 Ft-tól', 'Opcionális karbantartás: 15.000 Ft / hó', 'Végleges terjedelem és díj: írásos ajánlatban'],
+    points: ['Starter: 160.000–200.000 Ft', 'Premium: 250.000 Ft-tól', 'Végleges terjedelem és díj: írásos ajánlatban'],
   },
   {
     eyebrow: 'Költségtényezők',
@@ -40,7 +40,6 @@ const sections = [
 const questions = [
   { question: 'A Starter csomag minden vállalkozásnak elegendő?', answer: 'Nem. Akkor megfelelő, ha egyetlen áttekinthető oldalon bemutatható az ajánlat, a vállalkozás és a kapcsolatfelvétel. Több külön szolgáltatás vagy organikus céloldal esetén általában a többoldalas felépítés indokoltabb.' },
   { question: 'A 250.000 Ft a Premium csomag végleges ára?', answer: 'Ez induló ár. A végleges díj a szükséges aloldalak és funkciók ismeretében, írásos ajánlatban kerül rögzítésre.' },
-  { question: 'Kötelező a havi karbantartás?', answer: 'Nem. A 15.000 Ft / hó weboldal-karbantartás opcionális, és nem azonos a Google Térkép Top 3 szolgáltatás fenntartási díjával.' },
   { question: 'Mit kell tartalmaznia egy összehasonlítható ajánlatnak?', answer: 'Legalább az oldalak és funkciók körét, a tartalomért való felelősséget, a határidőt, a jóváhagyási folyamatot, az átadás módját és az egyszeri vagy ismétlődő díjakat.' },
 ] as const
 
