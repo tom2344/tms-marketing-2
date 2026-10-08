@@ -85,6 +85,7 @@ for (const path of publicPages) {
   assert.match(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="${expectedCanonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${path} canonical is wrong`)
   assert.ok(!html.includes('ttamasmarketing.com'), `${path} contains the old domain`)
   assert.ok(!/name="robots" content="noindex/.test(html), `${path} must be indexable`)
+  assert.ok(!html.includes('hogy a szolgáltatás megfelelő-e az Ön vállalkozásának'), `${path} contains the rejected doubtful consultation copy`)
 }
 
 for (const path of websiteGuidePages) {

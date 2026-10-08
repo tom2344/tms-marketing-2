@@ -47,7 +47,7 @@ export function SectionHeading({ eyebrow, title, description }: { eyebrow?: stri
 
 export function ContactBand({
   title = 'Beszéljük át az Ön helyzetét.',
-  description = 'Az első egyeztetésen tisztázzuk a célt, a szükséges munkát és azt is, hogy a szolgáltatás megfelelő-e az Ön vállalkozásának.',
+  description = 'Az első egyeztetésen átbeszéljük az Ön céljait, a szükséges munkát és a megvalósítás következő lépéseit.',
 }: {
   title?: string
   description?: React.ReactNode
