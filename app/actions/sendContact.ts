@@ -1,6 +1,6 @@
 'use server'
 
-import { Resend } from 'resend'
+import { Resend, type ErrorResponse } from 'resend'
 
 export type ContactState = {
   status: 'idle' | 'success' | 'error'
@@ -53,10 +53,11 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
     })
 
     if (error) {
+      const resendError = error as ErrorResponse & { code?: unknown; details?: unknown }
       console.error('[Kiszely contact] Resend API error:', {
         error: error.message,
-        code: (error as any).code,
-        details: (error as any).details,
+        code: resendError.code,
+        details: resendError.details,
         timestamp: new Date().toISOString(),
       })
       throw error
