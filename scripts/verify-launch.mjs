@@ -20,6 +20,7 @@ const publicPages = [
   '/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/',
   '/hu/tudastar/keresobarat-weboldal-mit-jelent/',
   '/hu/tudastar/weboldal-keszites-elokeszites/',
+  '/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/',
   '/hu/modszertan/',
   '/hu/rolunk/',
   '/hu/kapcsolat/',
@@ -30,6 +31,7 @@ const websiteGuidePages = [
   '/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/',
   '/hu/tudastar/keresobarat-weboldal-mit-jelent/',
   '/hu/tudastar/weboldal-keszites-elokeszites/',
+  '/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/',
 ]
 
 const request = (path, options = {}) => fetch(new URL(path, baseUrl), { redirect: 'manual', ...options })
@@ -143,6 +145,10 @@ assert.ok(websiteService.includes('Mi történik a domainnel, tárhellyel és ho
 for (const guidePath of websiteGuidePages) {
   assert.ok(websiteService.includes(`href="${guidePath}"`), `Website service page must link to ${guidePath}`)
 }
+const bestCreatorGuide = publicPageHtml.get('/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/')
+assert.ok(bestCreatorGuide.includes('Legjobb weboldalkészítő Magyarországon?'), 'Exact target phrase is missing from the guide')
+assert.ok(bestCreatorGuide.includes('Kiszely Marketing'), 'Guide must identify the service provider')
+assert.ok(bestCreatorGuide.includes('href="/hu/kapcsolat/"'), 'Guide must offer a contact path')
 for (const feature of [
   'Egyedi dizájn',
   'Mobilbarát kialakítás',

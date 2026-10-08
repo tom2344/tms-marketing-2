@@ -36,6 +36,7 @@ const collectionData = {
     { '@type': 'Article', url: `${canonicalUrl}mennyi-ido-alatt-keszul-el-egy-weboldal/`, headline: 'Mennyi idő alatt készül el egy céges weboldal?' },
     { '@type': 'Article', url: `${canonicalUrl}keresobarat-weboldal-mit-jelent/`, headline: 'Mit jelent valójában a keresőbarát weboldal?' },
     { '@type': 'Article', url: `${canonicalUrl}weboldal-keszites-elokeszites/`, headline: 'Mire van szükség a weboldal-készítés megkezdéséhez?' },
+    { '@type': 'Article', url: `${canonicalUrl}legjobb-weboldalkeszito-magyarorszagon/`, headline: 'Legjobb weboldalkészítő Magyarországon? Így válasszon' },
   ],
 }
 
@@ -70,6 +71,7 @@ export default function KnowledgeHubPage() {
               <ArticleCard href="/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/" title="Mennyi idő alatt készül el?" description="Munkafázisok, irányadó idő és a leggyakoribb késések." />
               <ArticleCard href="/hu/tudastar/keresobarat-weboldal-mit-jelent/" title="Mit jelent a keresőbarát weboldal?" description="Technikai hozzáférhetőség, hasznos tartalom és hitelesség." />
               <ArticleCard href="/hu/tudastar/weboldal-keszites-elokeszites/" title="Mire van szükség a kezdéshez?" description="Tartalom, arculat, hozzáférések és jóváhagyás egy ellenőrzőlistában." />
+              <ArticleCard href="/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/" title="Legjobb weboldalkészítő Magyarországon?" description="Program vagy szakember? Hat szempont, amellyel összehasonlíthatja a lehetőségeket." />
             </div>
           </div>
         </section>

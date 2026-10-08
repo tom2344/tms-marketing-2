@@ -138,6 +138,7 @@ export default function WebsiteBudapestPage() {
               <ArticleCard href="/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/" title="Mennyi idő alatt készül el?" description="A munkafázisok, az irányadó idő és a leggyakoribb késések." />
               <ArticleCard href="/hu/tudastar/keresobarat-weboldal-mit-jelent/" title="Mit jelent a keresőbarát weboldal?" description="Technikai hozzáférhetőség, hasznos tartalom és hitelesség egy rendszerben." />
               <ArticleCard href="/hu/tudastar/weboldal-keszites-elokeszites/" title="Mire van szükség a kezdéshez?" description="Gyakorlati ellenőrzőlista tartalomhoz, hozzáférésekhez és jóváhagyáshoz." />
+              <ArticleCard href="/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/" title="Hogyan válasszon weboldalkészítőt?" description="Program vagy szakember, és milyen kérdéseket tegyen fel ajánlatkérés előtt?" />
             </div>
           </div>
         </section>
