@@ -50,7 +50,7 @@ export default function BestWebsiteCreatorGuidePage() {
           eyebrow="Weboldal-készítési útmutató"
           title="Legjobb weboldalkészítő Magyarországon?"
           lead={<>
-            <p>Nem ugyanaz a jó választás annak, aki maga szeretné összeállítani az oldalát, és annak, aki egy szakemberre bízná a tervezést és a kivitelezést. Az alábbi szempontok segítenek dönteni. Ha kisvállalkozói weboldalt szeretne készíttetni, megmutatjuk azt is, miben tud segíteni a Kiszely Marketing.</p>
+            <p>Nem ugyanaz a jó választás annak, aki maga szeretné összeállítani az oldalát, és annak, aki egy szakemberre bízná a tervezést és a kivitelezést. Az alábbi szempontok segítenek dönteni. Ha weboldalt szeretne készíttetni, megmutatjuk azt is, miben tud segíteni a Kiszely Marketing.</p>
             <p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. október 8.</p>
             <div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Kérek egy ajánlatot <ArrowRight data-icon="inline-end" /></Link><a href="#szempontok" className="button-outline">Mire figyeljek?</a></div>
           </>}
@@ -79,7 +79,7 @@ export default function BestWebsiteCreatorGuidePage() {
 
           <section className="section">
             <div className="site-shell grid gap-12 lg:grid-cols-[.9fr_1.1fr]">
-              <div><SectionHeading eyebrow="Kiszely Marketing" title="Weboldal kisvállalkozásoknak, világos feladatokkal." description="Ha nem csak egy weboldalkészítő eszközt, hanem kivitelezőt keres, szívesen megbeszéljük az Ön projektjét. Magyarországi vállalkozásokkal online is együtt dolgozunk." /><div className="mt-7 flex flex-wrap gap-3"><Link href="/hu/weboldal-keszites-budapest/" className="button-primary">Szolgáltatás és csomagok <ArrowRight data-icon="inline-end" /></Link><Link href="/hu/kapcsolat/" className="button-outline">Kapcsolatfelvétel</Link></div></div>
+              <div><SectionHeading eyebrow="Kiszely Marketing" title="Weboldal az Ön céljaihoz, világos feladatokkal." description="Ha nem csak egy weboldalkészítő eszközt, hanem kivitelezőt keres, szívesen megbeszéljük az Ön projektjét. Magyarországi vállalkozásokkal online is együtt dolgozunk." /><div className="mt-7 flex flex-wrap gap-3"><Link href="/hu/weboldal-keszites-budapest/" className="button-primary">Szolgáltatás és csomagok <ArrowRight data-icon="inline-end" /></Link><Link href="/hu/kapcsolat/" className="button-outline">Kapcsolatfelvétel</Link></div></div>
               <div className="rounded-2xl border border-border bg-card p-7 lg:p-9">
                 <h3 className="font-serif text-3xl">Így dolgozunk</h3>
                 <ul className="mt-6 space-y-5">
