@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: canonicalUrl },
-  openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: '2026-10-08', modifiedTime: '2026-10-08', authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: 'Kiszely Marketing: útmutató a weboldalkészítő kiválasztásához' }] },
+  openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: '2026-10-08', modifiedTime: '2026-10-12', authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: 'Kiszely Marketing: útmutató a weboldalkészítő kiválasztásához' }] },
   twitter: { card: 'summary_large_image', title, description, images: ['/images/og-image.webp'] },
   robots: { index: true, follow: true },
 }
@@ -36,7 +36,7 @@ const articleData = {
   mainEntityOfPage: canonicalUrl,
   inLanguage: 'hu-HU',
   datePublished: '2026-10-08',
-  dateModified: '2026-10-08',
+  dateModified: '2026-10-12',
   author: { '@type': 'Person', '@id': `${siteUrl}/#founder`, name: 'Tamás', url: `${siteUrl}/hu/rolunk/` },
   publisher: { '@id': `${siteUrl}/#organization` },
   image: `${siteUrl}/images/og-image.webp`,
@@ -51,7 +51,7 @@ export default function BestWebsiteCreatorGuidePage() {
           title="Legjobb weboldalkészítő Magyarországon?"
           lead={<>
             <p>Nem ugyanaz a jó választás annak, aki maga szeretné összeállítani az oldalát, és annak, aki egy szakemberre bízná a tervezést és a kivitelezést. Az alábbi szempontok segítenek dönteni. Ha weboldalt szeretne készíttetni, megmutatjuk azt is, miben tud segíteni a Kiszely Marketing.</p>
-            <p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. október 8.</p>
+            <p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. október 12.</p>
             <div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Kérek egy ajánlatot <ArrowRight data-icon="inline-end" /></Link><a href="#szempontok" className="button-outline">Mire figyeljek?</a></div>
           </>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Tudástár', href: '/hu/tudastar/' }, { label: 'Legjobb weboldalkészítő Magyarországon?' }]}
@@ -62,8 +62,26 @@ export default function BestWebsiteCreatorGuidePage() {
             <div className="site-shell flex flex-col gap-10">
               <SectionHeading eyebrow="Az első döntés" title="Programot használna, vagy szakembert keres?" description="A weboldalkészítő szó mindkettőt jelentheti. Érdemes először eldönteni, melyik munkát szeretné saját maga elvégezni." />
               <div className="grid gap-5 md:grid-cols-2">
-                <div className="rounded-2xl border border-border bg-card p-7 lg:p-9"><h2 className="font-serif text-3xl">Saját kezű építés</h2><p className="mt-4 leading-relaxed text-muted-foreground">Egy szerkesztőprogram megfelelő lehet, ha van ideje a szövegre, a képekre, az oldal felépítésére és a későbbi frissítésekre. Ilyenkor a technikai eszköz adott, de a döntések és a kivitelezés nagy része Önnél marad.</p></div>
-                <div className="rounded-2xl border border-primary bg-card p-7 lg:p-9"><h2 className="font-serif text-3xl">Szakemberrel készülő oldal</h2><p className="mt-4 leading-relaxed text-muted-foreground">Ha inkább a vállalkozására koncentrálna, kérhet segítséget a szerkezet, a megjelenés és a működés megtervezéséhez. Itt nem csupán egy eszközt választ: azt is tisztázza, ki mit vállal a kész oldalig és az átadásig.</p></div>
+                <div className="rounded-2xl border border-border bg-card p-7 lg:p-9">
+                  <h2 className="font-serif text-3xl">Saját kezű építés</h2>
+                  <p className="mt-4 leading-relaxed text-muted-foreground">Egy szerkesztőprogram megfelelő lehet, ha van ideje a szövegre, a képekre, az oldal felépítésére és a későbbi frissítésekre. Ilyenkor a technikai eszköz adott, de a döntések és a kivitelezés nagy része Önnél marad.</p>
+                  <ul className="mt-6 space-y-3 border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
+                    <li><strong className="text-foreground">Szöveg és képek:</strong> Ön készíti elő és tölti fel őket, hacsak külön segítséget nem vesz igénybe.</li>
+                    <li><strong className="text-foreground">Módosítások:</strong> Ön végzi el őket; előre nézze meg, mit enged szerkeszteni a választott rendszer.</li>
+                    <li><strong className="text-foreground">Hozzáférés és tulajdon:</strong> Ellenőrizze, kinek a nevén van a fiók és a domain, és mit tud átvinni másik rendszerbe.</li>
+                    <li><strong className="text-foreground">Teljes költség:</strong> Az előfizetés, a domain, az esetleges fizetős funkciók és a saját ideje együtt számítanak.</li>
+                  </ul>
+                </div>
+                <div className="rounded-2xl border border-primary bg-card p-7 lg:p-9">
+                  <h2 className="font-serif text-3xl">Szakemberrel készülő oldal</h2>
+                  <p className="mt-4 leading-relaxed text-muted-foreground">Ha inkább a vállalkozására koncentrálna, kérhet segítséget a szerkezet, a megjelenés és a működés megtervezéséhez. Itt nem csupán egy eszközt választ: azt is tisztázza, ki mit vállal a kész oldalig és az átadásig.</p>
+                  <ul className="mt-6 space-y-3 border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
+                    <li><strong className="text-foreground">Szöveg és képek:</strong> Az ajánlat rögzítse, mit ad át Ön, és mely tartalmi feladatokat vállalja a kivitelező.</li>
+                    <li><strong className="text-foreground">Módosítások:</strong> Tisztázzák a módosítási köröket és az átadás utáni változtatások feltételeit.</li>
+                    <li><strong className="text-foreground">Hozzáférés és tulajdon:</strong> Legyen világos, ki kezeli a domaint, a tárhelyet és a weboldalt, valamint mit kap meg átadáskor.</li>
+                    <li><strong className="text-foreground">Teljes költség:</strong> Az egyszeri munkadíj mellett az ismétlődő és külső szolgáltatási díjak is szerepeljenek az ajánlatban.</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </section>
