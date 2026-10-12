@@ -6,11 +6,11 @@ import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 
 const siteUrl = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${siteUrl}/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/`
-const title = 'Legjobb weboldalkészítő Magyarországon? Így válasszon'
+const title = 'Legjobb weboldalkészítő Magyarországon'
 const description = 'Legjobb weboldalkészítő Magyarországon? Nézze meg, mikor elég egy weboldalkészítő program, mikor érdemes szakembert választani, és hogyan dolgozik a Kiszely Marketing.'
 
 export const metadata: Metadata = {
-  title,
+  title: { absolute: title },
   description,
   alternates: { canonical: canonicalUrl },
   openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: '2026-10-08', modifiedTime: '2026-10-12', authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: 'Kiszely Marketing: útmutató a weboldalkészítő kiválasztásához' }] },
@@ -48,13 +48,13 @@ export default function BestWebsiteCreatorGuidePage() {
       <main>
         <PageHero
           eyebrow="Weboldal-készítési útmutató"
-          title="Legjobb weboldalkészítő Magyarországon?"
+          title={title}
           lead={<>
             <p>Nem ugyanaz a jó választás annak, aki maga szeretné összeállítani az oldalát, és annak, aki egy szakemberre bízná a tervezést és a kivitelezést. Az alábbi szempontok segítenek dönteni. Ha weboldalt szeretne készíttetni, megmutatjuk azt is, miben tud segíteni a Kiszely Marketing.</p>
             <p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. október 12.</p>
             <div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Kérek egy ajánlatot <ArrowRight data-icon="inline-end" /></Link><a href="#szempontok" className="button-outline">Mire figyeljek?</a></div>
           </>}
-          breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Tudástár', href: '/hu/tudastar/' }, { label: 'Legjobb weboldalkészítő Magyarországon?' }]}
+          breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Tudástár', href: '/hu/tudastar/' }, { label: title }]}
         />
 
         <article>
@@ -131,7 +131,7 @@ export default function BestWebsiteCreatorGuidePage() {
         <ContactBand title="Beszéljünk az Ön weboldaláról." description="Írja meg, mivel foglalkozik és milyen oldalra van szüksége. Megbeszéljük a szükséges tartalmat és funkciókat, majd írásban rögzítjük az ajánlatot." />
       </main>
       <JsonLd data={articleData} />
-      <JsonLd data={breadcrumbData([{ name: 'Kezdőlap', url: `${siteUrl}/hu/` }, { name: 'Tudástár', url: `${siteUrl}/hu/tudastar/` }, { name: 'Legjobb weboldalkészítő Magyarországon?', url: canonicalUrl }])} />
+      <JsonLd data={breadcrumbData([{ name: 'Kezdőlap', url: `${siteUrl}/hu/` }, { name: 'Tudástár', url: `${siteUrl}/hu/tudastar/` }, { name: title, url: canonicalUrl }])} />
     </ContentPage>
   )
 }

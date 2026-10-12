@@ -146,7 +146,8 @@ for (const guidePath of websiteGuidePages) {
   assert.ok(websiteService.includes(`href="${guidePath}"`), `Website service page must link to ${guidePath}`)
 }
 const bestCreatorGuide = publicPageHtml.get('/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/')
-assert.ok(bestCreatorGuide.includes('Legjobb weboldalkészítő Magyarországon?'), 'Exact target phrase is missing from the guide')
+assert.ok(bestCreatorGuide.includes('<title>Legjobb weboldalkészítő Magyarországon</title>'), 'Guide title must match the exact target phrase without a site-name suffix')
+assert.match(bestCreatorGuide, /<h1\b[^>]*>Legjobb weboldalkészítő Magyarországon<\/h1>/, 'Guide heading must match the exact target phrase')
 assert.ok(bestCreatorGuide.includes('Kiszely Marketing'), 'Guide must identify the service provider')
 assert.ok(bestCreatorGuide.includes('href="/hu/kapcsolat/"'), 'Guide must offer a contact path')
 for (const feature of [
