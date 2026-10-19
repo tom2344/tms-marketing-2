@@ -121,6 +121,7 @@ export default function GoogleMapsTopThreePage() {
               <ArticleCard href="/hu/tudastar/google-cegprofil-kategoria-valasztas/" title="Google Cégprofil-kategória választása" description="A fő és további kategóriák szerepe és szabályos kiválasztása." />
               <ArticleCard href="/hu/tudastar/szolgaltatasi-terulet-beallitas/" title="Szolgáltatási terület beállítása" description="Cím és kiszolgált terület helyes megadása kiszálló vállalkozásoknál." />
               <ArticleCard href="/hu/tudastar/helyi-helyezesmero-racs/" title="Helyi helyezésmérő rács" description="A térképes láthatóság összehasonlítható területi mérése." />
+              <ArticleCard href="/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/" title="Hogyan válasszon SEO-partnert?" description="Mikor megfelelő a helyi keresési szolgáltatás, és mikor érdemes más szakembert keresni?" />
             </div>
           </div>
         </section>

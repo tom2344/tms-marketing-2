@@ -21,6 +21,7 @@ const publicPages = [
   '/hu/tudastar/keresobarat-weboldal-mit-jelent/',
   '/hu/tudastar/weboldal-keszites-elokeszites/',
   '/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/',
+  '/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/',
   '/hu/modszertan/',
   '/hu/rolunk/',
   '/hu/kapcsolat/',
@@ -152,6 +153,15 @@ assert.ok(bestCreatorGuide.includes('<title>Legjobb weboldalkészítő Magyarors
 assert.match(bestCreatorGuide, /<h1\b[^>]*>Legjobb weboldalkészítő Magyarországon<\/h1>/, 'Guide heading must match the exact target phrase')
 assert.ok(bestCreatorGuide.includes('Kiszely Marketing'), 'Guide must identify the service provider')
 assert.ok(bestCreatorGuide.includes('href="/hu/kapcsolat/"'), 'Guide must offer a contact path')
+const bestSeoAgencyGuide = publicPageHtml.get('/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/')
+assert.ok(bestSeoAgencyGuide.includes('<title>Legjobb SEO ügynökség Magyarországon?</title>'), 'SEO agency guide title must contain the target phrase')
+assert.match(bestSeoAgencyGuide, /<h1\b[^>]*>Legjobb SEO ügynökség Magyarországon\?<\/h1>/, 'SEO agency guide heading must contain the target phrase')
+assert.ok(bestSeoAgencyGuide.includes('A jelenleg bemutatott szolgáltatásunk nem teljes körű, országos organikus SEO'), 'SEO agency guide must explain the actual service scope')
+assert.ok(bestSeoAgencyGuide.includes('href="/hu/google-terkep-top-3/"'), 'SEO agency guide must link to the matching service')
+assert.ok(bestSeoAgencyGuide.includes('href="/hu/kapcsolat/"'), 'SEO agency guide must offer a contact path')
+const seoGuideStructuredData = [...bestSeoAgencyGuide.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]))
+assert.ok(seoGuideStructuredData.some(item => item['@type'] === 'Article' && item.url === `${finalOrigin}/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/`), 'SEO agency guide Article data is missing')
+assert.ok(seoGuideStructuredData.some(item => item['@type'] === 'BreadcrumbList'), 'SEO agency guide breadcrumb data is missing')
 for (const feature of [
   'Egyedi dizájn',
   'Mobilbarát kialakítás',
