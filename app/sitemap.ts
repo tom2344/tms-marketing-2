@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/hu/tudastar/keresobarat-weboldal-mit-jelent/`, lastModified: websiteContentModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/weboldal-keszites-elokeszites/`, lastModified: websiteContentModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/`, lastModified: bestCreatorGuideModified, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${siteUrl}/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/`, lastModified: new Date('2026-10-19'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/`, lastModified: new Date('2026-10-19'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/modszertan/`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${siteUrl}/hu/rolunk/`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${siteUrl}/hu/kapcsolat/`, lastModified, changeFrequency: 'monthly', priority: 0.5 },

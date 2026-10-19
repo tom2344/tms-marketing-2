@@ -22,13 +22,13 @@ export function ContentPage({ children }: { children: React.ReactNode }) {
   return <><SiteHeader />{children}<SiteFooter /></>
 }
 
-export function PageHero({ eyebrow, title, lead, breadcrumbs }: { eyebrow: string; title: string; lead: React.ReactNode; breadcrumbs: BreadcrumbItem[] }) {
+export function PageHero({ eyebrow, title, lead, breadcrumbs, compactMobileTitle = false }: { eyebrow: string; title: string; lead: React.ReactNode; breadcrumbs: BreadcrumbItem[]; compactMobileTitle?: boolean }) {
   return (
     <section className="border-b border-border py-14 md:py-20 lg:py-24">
       <div className="site-shell flex max-w-5xl flex-col gap-7">
         <Breadcrumbs items={breadcrumbs} />
         <p className="eyebrow">{eyebrow}</p>
-        <h1 className="max-w-5xl font-serif text-5xl leading-[1.02] tracking-[-.04em] text-balance sm:text-6xl lg:text-7xl">{title}</h1>
+        <h1 className={`max-w-5xl break-words font-serif leading-[1.02] tracking-[-.04em] text-balance sm:text-6xl lg:text-7xl ${compactMobileTitle ? 'text-4xl' : 'text-5xl'}`}>{title}</h1>
         <div className="max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</div>
       </div>
     </section>

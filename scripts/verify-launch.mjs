@@ -21,7 +21,7 @@ const publicPages = [
   '/hu/tudastar/keresobarat-weboldal-mit-jelent/',
   '/hu/tudastar/weboldal-keszites-elokeszites/',
   '/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/',
-  '/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/',
+  '/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/',
   '/hu/modszertan/',
   '/hu/rolunk/',
   '/hu/kapcsolat/',
@@ -153,15 +153,20 @@ assert.ok(bestCreatorGuide.includes('<title>Legjobb weboldalkészítő Magyarors
 assert.match(bestCreatorGuide, /<h1\b[^>]*>Legjobb weboldalkészítő Magyarországon<\/h1>/, 'Guide heading must match the exact target phrase')
 assert.ok(bestCreatorGuide.includes('Kiszely Marketing'), 'Guide must identify the service provider')
 assert.ok(bestCreatorGuide.includes('href="/hu/kapcsolat/"'), 'Guide must offer a contact path')
-const bestSeoAgencyGuide = publicPageHtml.get('/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/')
-assert.ok(bestSeoAgencyGuide.includes('<title>Legjobb SEO ügynökség Magyarországon?</title>'), 'SEO agency guide title must contain the target phrase')
-assert.match(bestSeoAgencyGuide, /<h1\b[^>]*>Legjobb SEO ügynökség Magyarországon\?<\/h1>/, 'SEO agency guide heading must contain the target phrase')
-assert.ok(bestSeoAgencyGuide.includes('A jelenleg bemutatott szolgáltatásunk nem teljes körű, országos organikus SEO'), 'SEO agency guide must explain the actual service scope')
-assert.ok(bestSeoAgencyGuide.includes('href="/hu/google-terkep-top-3/"'), 'SEO agency guide must link to the matching service')
-assert.ok(bestSeoAgencyGuide.includes('href="/hu/kapcsolat/"'), 'SEO agency guide must offer a contact path')
-const seoGuideStructuredData = [...bestSeoAgencyGuide.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]))
-assert.ok(seoGuideStructuredData.some(item => item['@type'] === 'Article' && item.url === `${finalOrigin}/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/`), 'SEO agency guide Article data is missing')
-assert.ok(seoGuideStructuredData.some(item => item['@type'] === 'BreadcrumbList'), 'SEO agency guide breadcrumb data is missing')
+const marketingGuidePath = '/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/'
+const marketingGuide = publicPageHtml.get(marketingGuidePath)
+assert.ok(marketingGuide.includes('<title>Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon</title>'), 'Marketing guide title must match the exact target phrase')
+assert.match(marketingGuide, /<h1\b[^>]*>Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon<\/h1>/, 'Marketing guide heading must match the exact target phrase')
+assert.ok(marketingGuide.includes('A jelenleg bemutatott szolgáltatásaink nem tartalmaznak hirdetéskezelést'), 'Marketing guide must explain the actual service scope')
+assert.ok(marketingGuide.includes('Szemléltető ábra, nem ügyféleredmény.'), 'Marketing guide must label the ranking illustration accurately')
+assert.ok(marketingGuide.includes('300.000 Ft') && marketingGuide.includes('35.000 Ft'), 'Marketing guide must state the correct Maps pricing')
+assert.ok(marketingGuide.includes('Kérek ingyenes konzultációt'), 'Marketing guide must offer a consultation')
+assert.ok(marketingGuide.includes('href="/hu/google-terkep-top-3/"'), 'Marketing guide must link to the Maps service')
+assert.ok(marketingGuide.includes('href="/hu/weboldal-keszites-budapest/"'), 'Marketing guide must link to the website service')
+assert.ok(marketingGuide.includes('href="/hu/kapcsolat/"'), 'Marketing guide must offer a contact path')
+const marketingGuideStructuredData = [...marketingGuide.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]))
+assert.ok(marketingGuideStructuredData.some(item => item['@type'] === 'Article' && item.url === `${finalOrigin}${marketingGuidePath}`), 'Marketing guide Article data is missing')
+assert.ok(marketingGuideStructuredData.some(item => item['@type'] === 'BreadcrumbList'), 'Marketing guide breadcrumb data is missing')
 for (const feature of [
   'Egyedi dizájn',
   'Mobilbarát kialakítás',
@@ -180,6 +185,9 @@ assert.equal(notFoundResponse.status, 404, 'Unknown route must return 404')
 const notFound = await notFoundResponse.text()
 assert.ok(!/rel="canonical"/.test(notFound), '404 must not contain a canonical')
 assert.match(notFound, /name="robots" content="noindex, nofollow"/, '404 must be noindex, nofollow')
+
+const abandonedSeoGuide = await request('/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/')
+assert.equal(abandonedSeoGuide.status, 404, 'Abandoned SEO agency guide must not remain public')
 
 const englishResponse = await request('/en/')
 assert.equal(englishResponse.status, 404, 'An English route must not exist')

@@ -37,7 +37,7 @@ const collectionData = {
     { '@type': 'Article', url: `${canonicalUrl}keresobarat-weboldal-mit-jelent/`, headline: 'Mit jelent valójában a keresőbarát weboldal?' },
     { '@type': 'Article', url: `${canonicalUrl}weboldal-keszites-elokeszites/`, headline: 'Mire van szükség a weboldal-készítés megkezdéséhez?' },
     { '@type': 'Article', url: `${canonicalUrl}legjobb-weboldalkeszito-magyarorszagon/`, headline: 'Legjobb weboldalkészítő Magyarországon' },
-    { '@type': 'Article', url: `${canonicalUrl}legjobb-seo-ugynokseg-magyarorszagon/`, headline: 'Legjobb SEO ügynökség Magyarországon?' },
+    { '@type': 'Article', url: `${canonicalUrl}legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/`, headline: 'Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon' },
   ],
 }
 
@@ -59,7 +59,7 @@ export default function KnowledgeHubPage() {
               <ArticleCard href="/hu/tudastar/google-terkep-rangsorolas/" title="Mi alapján rangsorol a Google Térkép?" description="A relevancia, a távolság és az ismertség szerepe a Google hivatalos útmutatója alapján." />
               <ArticleCard href="/hu/tudastar/google-cegprofil-optimalizalas/" title="Google Cégprofil-optimalizálási ellenőrzőlista" description="A jogosultságtól és kategóriáktól az értékeléseken át a kapcsolódó weboldalig." />
               <ArticleCard href="/hu/tudastar/organikus-talalat-vagy-google-terkep/" title="Organikus találat vagy Google Térkép?" description="Két külön találati rendszer, eltérő belépési feltételekkel és lehetőségekkel." />
-              <ArticleCard href="/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/" title="Legjobb SEO ügynökség Magyarországon?" description="Hogyan válasszon a saját céljához, és mikor illik ehhez a helyi keresési szolgáltatásunk?" />
+              <ArticleCard href="/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/" title="Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon" description="Mikor segít a helyi Google-jelenlét és a weboldal, és milyen partnert válasszon más célokra?" />
             </div>
           </div>
         </section>
