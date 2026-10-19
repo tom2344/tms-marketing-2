@@ -20,6 +20,11 @@ export function SiteFooter() {
             <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="currentColor"><path d="M13.5 22v-9h3l.45-3H13.5V8.1c0-.87.24-1.46 1.52-1.46H17V3.96c-.34-.05-1.52-.15-2.9-.15-2.87 0-4.84 1.75-4.84 4.97V10H6v3h3.26v9h4.24Z" /></svg>
           </a>
         </nav>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
+          <Link href="/hu/adatkezeles/" className="hover:text-foreground">Adatkezelés</Link>
+          <Link href="/hu/fizetes-lemondas-visszaterites/" className="hover:text-foreground">Fizetés, lemondás és visszatérítés</Link>
+          <span>Kiszely Marketing · Üzemeltető: Kiszely SRL</span>
+        </div>
       </div>
     </footer>
   )

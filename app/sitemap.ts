@@ -26,5 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/hu/modszertan/`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${siteUrl}/hu/rolunk/`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${siteUrl}/hu/kapcsolat/`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${siteUrl}/hu/adatkezeles/`, lastModified: new Date('2026-10-18'), changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${siteUrl}/hu/fizetes-lemondas-visszaterites/`, lastModified: new Date('2026-10-18'), changeFrequency: 'yearly', priority: 0.2 },
   ]
 }

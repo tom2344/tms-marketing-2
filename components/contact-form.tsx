@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
+import Link from 'next/link'
 import { sendContact, type ContactState } from '@/app/actions/sendContact'
 
 const initialState: ContactState = { status: 'idle', message: '' }
@@ -15,7 +16,7 @@ const copy = {
     placeholder: 'Mivel foglalkozik a vállalkozása, és milyen weboldalt vagy online megoldást szeretne?',
     submit: 'Üzenet küldése',
     pending: 'Küldés folyamatban…',
-    privacy: 'A megadott adatokat kizárólag a megkeresés megválaszolására használjuk.',
+    privacy: 'A megadott adatokat a megkeresés kezelésére használjuk.',
   },
   en: {
     fields: { name: 'Name', email: 'Email address', phone: 'Phone number', company: 'Company name', service: 'How can we help?', message: 'Brief project details (optional)' },
@@ -25,7 +26,7 @@ const copy = {
     placeholder: 'What does your business do, and what kind of website or online solution do you need?',
     submit: 'Send enquiry',
     pending: 'Sending…',
-    privacy: 'We use your details only to respond to this enquiry.',
+    privacy: 'We use the details provided to handle your enquiry.',
   },
 } as const
 
@@ -47,7 +48,7 @@ export function ContactForm({ language }: { language: 'hu' | 'en' }) {
       <label className="form-field"><span>{t.fields.message}</span><textarea name="message" maxLength={4000} rows={6} placeholder={t.placeholder} /></label>
       {state.message && <p role="status" className={state.status === 'success' ? 'form-success' : 'form-error'}>{state.message}</p>}
       <button type="submit" className="button-primary w-full" disabled={pending}>{pending ? <><LoaderCircle data-icon="inline-start" className="animate-spin" />{t.pending}</> : <>{t.submit}<ArrowRight data-icon="inline-end" /></>}</button>
-      <p className="text-xs leading-relaxed text-muted-foreground">{t.privacy}</p>
+      <p className="text-xs leading-relaxed text-muted-foreground">{t.privacy} <Link href="/hu/adatkezeles/" className="text-primary underline underline-offset-2">{language === 'hu' ? 'Adatkezelési tájékoztató' : 'Privacy notice (Hungarian)'}</Link></p>
     </form>
   )
 }

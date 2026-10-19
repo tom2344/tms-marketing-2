@@ -24,6 +24,8 @@ const publicPages = [
   '/hu/modszertan/',
   '/hu/rolunk/',
   '/hu/kapcsolat/',
+  '/hu/adatkezeles/',
+  '/hu/fizetes-lemondas-visszaterites/',
 ]
 const websiteGuidePages = [
   '/hu/tudastar/weboldal-keszites-arak-2026/',
