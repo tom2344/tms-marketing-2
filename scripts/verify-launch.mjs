@@ -8,7 +8,6 @@ const publicPages = [
   '/hu/',
   '/hu/google-terkep-top-3/',
   '/hu/weboldal-keszites-budapest/',
-  '/hu/legutobb-keszult-weboldalak/',
   '/hu/tudastar/',
   '/hu/tudastar/google-terkep-rangsorolas/',
   '/hu/tudastar/google-cegprofil-optimalizalas/',
@@ -149,19 +148,11 @@ assert.ok(websiteService.includes('Mi történik a domainnel, tárhellyel és ho
 for (const guidePath of websiteGuidePages) {
   assert.ok(websiteService.includes(`href="${guidePath}"`), `Website service page must link to ${guidePath}`)
 }
-const recentWebsitesPath = '/hu/legutobb-keszult-weboldalak/'
-const recentWebsites = publicPageHtml.get(recentWebsitesPath)
-assert.ok(websiteService.includes(`href="${recentWebsitesPath}"`), 'Website service page must link to recent work')
-assert.ok(recentWebsites.includes('NARA-Car Autószerviz'), 'NARA-Car reference is missing')
-assert.ok(recentWebsites.includes('Lángi Sándor'), 'Lángi Sándor reference is missing')
-assert.ok(recentWebsites.includes('https://naracarautoszerviz.hu/'), 'NARA-Car live site link is missing')
-assert.ok(recentWebsites.includes('https://langisandorkomuvesburkolo.com/'), 'Lángi Sándor live site link is missing')
 const bestCreatorGuide = publicPageHtml.get('/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/')
 assert.ok(bestCreatorGuide.includes('<title>Legjobb weboldalkészítő Magyarországon</title>'), 'Guide title must match the exact target phrase without a site-name suffix')
 assert.match(bestCreatorGuide, /<h1\b[^>]*>Legjobb weboldalkészítő Magyarországon<\/h1>/, 'Guide heading must match the exact target phrase')
 assert.ok(bestCreatorGuide.includes('Kiszely Marketing'), 'Guide must identify the service provider')
 assert.ok(bestCreatorGuide.includes('href="/hu/kapcsolat/"'), 'Guide must offer a contact path')
-assert.ok(bestCreatorGuide.includes(`href="${recentWebsitesPath}"`), 'Guide must link to recent work')
 const marketingGuidePath = '/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/'
 const marketingGuide = publicPageHtml.get(marketingGuidePath)
 assert.ok(marketingGuide.includes('<title>Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon</title>'), 'Marketing guide title must match the exact target phrase')
@@ -194,6 +185,10 @@ assert.equal(notFoundResponse.status, 404, 'Unknown route must return 404')
 const notFound = await notFoundResponse.text()
 assert.ok(!/rel="canonical"/.test(notFound), '404 must not contain a canonical')
 assert.match(notFound, /name="robots" content="noindex, nofollow"/, '404 must be noindex, nofollow')
+
+const retiredReferences = await request('/hu/legutobb-keszult-weboldalak/')
+assert.equal(retiredReferences.status, 404, 'Removed references page must return 404')
+assert.match(await retiredReferences.text(), /name="robots" content="noindex, nofollow"/, 'Removed references page must be noindex')
 
 const abandonedSeoGuide = await request('/hu/tudastar/legjobb-seo-ugynokseg-magyarorszagon/')
 assert.equal(abandonedSeoGuide.status, 404, 'Abandoned SEO agency guide must not remain public')

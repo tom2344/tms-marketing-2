@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/hu/`, lastModified, changeFrequency: 'weekly', priority: 1 },
     { url: `${siteUrl}/hu/google-terkep-top-3/`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${siteUrl}/hu/weboldal-keszites-budapest/`, lastModified: websiteContentModified, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${siteUrl}/hu/legutobb-keszult-weboldalak/`, lastModified: new Date('2026-10-21'), changeFrequency: 'monthly', priority: 0.5 },
     { url: `${siteUrl}/hu/tudastar/`, lastModified: websiteContentModified, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/google-terkep-rangsorolas/`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/google-cegprofil-optimalizalas/`, lastModified, changeFrequency: 'monthly', priority: 0.7 },

@@ -107,7 +107,6 @@ export default function BestWebsiteCreatorGuidePage() {
                   <li className="flex gap-3"><Check className="mt-1 size-5 shrink-0 text-primary" /><span>A pontos tartalmat, funkciókat, határidőt és díjat a kezdés előtt írásban rögzítjük.</span></li>
                 </ul>
                 <p className="mt-6 leading-relaxed text-muted-foreground">Nem állítjuk, hogy minden vállalkozásnak mi vagyunk a legjobb választás, és nem ígérünk garantált organikus első helyet. <Link href="/hu/rolunk/" className="font-bold text-primary underline">Ismerje meg, ki áll a Kiszely Marketing mögött.</Link></p>
-                <p className="mt-4 leading-relaxed text-muted-foreground">Mielőtt dönt, <Link href="/hu/legutobb-keszult-weboldalak/" className="font-bold text-primary underline">nézze meg a legutóbb készült weboldalakat.</Link></p>
                 <p className="mt-4 leading-relaxed text-muted-foreground">Közvetlenül is írhat: <a href="mailto:tamas@kiszelymarketing.com" className="font-bold text-primary underline">tamas@kiszelymarketing.com</a></p>
               </div>
             </div>

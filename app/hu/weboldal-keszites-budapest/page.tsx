@@ -132,7 +132,6 @@ export default function WebsiteBudapestPage() {
         <section className="section">
           <div className="site-shell flex flex-col gap-10">
             <SectionHeading eyebrow="Weboldal-készítési útmutatók" title="Részletes válaszok az ajánlatkérés előtt." description="A kapcsolódó útmutatók segítenek meghatározni a szükséges oldalstruktúrát, tartalmat, időkeretet és technikai alapokat." />
-            <p className="leading-relaxed text-muted-foreground">Elkészült oldalakat is megnézne? <Link href="/hu/legutobb-keszult-weboldalak/" className="font-bold text-primary underline">Legutóbb készült weboldalak</Link></p>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               <ArticleCard href="/hu/tudastar/weboldal-keszites-arak-2026/" title="Weboldal-készítés árak 2026-ban" description="Mi határozza meg a végleges összeget, és hogyan hasonlíthatók össze az ajánlatok?" />
               <ArticleCard href="/hu/tudastar/egyoldalas-vagy-tobboldalas-weboldal/" title="Egyoldalas vagy többoldalas weboldal?" description="Mikor elég egy bemutatkozó oldal, és mikor indokoltak külön aloldalak?" />
