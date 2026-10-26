@@ -92,6 +92,11 @@ export default function GoogleMapsTopThreePage() {
               <div><p className="eyebrow text-accent">Árak</p><p className="mt-4 font-serif text-4xl">300.000 Ft</p><p className="mt-2 text-background/70">Egyszeri induló díj. Fenntartás: <strong className="text-background">35.000 Ft / hónap</strong>.</p></div>
               <Link href="/hu/kapcsolat/" className="button-light">Konzultációt kérek <ArrowRight data-icon="inline-end" /></Link>
             </div>
+            <div className="max-w-3xl">
+              <h2 className="font-serif text-3xl">Hány keresésre vonatkozik a Top 3 garancia?</h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">Egy előre egyeztetett fő keresésre és szolgáltatási területre. A munka más kapcsolódó kereséseknél is javíthatja a láthatóságot, de a Top 3 garancia az előre megbeszélt keresőkifejezésre vonatkozik.</p>
+              <p className="mt-4 leading-relaxed text-muted-foreground">Ha később másik önálló keresésre is szeretne célt kitűzni, annak lehetőségeit és díját külön egyeztetjük.</p>
+            </div>
           </div>
         </section>
 
