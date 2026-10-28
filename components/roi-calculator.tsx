@@ -1,103 +1,160 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 
-const businessOptions = ['Ácsmunkák', 'Bádogos munkák', 'Burkolás', 'Duguláselhárítás', 'Favágás', 'Fürdőszoba felújítás', 'Gipszkartonozás', 'Kerítésépítés', 'Kertépítés', 'Klímaszerelés', 'Kocsibeálló építés', 'Kőműves munkák', 'Konyha felújítás', 'Külső festés', 'Lakásfelújítás', 'Napelem telepítés', 'Nyílászárócsere', 'Térkövezés', 'Terasz építés', 'Tetőjavítás', 'Tetőszigetelés', 'Villanyszerelés', 'Vízvezeték szerelés', 'Zárszerviz']
-const cityOptions = ['Kisváros', 'Közepes város', 'Nagyváros']
-const conversionOptions = [{ label: '5 hívásból 1 munka', value: 5 }, { label: '4 hívásból 1 munka', value: 4 }, { label: '3 hívásból 1 munka', value: 3 }, { label: '2 hívásból 1 munka', value: 2 }]
-const currency = (value: number) => `${new Intl.NumberFormat('hu-HU').format(Math.round(value))} Ft`
-const number = (value: number) => new Intl.NumberFormat('hu-HU', { maximumFractionDigits: 1 }).format(value)
-const validPercentage = (value: string) => value !== '' && Number(value) > 0 && Number(value) <= 100
+// Illustrative monthly search scenarios, not measured keyword volumes.
+const searchScenarios = {
+  'Ácsmunkák': [60, 150, 350],
+  'Bádogos munkák': [50, 120, 300],
+  'Burkolás': [120, 260, 600],
+  'Duguláselhárítás': [140, 320, 750],
+  'Favágás': [60, 140, 330],
+  'Fürdőszoba felújítás': [90, 200, 480],
+  'Gipszkartonozás': [80, 180, 420],
+  'Kerítésépítés': [55, 130, 300],
+  'Kertépítés': [90, 200, 450],
+  'Klímaszerelés': [120, 300, 750],
+  'Kocsibeálló építés': [40, 100, 240],
+  'Kőműves munkák': [100, 230, 550],
+  'Konyha felújítás': [80, 180, 420],
+  'Külső festés': [70, 160, 380],
+  'Lakásfelújítás': [150, 330, 750],
+  'Napelem telepítés': [50, 120, 280],
+  'Nyílászárócsere': [90, 200, 480],
+  'Térkövezés': [85, 190, 450],
+  'Terasz építés': [45, 110, 260],
+  'Tetőjavítás': [90, 200, 500],
+  'Tetőszigetelés': [55, 130, 320],
+  'Villanyszerelés': [150, 350, 800],
+  'Vízvezeték szerelés': [180, 420, 900],
+  'Zárszerviz': [110, 260, 600],
+} as const
+
+type Business = keyof typeof searchScenarios
+type CitySize = 0 | 1 | 2
+type Calculation = {
+  searches: number
+  clicks: number
+  calls: number
+  jobs: number
+  monthlyRevenue: number
+  annualRevenue: number
+  business: Business
+  city: CitySize
+}
+
+const cityOptions = ['Kisváros', 'Közepes város', 'Nagyváros'] as const
+const conversionOptions = [
+  { label: '5 hívásból 1 munka', value: 5 },
+  { label: '4 hívásból 1 munka', value: 4 },
+  { label: '3 hívásból 1 munka', value: 3 },
+  { label: '2 hívásból 1 munka', value: 2 },
+] as const
+const integer = (value: number) => new Intl.NumberFormat('hu-HU').format(value)
+const decimal = (value: number) => new Intl.NumberFormat('hu-HU', { maximumFractionDigits: 1 }).format(value)
+const currency = (value: number) => `${integer(Math.round(value))} Ft`
 
 export function RoiCalculator() {
-  const [business, setBusiness] = useState('')
-  const [city, setCity] = useState('')
-  const [mode, setMode] = useState<'searches' | 'calls'>('searches')
-  const [searches, setSearches] = useState('')
-  const [profileRate, setProfileRate] = useState('')
-  const [callRate, setCallRate] = useState('')
-  const [extraCalls, setExtraCalls] = useState('')
-  const [conversion, setConversion] = useState('')
+  const [business, setBusiness] = useState<Business>('Ácsmunkák')
+  const [city, setCity] = useState<CitySize>(0)
+  const [callsPerJob, setCallsPerJob] = useState(4)
   const [jobValue, setJobValue] = useState('')
+  const [result, setResult] = useState<Calculation | null>(null)
+  const [error, setError] = useState('')
 
-  const result = useMemo(() => {
-    const callsPerJob = Number(conversion)
-    const averageJobValue = Number(jobValue)
-    if (!Number.isFinite(callsPerJob) || !Number.isFinite(averageJobValue) || callsPerJob <= 0 || averageJobValue <= 0) return null
-    let calls: number
-    if (mode === 'searches') {
-      if (!searches || !Number.isFinite(Number(searches)) || Number(searches) <= 0 || !validPercentage(profileRate) || !validPercentage(callRate)) return null
-      calls = Number(searches) * Number(profileRate) / 100 * Number(callRate) / 100
-    } else {
-      if (!extraCalls || !Number.isFinite(Number(extraCalls)) || Number(extraCalls) <= 0) return null
-      calls = Number(extraCalls)
+  function calculate() {
+    const value = Number(jobValue)
+    if (!jobValue || !Number.isFinite(value) || value <= 0) {
+      setResult(null)
+      setError('Adja meg, mennyi az átlagos árbevétel egy munkából.')
+      return
     }
+
+    const searches = searchScenarios[business][city]
+    const clicks = Math.round(searches * 0.11)
+    const calls = Math.round(clicks * 0.35)
     const jobs = calls / callsPerJob
-    return { calls, jobs, revenue: jobs * averageJobValue }
-  }, [callRate, conversion, extraCalls, jobValue, mode, profileRate, searches])
+    const monthlyRevenue = jobs * value
+    setResult({ searches, clicks, calls, jobs, monthlyRevenue, annualRevenue: monthlyRevenue * 12, business, city })
+    setError('')
+  }
+
+  function invalidate() {
+    setResult(null)
+    setError('')
+  }
 
   return (
     <section id="kalkulator" className="section muted-section scroll-mt-20" aria-labelledby="kalkulator-cim">
       <div className="site-shell flex flex-col gap-10">
-        <div className="flex max-w-4xl flex-col gap-4">
+        <div className="max-w-4xl">
           <p className="eyebrow">Google Térkép kalkulátor</p>
-          <h2 id="kalkulator-cim" className="font-serif text-4xl leading-tight tracking-tight text-balance md:text-6xl">Mennyi hívást és munkát hozhat a Top 3?</h2>
-          <p className="text-lg leading-relaxed text-muted-foreground">Nézzen meg egy havi forgatókönyvet a saját számaival. A helyezés önmagában nem árulja el, hányan fognak telefonálni, ezért minden számítási feltételt Ön ad meg.</p>
+          <h2 id="kalkulator-cim" className="mt-4 font-serif text-4xl leading-tight tracking-tight text-balance md:text-6xl">Becsülje meg, mennyi hívást és munkát hozhat a Google Top 3.</h2>
         </div>
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+        <div className="grid items-start gap-6 lg:grid-cols-2">
           <div className="flex flex-col gap-6 rounded-2xl border border-border bg-background p-5 sm:p-7 lg:p-9">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="form-field"><span>Mivel foglalkozik?</span><select value={business} onChange={event => setBusiness(event.target.value)}><option value="">Válasszon</option>{businessOptions.map(option => <option key={option}>{option}</option>)}</select></label>
-              <label className="form-field"><span>Hol dolgozik leggyakrabban?</span><select value={city} onChange={event => setCity(event.target.value)}><option value="">Válasszon</option>{cityOptions.map(option => <option key={option}>{option}</option>)}</select></label>
-            </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">A szakma és a település mérete segít elhelyezni a forgatókönyvet, de nem módosítja automatikusan a számokat.</p>
-            <fieldset className="flex flex-col gap-3 border-t border-border pt-6">
-              <legend className="font-semibold">Miből induljunk ki?</legend>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <label className={`flex cursor-pointer items-center gap-3 rounded-lg border p-4 text-sm font-semibold ${mode === 'searches' ? 'border-primary bg-primary/5' : 'border-border'}`}><input type="radio" name="calculator-mode" checked={mode === 'searches'} onChange={() => setMode('searches')} /> Havi keresésekből</label>
-                <label className={`flex cursor-pointer items-center gap-3 rounded-lg border p-4 text-sm font-semibold ${mode === 'calls' ? 'border-primary bg-primary/5' : 'border-border'}`}><input type="radio" name="calculator-mode" checked={mode === 'calls'} onChange={() => setMode('calls')} /> Várt plusz hívásokból</label>
+            <label className="form-field">
+              <span>Válassza ki, mivel foglalkozik a vállalkozása.</span>
+              <select value={business} onChange={event => { setBusiness(event.target.value as Business); invalidate() }}>
+                {Object.keys(searchScenarios).map(option => <option key={option} value={option}>{option}</option>)}
+              </select>
+            </label>
+            <label className="form-field">
+              <span>Adja meg, mekkora településen dolgozik leggyakrabban.</span>
+              <select value={city} onChange={event => { setCity(Number(event.target.value) as CitySize); invalidate() }}>
+                {cityOptions.map((option, index) => <option key={option} value={index}>{option}</option>)}
+              </select>
+            </label>
+            <label className="form-field">
+              <span>Átlagosan hány telefonhívásból lesz valódi megrendelés?</span>
+              <select value={callsPerJob} onChange={event => { setCallsPerJob(Number(event.target.value)); invalidate() }}>
+                {conversionOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+            <label className="form-field">
+              <span>Mennyi az átlagos árbevétel egy munkából?</span>
+              <div className="relative">
+                <input type="number" min="1" step="1000" value={jobValue} onChange={event => { setJobValue(event.target.value); invalidate() }} inputMode="numeric" placeholder="Adja meg forintban" aria-invalid={Boolean(error)} />
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">Ft</span>
               </div>
-            </fieldset>
-            {mode === 'searches' ? (
-              <div className="flex flex-col gap-6">
-                <label className="form-field"><span>Hány releváns keresés történik havonta a célzott kifejezésre?</span><input type="number" min="1" step="1" value={searches} onChange={event => setSearches(event.target.value)} inputMode="numeric" /><small>Ha nem tudja, ezt a célzott keresés és terület felmérésével lehet megbecsülni.</small></label>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="form-field"><span>A keresők hány %-a nyitná meg a Cégprofilt?</span><input type="number" min="0.1" max="100" step="0.1" value={profileRate} onChange={event => setProfileRate(event.target.value)} inputMode="decimal" /><small>Az Ön forgatókönyve, nem iparági átlag.</small></label>
-                  <label className="form-field"><span>A profil megtekintői közül hány % kattintana a hívásra?</span><input type="number" min="0.1" max="100" step="0.1" value={callRate} onChange={event => setCallRate(event.target.value)} inputMode="decimal" /><small>Az Ön forgatókönyve, nem iparági átlag.</small></label>
+            </label>
+            {error && <p role="alert" className="text-sm font-semibold text-destructive">{error}</p>}
+            <button type="button" onClick={calculate} className="button-primary w-full">Számolás <ArrowRight data-icon="inline-end" /></button>
+          </div>
+          <div className="rounded-2xl border border-border bg-background p-5 sm:p-7 lg:p-9" aria-live="polite">
+            <h3 className="font-serif text-3xl">Eredmények</h3>
+            {result ? (
+              <div className="mt-6 flex flex-col gap-5">
+                <p className="text-sm text-muted-foreground">{result.business} · {cityOptions[result.city]} · Illusztratív forgatókönyv, nem előrejelzés.</p>
+                <Result label="Példaként feltételezett havi keresések" value={integer(result.searches)} />
+                <Result label="Becsült kattintások / hó" value={integer(result.clicks)} />
+                <Result label="Becsült híváskattintások / hó" value={integer(result.calls)} />
+                <Result label="Számolt munkák / hó" value={decimal(result.jobs)} />
+                <div className="rounded-xl bg-primary/10 p-5 text-primary">
+                  <p className="text-sm font-semibold">Havi lehetséges árbevétel</p>
+                  <p className="mt-1 font-serif text-3xl sm:text-4xl">{currency(result.monthlyRevenue)}</p>
+                </div>
+                <div className="rounded-xl bg-primary/10 p-5 text-primary">
+                  <p className="text-sm font-semibold">Éves forgatókönyv, ha minden hónap ilyen</p>
+                  <p className="mt-1 font-serif text-3xl sm:text-4xl">{currency(result.annualRevenue)}</p>
                 </div>
               </div>
             ) : (
-              <label className="form-field"><span>Hány plusz hívással számol havonta?</span><input type="number" min="1" step="1" value={extraCalls} onChange={event => setExtraCalls(event.target.value)} inputMode="numeric" /><small>Ez az Ön becslése, nem a kalkulátor által előre jelzett hívásszám.</small></label>
+              <p className="mt-6 text-muted-foreground">Adja meg az átlagos munkadíjat, majd kattintson a Számolás gombra.</p>
             )}
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="form-field"><span>Hány hívásból lesz átlagosan egy munka?</span><select value={conversion} onChange={event => setConversion(event.target.value)}><option value="">Válasszon</option>{conversionOptions.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
-              <label className="form-field"><span>Mennyi az átlagos árbevétel egy munkából?</span><div className="relative"><input type="number" min="1" step="1000" value={jobValue} onChange={event => setJobValue(event.target.value)} inputMode="numeric" className="pr-12" /><span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">Ft</span></div></label>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 rounded-2xl border border-border bg-foreground p-5 text-background sm:p-7 lg:p-9" aria-live="polite">
-            {result ? (
-              <div className="flex flex-1 flex-col justify-center gap-6">
-                <Result label={mode === 'searches' ? 'Forgatókönyv szerinti híváskattintások / hó' : 'Az Ön által megadott plusz hívások / hó'} value={number(result.calls)} />
-                <Result label="Lehetséges munkák / hó" value={number(result.jobs)} />
-                <Result label="Lehetséges árbevétel / hó" value={currency(result.revenue)} highlight />
-              </div>
-            ) : (
-              <div className="flex flex-1 flex-col justify-center gap-3">
-                <p className="font-serif text-3xl">Adja meg a számokat, és itt látja az eredményt.</p>
-                <p className="text-sm leading-relaxed text-background/70">Nincs előre kitöltött eredmény vagy rejtett iparági szorzó.</p>
-              </div>
-            )}
-            <p className="text-xs leading-relaxed text-background/70">{mode === 'searches' ? 'Képlet: havi keresések × profilmegnyitási arány × híváskattintási arány = híváskattintások. ' : ''}Munkák = hívások ÷ hívás/munkaszám. Árbevétel = munkák × átlagos árbevétel. A híváskattintás nem feltétlenül jelent tényleges telefonbeszélgetést. Az árbevétel nem nyereség, és a szolgáltatás díját sem vonja le. Ez forgatókönyv, nem ígéret.</p>
-            <a href="/hu/#kapcsolat" className="button-light w-full">Beszéljük át az Ön piacát<ArrowRight data-icon="inline-end" /></a>
           </div>
         </div>
-        <p className="max-w-4xl text-sm leading-relaxed text-muted-foreground">Pontosabb kiindulópontot a saját <a href="https://support.google.com/business/answer/9918094?hl=hu" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Google Cégprofil teljesítményadatai</a> adhatnak. Ott a hívásmutató a hívás gombjára kattintásokat számolja, nem az összes beérkező telefonhívást.</p>
+        <div className="max-w-4xl rounded-xl border border-border bg-background p-5 text-sm leading-relaxed text-muted-foreground sm:p-6">
+          <p className="font-bold text-foreground">Hogyan számolunk?</p>
+          <p className="mt-2">A szakmához és a település méretéhez rendelt havi keresésszám csak illusztratív feltevés, nem mért helyi adat. A példában a keresések 11%-ából kattintás, a kattintások 35%-ából híváskattintás lesz. Ezek nem igazolt, minden vállalkozásra érvényes iparági átlagok. A híváskattintás nem feltétlenül jelent tényleges hívást.</p>
+          <p className="mt-2">A munkák számát a megadott hívás/megrendelés arányból számoljuk. A havi összeg várható árbevétel, nem nyereség; az éves szám ugyanilyen hónapokat feltételez. Egyik sem garantált vagy ténylegesen kiesett bevétel. Pontosabb becsléshez a saját <a href="https://support.google.com/business/answer/9918094?hl=hu" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Google Cégprofil teljesítményadatait</a> és a célzott keresések valódi adatait kell használni.</p>
+        </div>
       </div>
     </section>
   )
 }
 
-function Result({ label, value, highlight = false }: { label: string; value: string; highlight?: boolean }) {
-  return <div className="flex flex-col gap-1 border-b border-background/20 pb-5 last:border-b-0 last:pb-0"><span className="text-sm text-background/75">{label}</span><span className={highlight ? 'font-serif text-4xl text-background sm:text-5xl' : 'font-serif text-4xl text-background/90'}>{value}</span></div>
+function Result({ label, value }: { label: string; value: string }) {
+  return <div className="flex items-baseline justify-between gap-4 border-b border-border pb-4 text-sm last:border-b-0 last:pb-0"><span className="text-muted-foreground">{label}</span><strong className="text-lg tabular-nums text-foreground">{value}</strong></div>
 }
