@@ -58,7 +58,7 @@ export default function GoogleMapsTopThreePage() {
         <PageHero
           eyebrow="Google Térkép Top 3"
           title="Legyen látható ott, ahol a helyi ügyfelek keresnek."
-          lead={<><p>A Google Térkép Top 3 szolgáltatás a Google Cégprofil, a weboldal és a helyi online jelenlét összehangolt fejlesztését jelenti. A cél a kezdés előtt írásban rögzített keresésnél és területen elérni a Top 3 helyezést 90 napon belül.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ingyenes konzultáció <ArrowRight data-icon="inline-end" /></Link><a href="#tartalom" className="button-outline">Mit tartalmaz?</a></div></>}
+          lead={<><p>A Google Térkép Top 3 szolgáltatás a Google Cégprofil, a weboldal és a helyi online jelenlét összehangolt fejlesztését jelenti. A cél a kezdés előtt írásban rögzített keresésnél és területen elérni a Top 3 helyezést 90 napon belül.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ingyenes konzultáció <ArrowRight data-icon="inline-end" /></Link><Link href="/hu/#kalkulator" className="button-outline">Hívás- és munkakalkulátor</Link></div></>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Google Térkép Top 3' }]}
         />
 
