@@ -7,7 +7,7 @@ import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 const siteUrl = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${siteUrl}/hu/tudastar/legjobb-weboldalkeszito-magyarorszagon/`
 const title = 'Legjobb weboldalkészítő Magyarországon'
-const description = 'Legjobb weboldalkészítő Magyarországon? Nézze meg, mikor elég egy weboldalkészítő program, mikor érdemes szakembert választani, és hogyan dolgozik a Kiszely Marketing.'
+const description = 'Legjobb weboldalkészítő Magyarországon? Program vagy szakember? Döntési szempontok és a Kiszely Marketing weboldalkészítési szolgáltatása.'
 
 export const metadata: Metadata = {
   title: { absolute: title },

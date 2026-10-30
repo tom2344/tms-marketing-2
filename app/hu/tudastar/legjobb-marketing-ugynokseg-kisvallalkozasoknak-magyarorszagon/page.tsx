@@ -8,7 +8,7 @@ import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 const siteUrl = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${siteUrl}/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/`
 const title = 'Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon'
-const description = 'Marketingpartnert keres kisvállalkozásának? Nézze meg, mikor segít a Kiszely Marketing a helyi Google-jelenlétben és a weboldalkészítésben, és hogyan válasszon partnert.'
+const description = 'Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon? Hogyan válasszon partnert, és miben segíthet a Kiszely Marketing?'
 
 export const metadata: Metadata = {
   title: { absolute: title },
