@@ -22,6 +22,7 @@ const structuredData = {
       '@type': 'Organization',
       '@id': organizationId,
       name: 'Kiszely Marketing',
+      legalName: 'Kiszely SRL',
       url: homeUrl,
       logo: {
         '@type': 'ImageObject',
