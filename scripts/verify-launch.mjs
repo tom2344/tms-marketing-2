@@ -26,6 +26,8 @@ const publicPages = [
   '/hu/rolunk/',
   '/hu/kapcsolat/',
   '/hu/adatkezeles/',
+  '/hu/aszf/',
+  '/hu/ugyfelszolgalat/',
   '/hu/fizetes-lemondas-visszaterites/',
 ]
 const websiteGuidePages = [
@@ -104,6 +106,13 @@ for (const path of publicPages) {
   assert.ok(!html.includes('Kötelező a havi karbantartás?'), `${path} contains the discontinued website-maintenance FAQ`)
   assert.ok(!html.includes('A képek illusztrációk; nem valós ügyféleredményt vagy garantált javulást mutatnak.'), `${path} contains the removed illustration note`)
 }
+
+const privacyNotice = publicPageHtml.get('/hu/adatkezeles/')
+const terms = publicPageHtml.get('/hu/aszf/')
+const support = publicPageHtml.get('/hu/ugyfelszolgalat/')
+assert.ok(privacyNotice.includes('Stripe') && privacyNotice.includes('bankkártyaszámot'), 'Privacy notice must explain hosted payment data handling')
+assert.ok(terms.includes('href="/hu/fizetes-lemondas-visszaterites/"'), 'Terms must link to cancellation and refund details')
+assert.ok(support.includes('tamas@kiszelymarketing.com') && support.includes('href="/hu/fizetes-lemondas-visszaterites/"'), 'Support page must provide contact and refund help')
 
 for (const path of websiteGuidePages) {
   const html = publicPageHtml.get(path)
