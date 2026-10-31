@@ -6,8 +6,8 @@ import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 
 const siteUrl = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${siteUrl}/hu/weboldal-keszites-budapest/`
-const title = 'Weboldal készítés Budapest | Kisvállalkozásoknak'
-const description = 'Professzionális, mobilbarát weboldal-készítés Budapesten és országosan. Átlátható csomagok kisvállalkozásoknak 160.000 Ft-tól.'
+const title = 'Céges weboldal készítés | Budapest és országosan'
+const description = 'Üzleti weboldal készítés kisvállalkozásoknak, egyszeri projektként. Starter 160.000–200.000 Ft, Premium 250.000 Ft-tól. Egyeztetett tartalommal és átadással.'
 
 export const metadata: Metadata = {
   title,
@@ -58,22 +58,33 @@ export default function WebsiteBudapestPage() {
         <PageHero
           eyebrow="Weboldal készítés · Budapest és országosan"
           title="Weboldal-készítés kisvállalkozásoknak, Budapesten és országosan."
-          lead={<><p>Érthető szerkezet, mobilbarát megjelenés és egyszerű kapcsolatfelvétel. A tartalmat és a funkciókat az Ön céljaihoz igazítjuk, a terjedelmet és a díjat pedig előre, írásban rögzítjük.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
+          lead={<><p>Az érdeklődő megnyitja az oldalát. Megtalálja, mit vállal a cége? Kiderül, hogyan kérhet ajánlatot? Olyan felépítést készítünk, amely ezeket a lépéseket teszi egyszerűvé, telefonon is. A munkát és az egyszeri díjat előre, írásban rögzítjük.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Weboldal készítés Budapest' }]}
         />
 
         <section className="section">
           <div className="site-shell flex flex-col gap-12">
-            <SectionHeading eyebrow="Mit kap?" title="A szükséges alapok egy rendszerben." description="Az oldal célja nem az, hogy technikai kifejezésekkel terhelje Önt, hanem hogy a látogató gyorsan megértse az ajánlatot és könnyen kapcsolatba léphessen." />
+            <SectionHeading eyebrow="Céges weboldal készítés" title="A látogató értse meg, miben tud neki segíteni." description="A szolgáltatásai, a vállalkozása bemutatása és az ajánlatkérés kapnak helyet az oldalon. A dizájnt és a működést ehhez tervezzük meg." />
             <div className="grid gap-px border-y border-border bg-border md:grid-cols-2 lg:grid-cols-3">
               {features.map(([heading, text], index) => <article key={heading} className="flex min-h-56 flex-col justify-between gap-8 bg-background p-7 lg:p-9"><span className="font-serif text-3xl text-primary">0{index + 1}</span><div><h2 className="text-xl font-bold">{heading}</h2><p className="mt-3 leading-relaxed text-muted-foreground">{text}</p></div></article>)}
             </div>
           </div>
         </section>
 
+        <section className="section muted-section">
+          <div className="site-shell grid gap-10 lg:grid-cols-2">
+            <SectionHeading eyebrow="Üzleti weboldal készítés" title="Annyi oldal és funkció kell, amennyi a feladathoz tartozik." />
+            <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
+              <p>Ha egy szolgáltatást szeretne bemutatni néhány munkaképpel és elérhetőséggel, egy átgondolt bemutatkozó oldal jó kiindulás lehet. Több külön szolgáltatásnak, részletes referenciáknak vagy foglalásnak több helyre és tervezésre van szüksége.</p>
+              <p>Ezt a döntést az első egyeztetésen hozzuk meg. Megbeszéljük, kiknek szól az oldal, milyen információkat keresnek, és mi legyen a következő lépésük. Az elkészítés önálló, egyszeri projektként kérhető.</p>
+              <p>Van már weboldala? <Link href="/hu/weboldal-felujitas/" className="font-semibold text-primary underline">A weboldal felújításánál előbb megnézzük, mi használható tovább.</Link></p>
+            </div>
+          </div>
+        </section>
+
         <section className="section">
           <div className="site-shell flex flex-col gap-10">
-            <SectionHeading eyebrow="Indulás előtt" title="A fontos döntéseket előre, írásban tisztázzuk." description="Így nem csak az ár lesz egyértelmű: a tartalomért, hozzáférésekért, jóváhagyásért és későbbi működtetésért való felelősség is követhető marad." />
+            <SectionHeading eyebrow="Indulás előtt" title="A fontos döntéseket előre, írásban tisztázzuk." description="Legyen egyértelmű, ki hozza a szöveget és a képeket, mi készül el a díjért, és mit kap meg az átadáskor." />
             <div className="grid gap-5 md:grid-cols-2">
               {projectQuestions.map(([heading, text]) => <article key={heading} className="rounded-2xl border border-border bg-background p-7"><h2 className="text-xl font-bold">{heading}</h2><p className="mt-3 leading-relaxed text-muted-foreground">{text}</p></article>)}
             </div>
@@ -133,7 +144,8 @@ export default function WebsiteBudapestPage() {
           <div className="site-shell flex flex-col gap-10">
             <SectionHeading eyebrow="Weboldal-készítési útmutatók" title="Részletes válaszok az ajánlatkérés előtt." description="A kapcsolódó útmutatók segítenek meghatározni a szükséges oldalstruktúrát, tartalmat, időkeretet és technikai alapokat." />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              <ArticleCard href="/hu/tudastar/weboldal-keszites-arak-2026/" title="Weboldal-készítés árak 2026-ban" description="Mi határozza meg a végleges összeget, és hogyan hasonlíthatók össze az ajánlatok?" />
+              <ArticleCard href="/hu/tudastar/weboldal-keszites-arak-2026/" title="Weboldal készítés árak: mit kap a pénzéért?" description="Starter és Premium összehasonlítása, külön költségek és ajánlat-ellenőrzőlista." />
+              <ArticleCard href="/hu/weboldal-felujitas/" title="Weboldal felújítás és korszerűsítés" description="Mikor elég átalakítani a meglévő oldalt, és mikor indokolt az újraépítés?" />
               <ArticleCard href="/hu/tudastar/egyoldalas-vagy-tobboldalas-weboldal/" title="Egyoldalas vagy többoldalas weboldal?" description="Mikor elég egy bemutatkozó oldal, és mikor indokoltak külön aloldalak?" />
               <ArticleCard href="/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/" title="Mennyi idő alatt készül el?" description="A munkafázisok, az irányadó idő és a leggyakoribb késések." />
               <ArticleCard href="/hu/tudastar/keresobarat-weboldal-mit-jelent/" title="Mit jelent a keresőbarát weboldal?" description="Technikai hozzáférhetőség, hasznos tartalom és hitelesség egy rendszerben." />

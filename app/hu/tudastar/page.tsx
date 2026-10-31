@@ -31,7 +31,8 @@ const collectionData = {
     { '@type': 'Article', url: `${canonicalUrl}google-cegprofil-kategoria-valasztas/`, headline: 'Google Cégprofil-kategória választása lépésről lépésre' },
     { '@type': 'Article', url: `${canonicalUrl}szolgaltatasi-terulet-beallitas/`, headline: 'Google Cégprofil szolgáltatási terület beállítása' },
     { '@type': 'Article', url: `${canonicalUrl}helyi-helyezesmero-racs/`, headline: 'Helyi helyezésmérő rács: mit mutat és hogyan mérünk?' },
-    { '@type': 'Article', url: `${canonicalUrl}weboldal-keszites-arak-2026/`, headline: 'Weboldal-készítés árak 2026-ban: mitől függ a végösszeg?' },
+    { '@type': 'Article', url: `${canonicalUrl}weboldal-keszites-arak-2026/`, headline: 'Weboldal készítés árak 2026: mit kap a pénzéért?' },
+    { '@type': 'Article', url: `${canonicalUrl}google-cegprofil-letrehozasa/`, headline: 'Google Cégprofil létrehozása: útmutató vállalkozóknak' },
     { '@type': 'Article', url: `${canonicalUrl}egyoldalas-vagy-tobboldalas-weboldal/`, headline: 'Egyoldalas vagy többoldalas weboldal: melyik a jobb választás?' },
     { '@type': 'Article', url: `${canonicalUrl}mennyi-ido-alatt-keszul-el-egy-weboldal/`, headline: 'Mennyi idő alatt készül el egy céges weboldal?' },
     { '@type': 'Article', url: `${canonicalUrl}keresobarat-weboldal-mit-jelent/`, headline: 'Mit jelent valójában a keresőbarát weboldal?' },
@@ -57,6 +58,7 @@ export default function KnowledgeHubPage() {
             <SectionHeading eyebrow="Kezdő útmutatók" title="Először a döntéshez szükséges alapok." description="A tartalmak nem helyettesítik az egyedi auditot: a verseny, a keresési hely és a vállalkozás valós helyzete minden esetben számít." />
             <div className="grid gap-5 md:grid-cols-3">
               <ArticleCard href="/hu/tudastar/google-terkep-rangsorolas/" title="Mi alapján rangsorol a Google Térkép?" description="A relevancia, a távolság és az ismertség szerepe a Google hivatalos útmutatója alapján." />
+              <ArticleCard href="/hu/tudastar/google-cegprofil-letrehozasa/" title="Google Cégprofil létrehozása" description="Google Cégem regisztráció, meglévő adatlap igénylése és igazolás, hivatalos forrásokkal." />
               <ArticleCard href="/hu/tudastar/google-cegprofil-optimalizalas/" title="Google Cégprofil-optimalizálási ellenőrzőlista" description="A jogosultságtól és kategóriáktól az értékeléseken át a kapcsolódó weboldalig." />
               <ArticleCard href="/hu/tudastar/organikus-talalat-vagy-google-terkep/" title="Organikus találat vagy Google Térkép?" description="Két külön találati rendszer, eltérő belépési feltételekkel és lehetőségekkel." />
               <ArticleCard href="/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/" title="Legjobb marketing ügynökség kisvállalkozásoknak Magyarországon" description="Mikor segít a helyi Google-jelenlét és a weboldal, és milyen partnert válasszon más célokra?" />
@@ -68,7 +70,8 @@ export default function KnowledgeHubPage() {
           <div className="site-shell flex flex-col gap-10">
             <SectionHeading eyebrow="Weboldal-készítés" title="Döntések az ajánlatkérés előtt." description="Árak, oldalstruktúra, ütemezés, keresőbarát alapok és egy gyakorlati előkészítési ellenőrzőlista." />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              <ArticleCard href="/hu/tudastar/weboldal-keszites-arak-2026/" title="Weboldal-készítés árak 2026-ban" description="Csomagok, költségtényezők és az ajánlatok összehasonlításának szempontjai." />
+              <ArticleCard href="/hu/tudastar/weboldal-keszites-arak-2026/" title="Weboldal készítés árak 2026" description="Konkrét csomagok, összehasonlító táblázat és a későbbi költségek." />
+              <ArticleCard href="/hu/weboldal-felujitas/" title="Weboldal felújítás és korszerűsítés" description="Mikor érdemes megtartani a meglévő alapokat, és mikor újratervezni az oldalt?" />
               <ArticleCard href="/hu/tudastar/egyoldalas-vagy-tobboldalas-weboldal/" title="Egyoldalas vagy többoldalas weboldal?" description="Mikor elég egy bemutatkozó oldal, és mikor szükségesek külön aloldalak?" />
               <ArticleCard href="/hu/tudastar/mennyi-ido-alatt-keszul-el-egy-weboldal/" title="Mennyi idő alatt készül el?" description="Munkafázisok, irányadó idő és a leggyakoribb késések." />
               <ArticleCard href="/hu/tudastar/keresobarat-weboldal-mit-jelent/" title="Mit jelent a keresőbarát weboldal?" description="Technikai hozzáférhetőség, hasznos tartalom és hitelesség." />

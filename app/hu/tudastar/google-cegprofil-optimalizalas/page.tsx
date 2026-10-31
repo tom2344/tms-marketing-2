@@ -99,6 +99,7 @@ export default function BusinessProfileChecklistPage() {
               </div>
               <div className="mt-8 flex flex-wrap gap-3"><Link href="/hu/google-terkep-top-3/" className="button-primary">Google Térkép Top 3 szolgáltatás</Link><Link href="/hu/modszertan/" className="button-outline">Mérési módszertan</Link></div>
               <div className="mt-8 grid gap-5 md:grid-cols-2">
+                <Link href="/hu/tudastar/google-cegprofil-letrehozasa/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Még nincs profilja vagy hozzáférése? Létrehozási útmutató →</Link>
                 <Link href="/hu/tudastar/google-cegprofil-kategoria-valasztas/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Kategóriaválasztási útmutató →</Link>
                 <Link href="/hu/tudastar/szolgaltatasi-terulet-beallitas/" className="rounded-2xl border border-border bg-card p-5 font-bold text-primary hover:underline">Szolgáltatási terület beállítása →</Link>
               </div>

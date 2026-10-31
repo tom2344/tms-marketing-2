@@ -12,7 +12,7 @@ const copy = {
     fields: { name: 'Név', email: 'E-mail cím', phone: 'Telefonszám', company: 'Vállalkozás neve', service: 'Miben segíthetünk?', message: 'Röviden a projektről (opcionális)' },
     optional: 'opcionális',
     choose: 'Válasszon szolgáltatást',
-    services: ['Google Térkép Top 3', 'Weboldal készítés', 'Más / még nem tudom'],
+    services: ['Google Térkép Top 3', 'Weboldal készítés', 'Weboldal felújítás', 'Google Cégprofil – elakadtam', 'Más / még nem tudom'],
     placeholder: 'Mivel foglalkozik a vállalkozása, és milyen weboldalt vagy online megoldást szeretne?',
     submit: 'Üzenet küldése',
     pending: 'Küldés folyamatban…',

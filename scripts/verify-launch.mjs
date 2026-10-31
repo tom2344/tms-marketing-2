@@ -8,6 +8,8 @@ const publicPages = [
   '/hu/',
   '/hu/google-terkep-top-3/',
   '/hu/weboldal-keszites-budapest/',
+  '/hu/weboldal-felujitas/',
+  '/hu/tudastar/google-cegprofil-letrehozasa/',
   '/hu/tudastar/',
   '/hu/tudastar/google-terkep-rangsorolas/',
   '/hu/tudastar/google-cegprofil-optimalizalas/',
@@ -143,7 +145,9 @@ assert.ok(!mapsService.includes('Nézzük meg, reális-e a Top 3 cél az Ön pia
 const websiteServiceResponse = await request('/hu/weboldal-keszites-budapest/')
 const websiteService = await websiteServiceResponse.text()
 assert.ok(websiteService.includes('Weboldal-készítés kisvállalkozásoknak, Budapesten és országosan.'), 'Website service hero changed')
-assert.ok(websiteService.includes('weboldal-készítés Budapesten és országosan'), 'Nationwide website-service scope is missing')
+assert.ok(websiteService.includes('Budapest mellett Magyarország más részeiről is vállalunk projekteket.'), 'Nationwide website-service scope is missing')
+assert.ok(websiteService.includes('<title>Céges weboldal készítés'), 'Commercial website keyword is missing from the title')
+assert.ok(websiteService.includes('href="/hu/weboldal-felujitas/"'), 'Website service must link to redesign')
 assert.ok(!websiteService.includes('Weboldal készítés budapesti kisvállalkozásoknak.'), 'Old Budapest-only website hero remains')
 assert.ok(!websiteService.includes('nem állítjuk, hogy budapesti irodával rendelkezünk'), 'Defensive Budapest office disclaimer remains')
 assert.ok(websiteService.includes('160.000–200.000 Ft'), 'Starter website price changed')
@@ -221,5 +225,20 @@ const sitemap = await sitemapResponse.text()
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1])
 assert.deepEqual(sitemapUrls.sort(), publicPages.map(path => `${finalOrigin}${path}`).sort(), 'Sitemap must contain exactly the public Kiszely Marketing URLs')
 assert.ok(!sitemap.includes('ttamasmarketing.com'), 'Old domain remains in sitemap.xml')
+
+for (const path of ['/hu/weboldal-felujitas/', '/hu/tudastar/google-cegprofil-letrehozasa/', '/hu/tudastar/weboldal-keszites-arak-2026/']) {
+  const html = publicPageHtml.get(path)
+  assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `${path} must have one main heading`)
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map(match => JSON.parse(match[1]))
+  assert.ok(blocks.some(item => item['@type'] === 'BreadcrumbList'), `${path} must have structured breadcrumbs`)
+  assert.ok(blocks.some(item => ['Service', 'Article'].includes(item['@type']) && item.url === `${finalOrigin}${path}`), `${path} structured data must describe its own URL`)
+  assert.ok(html.includes('href="/hu/kapcsolat/"'), `${path} needs an enquiry path`)
+}
+const profileGuide = publicPageHtml.get('/hu/tudastar/google-cegprofil-letrehozasa/')
+assert.ok(profileGuide.includes('"datePublished":"2026-10-31"'), 'New guide publication date must be accurate')
+assert.ok(profileGuide.includes('support.google.com/business/answer/2911778'), 'Setup guide must cite the official instructions')
+const priceGuide = publicPageHtml.get('/hu/tudastar/weboldal-keszites-arak-2026/')
+assert.ok(priceGuide.includes('"datePublished":"2026-10-08"') && priceGuide.includes('"dateModified":"2026-10-31"'), 'Pricing guide must preserve publication date and record its revision')
+assert.ok(priceGuide.includes('<caption') && priceGuide.includes('scope="col"') && priceGuide.includes('scope="row"'), 'Package comparison needs accessible table labels')
 
 console.log('Launch verification passed:', { baseUrl, routes: ['/', '/hu', ...publicPages, '/en/', '/nem-letezo-oldal/', '/robots.txt', '/sitemap.xml'] })
