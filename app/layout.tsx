@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Manrope } from 'next/font/google'
+import { AnalyticsConsent } from '@/components/analytics-consent'
 import './globals.css'
 
 const serif = Cormorant_Garamond({ subsets: ['latin', 'latin-ext'], variable: '--font-serif', weight: ['500', '600', '700'] })
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="hu" className={`bg-background ${serif.variable} ${sans.variable}`}>
       <body className="font-sans antialiased">
         {children}
+        <AnalyticsConsent />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

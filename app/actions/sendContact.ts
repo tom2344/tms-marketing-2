@@ -5,6 +5,7 @@ import { Resend, type ErrorResponse } from 'resend'
 export type ContactState = {
   status: 'idle' | 'success' | 'error'
   message: string
+  sentId?: string
 }
 
 const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (char) => ({
@@ -63,7 +64,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
       throw error
     }
 
-    return { status: 'success', message: messages.success }
+    return { status: 'success', message: messages.success, sentId: crypto.randomUUID() }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     console.error('[Kiszely contact] Email delivery failed:', {

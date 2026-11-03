@@ -1,9 +1,10 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect, useRef } from 'react'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
 import Link from 'next/link'
 import { sendContact, type ContactState } from '@/app/actions/sendContact'
+import { trackSuccessfulLead } from '@/lib/analytics'
 
 const initialState: ContactState = { status: 'idle', message: '' }
 
@@ -33,6 +34,13 @@ const copy = {
 export function ContactForm({ language }: { language: 'hu' | 'en' }) {
   const t = copy[language]
   const [state, formAction, pending] = useActionState(sendContact, initialState)
+  const trackedSentId = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (state.status !== 'success' || !state.sentId || trackedSentId.current === state.sentId) return
+    trackedSentId.current = state.sentId
+    trackSuccessfulLead()
+  }, [state.status, state.sentId])
 
   return (
     <form action={formAction} className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 shadow-sm lg:p-9">

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { AnalyticsSettingsButton } from '@/components/analytics-consent'
 
 export function SiteFooter() {
   return (
@@ -22,6 +23,7 @@ export function SiteFooter() {
         </nav>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
           <Link href="/hu/adatkezeles/" className="hover:text-foreground">Adatkezelés</Link>
+          <AnalyticsSettingsButton />
           <Link href="/hu/aszf/" className="hover:text-foreground">ÁSZF</Link>
           <Link href="/hu/ugyfelszolgalat/" className="hover:text-foreground">Ügyfélszolgálat</Link>
           <Link href="/hu/fizetes-lemondas-visszaterites/" className="hover:text-foreground">Fizetés, lemondás és visszatérítés</Link>
