@@ -18,7 +18,9 @@ function startAnalytics() {
   initialized = true
 
   window.dataLayer = window.dataLayer ?? []
-  window.gtag = (...args: unknown[]) => { window.dataLayer?.push(args) }
+  // Google tag processes its commands as Arguments objects.
+  // eslint-disable-next-line prefer-rest-params
+  window.gtag = function () { window.dataLayer?.push(arguments) }
   window.gtag('consent', 'default', {
     analytics_storage: 'denied',
     ad_storage: 'denied',
