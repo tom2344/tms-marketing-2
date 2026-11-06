@@ -10,21 +10,23 @@ const initialState: ContactState = { status: 'idle', message: '' }
 
 const copy = {
   hu: {
-    fields: { name: 'Név', email: 'E-mail cím', phone: 'Telefonszám', company: 'Vállalkozás neve', service: 'Miben segíthetünk?', message: 'Röviden a projektről (opcionális)' },
+    fields: { name: 'Név', email: 'E-mail cím', phone: 'Telefonszám', company: 'Vállalkozás neve', service: 'Miben segíthetünk?', message: 'Röviden a projektről (opcionális)', source: 'Honnan hallott rólunk?' },
     optional: 'opcionális',
     choose: 'Válasszon szolgáltatást',
     services: ['Google Térkép Top 3', 'Weboldal készítés', 'Weboldal felújítás', 'Google Cégprofil – elakadtam', 'Más / még nem tudom'],
     placeholder: 'Mivel foglalkozik a vállalkozása, és milyen weboldalt vagy online megoldást szeretne?',
+    sourcePlaceholder: 'Például Google, ChatGPT, Facebook vagy ajánlás',
     submit: 'Üzenet küldése',
     pending: 'Küldés folyamatban…',
     privacy: 'A megadott adatokat a megkeresés kezelésére használjuk.',
   },
   en: {
-    fields: { name: 'Name', email: 'Email address', phone: 'Phone number', company: 'Company name', service: 'How can we help?', message: 'Brief project details (optional)' },
+    fields: { name: 'Name', email: 'Email address', phone: 'Phone number', company: 'Company name', service: 'How can we help?', message: 'Brief project details (optional)', source: 'How did you hear about us?' },
     optional: 'optional',
     choose: 'Choose a service',
     services: ['Google Maps Top 3', 'Website creation', 'Other / not sure yet'],
     placeholder: 'What does your business do, and what kind of website or online solution do you need?',
+    sourcePlaceholder: 'For example Google, ChatGPT, Facebook or a recommendation',
     submit: 'Send enquiry',
     pending: 'Sending…',
     privacy: 'We use the details provided to handle your enquiry.',
@@ -54,6 +56,7 @@ export function ContactForm({ language }: { language: 'hu' | 'en' }) {
       </div>
       <label className="form-field"><span>{t.fields.service} *</span><select name="service" required defaultValue=""><option value="" disabled>{t.choose}</option>{t.services.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
       <label className="form-field"><span>{t.fields.message}</span><textarea name="message" maxLength={4000} rows={6} placeholder={t.placeholder} /></label>
+      <label className="form-field"><span>{t.fields.source} <small>({t.optional})</small></span><input name="source" maxLength={160} placeholder={t.sourcePlaceholder} /></label>
       {state.message && <p role="status" className={state.status === 'success' ? 'form-success' : 'form-error'}>{state.message}</p>}
       <button type="submit" className="button-primary w-full" disabled={pending}>{pending ? <><LoaderCircle data-icon="inline-start" className="animate-spin" />{t.pending}</> : <>{t.submit}<ArrowRight data-icon="inline-end" /></>}</button>
       <p className="text-xs leading-relaxed text-muted-foreground">{t.privacy} <Link href="/hu/adatkezeles/" className="text-primary underline underline-offset-2">{language === 'hu' ? 'Adatkezelési tájékoztató' : 'Privacy notice (Hungarian)'}</Link></p>

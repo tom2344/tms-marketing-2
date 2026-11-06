@@ -24,12 +24,13 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
   const company = String(formData.get('company') ?? '').trim()
   const service = String(formData.get('service') ?? '').trim()
   const message = String(formData.get('message') ?? '').trim()
+  const source = String(formData.get('source') ?? '').trim()
   const honeypot = String(formData.get('website') ?? '').trim()
 
   if (honeypot) return { status: 'success', message: messages.success }
 
   const validEmail = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  if (!name || !validEmail || !phone || !service || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000) {
+  if (!name || !validEmail || !phone || !service || name.length > 120 || email.length > 180 || phone.length > 80 || company.length > 180 || service.length > 160 || message.length > 4000 || source.length > 160) {
     return { status: 'error', message: messages.invalid }
   }
 
@@ -42,7 +43,7 @@ export async function sendContact(_: ContactState, formData: FormData): Promise<
 
     const resend = new Resend(apiKey)
     const rows = [
-      ['Név', name], ['E-mail', email || 'Nincs megadva'], ['Telefonszám', phone], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message || 'Nincs megadva'],
+      ['Név', name], ['E-mail', email || 'Nincs megadva'], ['Telefonszám', phone], ['Vállalkozás neve', company || 'Nincs megadva'], ['Kiválasztott szolgáltatás', service], ['Projekt leírása', message || 'Nincs megadva'], ['Honnan hallott rólunk?', source || 'Nincs megadva'],
     ]
 
     const { error } = await resend.emails.send({
