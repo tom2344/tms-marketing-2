@@ -9,12 +9,13 @@ const canonicalUrl = `${siteUrl}/hu/tudastar/google-cegprofil-optimalizalas/`
 const title = 'Google Cégprofil-optimalizálási ellenőrzőlista'
 const description = 'Gyakorlati Google Cégprofil-ellenőrzőlista: jogosultság, üzleti adatok, kategóriák, szolgáltatási terület, értékelések, fotók, weboldal és mérés.'
 const published = '2026-10-04'
+const modified = '2026-11-07'
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: canonicalUrl },
-  openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: published, modifiedTime: published, authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: title }] },
+  openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: published, modifiedTime: modified, authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: title }] },
   twitter: { card: 'summary_large_image', title, description, images: ['/images/og-image.webp'] },
   robots: { index: true, follow: true },
 }
@@ -41,7 +42,7 @@ const articleData = {
   mainEntityOfPage: canonicalUrl,
   inLanguage: 'hu-HU',
   datePublished: published,
-  dateModified: published,
+  dateModified: modified,
   author: { '@type': 'Person', '@id': `${siteUrl}/#founder`, name: 'Tamás', url: `${siteUrl}/hu/rolunk/` },
   publisher: { '@id': `${siteUrl}/#organization` },
   image: `${siteUrl}/images/og-image.webp`,
@@ -54,7 +55,7 @@ export default function BusinessProfileChecklistPage() {
         <PageHero
           eyebrow="Tudástár · 10 perc"
           title={title}
-          lead={<><p>Az optimalizálás első lépése nem egy keresőkifejezés hozzáadása, hanem a jogosultság és a valós üzleti adatok ellenőrzése. Ez a lista a Google hivatalos irányelvei alapján rendszerezi az alapokat.</p><p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. október 4.</p></>}
+          lead={<><p>Az optimalizálás első lépése nem egy keresőkifejezés hozzáadása, hanem a jogosultság és a valós üzleti adatok ellenőrzése. Ez a lista a Google hivatalos irányelvei alapján rendszerezi az alapokat.</p><p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. november 7.</p></>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Tudástár', href: '/hu/tudastar/' }, { label: title }]}
         />
 
@@ -91,6 +92,11 @@ export default function BusinessProfileChecklistPage() {
               <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted-foreground">
                 <p>A nyitvatartás, szolgáltatások, elérhetőségek és fotók változhatnak. Ezeket rendszeresen ellenőrizni kell, az értékelésekre pedig érdemes tényszerűen és udvariasan válaszolni.</p>
                 <p>A teljesítményt nem egyetlen saját telefonon látott keresés alapján mérjük. A megállapodott kereséseket és földrajzi pontokat következetesen, azonos módszerrel kell vizsgálni.</p>
+              </div>
+              <div className="mt-8 rounded-2xl border border-border bg-card p-6">
+                <h2 className="font-serif text-3xl">Mennyibe kerül a Google Cégprofil optimalizálása?</h2>
+                <p className="mt-4 leading-relaxed text-muted-foreground">Az egyszeri profilbeállítás és a helyi helyezés javítását célzó, weboldalt is érintő munka eltérő feladat. A Kiszely Marketing Google Térkép Top 3 szolgáltatásában a Cégprofil optimalizálása az induló munka része. Ennek díja 300.000 Ft, a fenntartás 35.000 Ft / hónap.</p>
+                <p className="mt-3 leading-relaxed text-muted-foreground">A szolgáltatás része a térképes versenytárselemzés, a kapcsolódó weboldal-oldalak elkészítése vagy optimalizálása, valamint a megállapodott fő keresőkifejezés helyezésének követése. <Link href="/hu/google-terkep-top-3/" className="text-primary underline">A teljes tartalom és a 90 napos folyamat itt olvasható.</Link></p>
               </div>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground">
                 <strong className="text-foreground">Elsődleges források:</strong>{' '}
