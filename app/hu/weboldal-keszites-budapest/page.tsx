@@ -7,7 +7,7 @@ import { JsonLd, breadcrumbData } from '@/components/seo-json-ld'
 const siteUrl = 'https://www.kiszelymarketing.com'
 const canonicalUrl = `${siteUrl}/hu/weboldal-keszites-budapest/`
 const title = 'Céges weboldal készítés | Budapest és országosan'
-const description = 'Üzleti weboldal készítés kisvállalkozásoknak, egyszeri projektként. Starter 160.000–200.000 Ft, Premium 250.000 Ft-tól. Egyeztetett tartalommal és átadással.'
+const description = 'Üzleti weboldal készítés vállalkozásoknak, egyszeri projektként. Starter 160.000–200.000 Ft, Premium 250.000 Ft-tól. Egyeztetett tartalommal és átadással.'
 
 export const metadata: Metadata = {
   title,
@@ -39,7 +39,7 @@ const serviceData = {
   '@type': 'Service',
   '@id': `${siteUrl}/#service-weboldal-keszites`,
   name: 'Weboldal készítés',
-  serviceType: 'Professzionális weboldal-készítés kisvállalkozásoknak',
+  serviceType: 'Professzionális weboldal-készítés',
   url: canonicalUrl,
   provider: { '@id': `${siteUrl}/#organization` },
   areaServed: [{ '@type': 'City', name: 'Budapest' }, { '@type': 'Country', name: 'Magyarország' }],
@@ -57,8 +57,8 @@ export default function WebsiteBudapestPage() {
       <main>
         <PageHero
           eyebrow="Weboldal készítés · Budapest és országosan"
-          title="Weboldal-készítés kisvállalkozásoknak, Budapesten és országosan."
-          lead={<><p>Az érdeklődő megnyitja az oldalát. Megtalálja, mit vállal a cége? Kiderül, hogyan kérhet ajánlatot? Olyan felépítést készítünk, amely ezeket a lépéseket teszi egyszerűvé, telefonon is. A munkát és az egyszeri díjat előre, írásban rögzítjük.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ajánlatot kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
+          title="Weboldal-készítés vállalkozásoknak, Budapesten és országosan."
+          lead={<><p>Az érdeklődő megnyitja az oldalát. Megtalálja, mit vállal a cége? Kiderül, hogyan kérhet ajánlatot? Olyan felépítést készítünk, amely ezeket a lépéseket teszi egyszerűvé, telefonon is. A munkát és az egyszeri díjat előre, írásban rögzítjük.</p><p className="mt-4">Mielőtt döntene, kérhet ingyenes, személyre szabott weboldal-prototípust. Megnézheti, hogyan nézhet ki az oldal a vállalkozásához igazítva, majd eldöntheti, szeretné-e, hogy elkészítsük a teljes, használható weboldalt. A prototípus megtekintése nem kötelezi megrendelésre; a kész weboldal külön megbízás.</p><div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Ingyenes prototípust kérek <ArrowRight data-icon="inline-end" /></Link><a href="#csomagok" className="button-outline">Csomagok és árak</a></div></>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Weboldal készítés Budapest' }]}
         />
 
