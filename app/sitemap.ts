@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const homepageModified = new Date('2026-10-28T00:00:00+03:00')
   const mapsServiceModified = new Date('2026-10-28T00:00:00+03:00')
   const websiteContentModified = new Date('2026-10-08T00:00:00+03:00')
-  const bestCreatorGuideModified = new Date('2026-10-12')
+  const bestCreatorGuideModified = new Date('2026-11-22')
   const acquisitionContentModified = new Date('2026-10-31')
 
   return [

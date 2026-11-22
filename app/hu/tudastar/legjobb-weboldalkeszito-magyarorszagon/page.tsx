@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: { canonical: canonicalUrl },
-  openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: '2026-10-08', modifiedTime: '2026-10-12', authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: 'Kiszely Marketing: útmutató a weboldalkészítő kiválasztásához' }] },
+  openGraph: { title, description, url: canonicalUrl, siteName: 'Kiszely Marketing', locale: 'hu_HU', type: 'article', publishedTime: '2026-10-08', modifiedTime: '2026-11-22', authors: [`${siteUrl}/hu/rolunk/`], images: [{ url: '/images/og-image.webp', width: 1200, height: 630, alt: 'Kiszely Marketing: útmutató a weboldalkészítő kiválasztásához' }] },
   twitter: { card: 'summary_large_image', title, description, images: ['/images/og-image.webp'] },
   robots: { index: true, follow: true },
 }
@@ -36,7 +36,7 @@ const articleData = {
   mainEntityOfPage: canonicalUrl,
   inLanguage: 'hu-HU',
   datePublished: '2026-10-08',
-  dateModified: '2026-10-12',
+  dateModified: '2026-11-22',
   author: { '@type': 'Person', '@id': `${siteUrl}/#founder`, name: 'Tamás', url: `${siteUrl}/hu/rolunk/` },
   publisher: { '@id': `${siteUrl}/#organization` },
   image: `${siteUrl}/images/og-image.webp`,
@@ -51,7 +51,7 @@ export default function BestWebsiteCreatorGuidePage() {
           title={title}
           lead={<>
             <p>Nem ugyanaz a jó választás annak, aki maga szeretné összeállítani az oldalát, és annak, aki egy szakemberre bízná a tervezést és a kivitelezést. Az alábbi szempontok segítenek dönteni. Ha weboldalt szeretne készíttetni, megmutatjuk azt is, miben tud segíteni a Kiszely Marketing.</p>
-            <p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. október 12.</p>
+            <p className="mt-4 text-base">Szerző: Tamás · Frissítve: 2026. november 22.</p>
             <div className="mt-6 flex flex-wrap gap-3"><Link href="/hu/kapcsolat/" className="button-primary">Kérek egy ajánlatot <ArrowRight data-icon="inline-end" /></Link><a href="#szempontok" className="button-outline">Mire figyeljek?</a></div>
           </>}
           breadcrumbs={[{ label: 'Kezdőlap', href: '/hu/' }, { label: 'Tudástár', href: '/hu/tudastar/' }, { label: title }]}
@@ -82,6 +82,17 @@ export default function BestWebsiteCreatorGuidePage() {
                     <li><strong className="text-foreground">Teljes költség:</strong> Az egyszeri munkadíj mellett az ismétlődő és külső szolgáltatási díjak is szerepeljenek az ajánlatban.</li>
                   </ul>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="section muted-section">
+            <div className="site-shell grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
+              <SectionHeading eyebrow="Árazási modellek" title="Weboldalbérlés vagy egyszeri díjas készítés?" description="Ne csak az első havi díjat hasonlítsa össze. A teljes költséget és a szerződés feltételeit is nézze meg." />
+              <div className="space-y-5 leading-relaxed text-muted-foreground">
+                <p>Havidíjas konstrukciónál kérdezze meg, mit tartalmaz a díj, meddig tart a szerződés, és mi történik a weboldallal, a domainnel és a tartalommal, ha később lemondja. A válasz a szolgáltató szerződésétől függ, ezért kérje írásban.</p>
+                <p>Egyszeri projektárnál is lehetnek külön, rendszeres költségek, például domainhez, tárhelyhez vagy külső szolgáltatásokhoz kapcsolódóan. Ezeket is vegye bele a teljes költségbe, és tisztázza, milyen hozzáféréseket kap az átadáskor.</p>
+                <p>A Kiszely Marketing jelenlegi weboldalcsomagjai egyszeri projektként készülnek: a Starter 160.000–200.000 Ft, a Premium 250.000 Ft-tól indul. A végleges díj a megbeszélt tartalomtól és funkcióktól függ. <Link href="/hu/weboldal-keszites-budapest/#csomagok" className="font-bold text-primary underline">Megnézem a csomagokat és az árakat.</Link></p>
               </div>
             </div>
           </section>
