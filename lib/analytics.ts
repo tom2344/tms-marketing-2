@@ -1,6 +1,7 @@
 export const analyticsId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
+export const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? ''
 
-const consentKey = 'kiszely-analytics-consent'
+const consentKey = 'kiszely-measurement-consent-v2'
 const consentLifetime = 180 * 24 * 60 * 60 * 1000
 let sessionChoice: AnalyticsChoice | null = null
 
@@ -10,6 +11,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[]
     gtag?: (...args: unknown[]) => void
+    fbq?: ((...args: unknown[]) => void) & { callMethod?: (...args: unknown[]) => void; queue?: unknown[]; loaded?: boolean; version?: string }
   }
 }
 
@@ -36,7 +38,8 @@ export function saveAnalyticsChoice(choice: AnalyticsChoice) {
   }
 }
 
-export function trackSuccessfulLead() {
-  if (typeof window === 'undefined' || !analyticsId || readAnalyticsChoice() !== 'accepted') return
-  window.gtag?.('event', 'generate_lead')
+export function trackSuccessfulLead(eventId: string) {
+  if (typeof window === 'undefined' || readAnalyticsChoice() !== 'accepted') return
+  if (analyticsId) window.gtag?.('event', 'generate_lead')
+  if (metaPixelId) window.fbq?.('track', 'Lead', {}, { eventID: eventId })
 }
