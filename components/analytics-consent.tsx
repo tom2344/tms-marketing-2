@@ -110,7 +110,7 @@ export function AnalyticsConsent() {
   return (
     <aside role="dialog" aria-label="Látogatottságmérés beállításai" className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-border bg-background p-5 shadow-2xl sm:p-6">
       <h2 className="text-lg font-bold text-foreground">Segít mérni, mi működik?</h2>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Az Ön engedélyével a Google Analytics segítségével mérjük az oldal használatát. A Meta Pixel és a Conversions API az oldalmegtekintést és a sikeresen elküldött prototípus-jelentkezést méri. A Meta a sikeres jelentkezés eseményét, az oldal címét és a böngésző technikai adatát kapja meg; az űrlap mezőinek tartalmát nem küldjük el. <Link href="/hu/adatkezeles/" className="text-primary underline">Részletek az adatkezelésről</Link>.</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{analyticsId && <>Az Ön engedélyével a Google Analytics segítségével mérjük az oldal használatát. </>}{metaPixelId && <>A Meta Pixel az oldalmegtekintést, a Conversions API pedig a sikeresen elküldött prototípus-jelentkezést méri. A Meta a sikeres jelentkezés eseményét, az oldal címét és a böngésző technikai adatát kapja meg; az űrlap mezőinek tartalmát nem küldjük el. </>}<Link href="/hu/adatkezeles/" className="text-primary underline">Részletek az adatkezelésről</Link>.</p>
       <div className="mt-5 flex flex-wrap gap-3">
         <button type="button" className="button-primary" onClick={() => decide('accepted')}>Engedélyezem a mérést</button>
         <button type="button" className="button-outline" onClick={() => decide('rejected')}>Nem kérem</button>
@@ -120,6 +120,6 @@ export function AnalyticsConsent() {
 }
 
 export function AnalyticsSettingsButton() {
-  if (!analyticsId) return null
+  if (!analyticsId && !metaPixelId) return null
   return <button type="button" className="hover:text-foreground" onClick={() => window.dispatchEvent(new Event('kiszely:analytics-settings'))}>Mérési beállítások</button>
 }
