@@ -13,7 +13,7 @@ export default function PrototypeLeadForm() {
     if (status === 'sending') return
     setStatus('sending')
     const form = event.currentTarget
-    const payload = Object.fromEntries(new FormData(form).entries())
+    const payload: Record<string, unknown> = Object.fromEntries(new FormData(form).entries())
     const measurementConsent = readAnalyticsChoice() === 'accepted'
     const eventId = measurementConsent ? crypto.randomUUID() : ''
     payload.measurement_consent = measurementConsent
