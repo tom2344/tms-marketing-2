@@ -6,18 +6,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const homepageModified = new Date('2026-10-28T00:00:00+03:00')
   const mapsServiceModified = new Date('2026-10-28T00:00:00+03:00')
   const websiteContentModified = new Date('2026-10-08T00:00:00+03:00')
+  const websiteServiceModified = new Date('2026-11-21')
+  const businessProfileGuideModified = new Date('2026-11-07')
   const bestCreatorGuideModified = new Date('2026-11-22')
   const acquisitionContentModified = new Date('2026-10-31')
 
   return [
     { url: `${siteUrl}/hu/`, lastModified: homepageModified, changeFrequency: 'weekly', priority: 1 },
     { url: `${siteUrl}/hu/google-terkep-top-3/`, lastModified: mapsServiceModified, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${siteUrl}/hu/weboldal-keszites-budapest/`, lastModified: acquisitionContentModified, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${siteUrl}/hu/weboldal-keszites-budapest/`, lastModified: websiteServiceModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${siteUrl}/hu/weboldal-felujitas/`, lastModified: acquisitionContentModified, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${siteUrl}/hu/tudastar/`, lastModified: acquisitionContentModified, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/google-cegprofil-letrehozasa/`, lastModified: acquisitionContentModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/google-terkep-rangsorolas/`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${siteUrl}/hu/tudastar/google-cegprofil-optimalizalas/`, lastModified: acquisitionContentModified, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/hu/tudastar/google-cegprofil-optimalizalas/`, lastModified: businessProfileGuideModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/organikus-talalat-vagy-google-terkep/`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/google-cegprofil-kategoria-valasztas/`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/hu/tudastar/szolgaltatasi-terulet-beallitas/`, lastModified, changeFrequency: 'monthly', priority: 0.7 },

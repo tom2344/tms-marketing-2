@@ -144,7 +144,7 @@ assert.ok(!mapsService.includes('Nézzük meg, reális-e a Top 3 cél az Ön pia
 
 const websiteServiceResponse = await request('/hu/weboldal-keszites-budapest/')
 const websiteService = await websiteServiceResponse.text()
-assert.ok(websiteService.includes('Weboldal-készítés kisvállalkozásoknak, Budapesten és országosan.'), 'Website service hero changed')
+assert.ok(websiteService.includes('Weboldal-készítés vállalkozásoknak, Budapesten és országosan.'), 'Website service hero changed')
 assert.ok(websiteService.includes('Budapest mellett Magyarország más részeiről is vállalunk projekteket.'), 'Nationwide website-service scope is missing')
 assert.ok(websiteService.includes('<title>Céges weboldal készítés'), 'Commercial website keyword is missing from the title')
 assert.ok(websiteService.includes('href="/hu/weboldal-felujitas/"'), 'Website service must link to redesign')
@@ -225,6 +225,8 @@ const sitemap = await sitemapResponse.text()
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1])
 assert.deepEqual(sitemapUrls.sort(), publicPages.map(path => `${finalOrigin}${path}`).sort(), 'Sitemap must contain exactly the public Kiszely Marketing URLs')
 assert.ok(!sitemap.includes('ttamasmarketing.com'), 'Old domain remains in sitemap.xml')
+assert.match(sitemap, /<loc>https:\/\/www\.kiszelymarketing\.com\/hu\/weboldal-keszites-budapest\/<\/loc>\s*<lastmod>2026-11-21T00:00:00\.000Z<\/lastmod>/, 'Website service sitemap date must match its verified significant update')
+assert.match(sitemap, /<loc>https:\/\/www\.kiszelymarketing\.com\/hu\/tudastar\/google-cegprofil-optimalizalas\/<\/loc>\s*<lastmod>2026-11-07T00:00:00\.000Z<\/lastmod>/, 'Business Profile guide sitemap date must match its verified significant update')
 
 for (const path of ['/hu/weboldal-felujitas/', '/hu/tudastar/google-cegprofil-letrehozasa/', '/hu/tudastar/weboldal-keszites-arak-2026/']) {
   const html = publicPageHtml.get(path)
