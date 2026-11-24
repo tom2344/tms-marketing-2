@@ -4,7 +4,7 @@ import { useActionState, useEffect, useRef } from 'react'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
 import Link from 'next/link'
 import { sendContact, type ContactState } from '@/app/actions/sendContact'
-import { trackSuccessfulLead } from '@/lib/analytics'
+import { shouldTrackSuccessfulLead, trackSuccessfulLead } from '@/lib/analytics'
 
 const initialState: ContactState = { status: 'idle', message: '' }
 
@@ -39,7 +39,7 @@ export function ContactForm({ language }: { language: 'hu' | 'en' }) {
   const trackedSentId = useRef<string | null>(null)
 
   useEffect(() => {
-    if (state.status !== 'success' || !state.sentId || trackedSentId.current === state.sentId) return
+    if (!shouldTrackSuccessfulLead(state.status, state.sentId, trackedSentId.current) || !state.sentId) return
     trackedSentId.current = state.sentId
     trackSuccessfulLead()
   }, [state.status, state.sentId])
