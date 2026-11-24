@@ -38,8 +38,8 @@ export function saveAnalyticsChoice(choice: AnalyticsChoice) {
   }
 }
 
-export function trackSuccessfulLead(eventId: string) {
+export function trackSuccessfulLead(eventId?: string) {
   if (typeof window === 'undefined' || readAnalyticsChoice() !== 'accepted') return
   if (analyticsId) window.gtag?.('event', 'generate_lead')
-  if (metaPixelId) window.fbq?.('track', 'Lead', {}, { eventID: eventId })
+  if (metaPixelId && eventId) window.fbq?.('track', 'Lead', {}, { eventID: eventId })
 }
