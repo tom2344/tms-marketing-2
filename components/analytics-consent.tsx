@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { analyticsId, readAnalyticsChoice, saveAnalyticsChoice, type AnalyticsChoice } from '@/lib/analytics'
+import { analyticsId, metaPixelId, readAnalyticsChoice, saveAnalyticsChoice, type AnalyticsChoice } from '@/lib/analytics'
 
 let initialized = false
+let pixelInitialized = false
 const choiceChanged = 'kiszely:analytics-choice-changed'
 
 function subscribeToChoice(callback: () => void) {
@@ -43,11 +44,28 @@ function startAnalytics() {
   document.head.appendChild(script)
 }
 
+
+function startMetaPixel() {
+  if (pixelInitialized || !metaPixelId) return
+  const fbq = window.fbq ?? Object.assign(
+    (...args: unknown[]) => { window.fbq?.queue?.push(args) },
+    { queue: [] as unknown[], loaded: true, version: '2.0' },
+  )
+  window.fbq = fbq
+  const script = document.createElement('script')
+  script.async = true
+  script.src = 'https://connect.facebook.net/en_US/fbevents.js'
+  document.head.appendChild(script)
+  fbq('init', metaPixelId)
+  pixelInitialized = true
+}
+
 export function AnalyticsConsent() {
   const pathname = usePathname()
   const choice = useSyncExternalStore(subscribeToChoice, readAnalyticsChoice, () => undefined)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const lastPage = useRef<string | null>(null)
+  const lastMetaPage = useRef<string | null>(null)
 
   useEffect(() => {
     const openSettings = () => setSettingsOpen(true)
@@ -57,14 +75,25 @@ export function AnalyticsConsent() {
 
   useEffect(() => {
     if (choice !== 'accepted') return
-    startAnalytics()
-    const page = `${window.location.origin}${window.location.pathname}`
-    if (lastPage.current === page) return
-    lastPage.current = page
-    window.gtag?.('event', 'page_view', { page_location: page, page_title: document.title })
+    if (analyticsId) {
+      startAnalytics()
+      const page = `${window.location.origin}${window.location.pathname}`
+      if (lastPage.current !== page) {
+        lastPage.current = page
+        window.gtag?.('event', 'page_view', { page_location: page, page_title: document.title })
+      }
+    }
+    if (metaPixelId) {
+      startMetaPixel()
+      const page = `${window.location.origin}${window.location.pathname}`
+      if (lastMetaPage.current !== page) {
+        lastMetaPage.current = page
+        window.fbq?.('track', 'PageView')
+      }
+    }
   }, [choice, pathname])
 
-  if (!analyticsId || (choice !== null && !settingsOpen)) return null
+  if ((!analyticsId && !metaPixelId) || (choice !== null && !settingsOpen)) return null
 
   const decide = (nextChoice: AnalyticsChoice) => {
     const wasAccepted = readAnalyticsChoice() === 'accepted'
@@ -81,9 +110,9 @@ export function AnalyticsConsent() {
   return (
     <aside role="dialog" aria-label="Látogatottságmérés beállításai" className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border border-border bg-background p-5 shadow-2xl sm:p-6">
       <h2 className="text-lg font-bold text-foreground">Segít mérni, mi működik?</h2>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Az Ön engedélyével a Google Analytics segítségével mérjük az oldal használatát és a sikeres kapcsolatfelvételt. A megadott űrlapadatokat nem küldjük el a Google-nek. <Link href="/hu/adatkezeles/" className="text-primary underline">Részletek az adatkezelésről</Link>.</p>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Az Ön engedélyével a Google Analytics segítségével mérjük az oldal használatát. A Meta Pixel és a Conversions API az oldalmegtekintést és a sikeresen elküldött prototípus-jelentkezést méri. A Meta a sikeres jelentkezés eseményét, az oldal címét és a böngésző technikai adatát kapja meg; az űrlap mezőinek tartalmát nem küldjük el. <Link href="/hu/adatkezeles/" className="text-primary underline">Részletek az adatkezelésről</Link>.</p>
       <div className="mt-5 flex flex-wrap gap-3">
-        <button type="button" className="button-primary" onClick={() => decide('accepted')}>Engedélyezem</button>
+        <button type="button" className="button-primary" onClick={() => decide('accepted')}>Engedélyezem a mérést</button>
         <button type="button" className="button-outline" onClick={() => decide('rejected')}>Nem kérem</button>
       </div>
     </aside>
