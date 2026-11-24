@@ -2,6 +2,41 @@ import { Resend } from 'resend'
 
 export const runtime = 'nodejs'
 
+
+type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string }
+
+async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent) {
+  const datasetId = process.env.META_CAPI_DATASET_ID
+  const accessToken = process.env.META_CAPI_ACCESS_TOKEN
+  if (!datasetId || !accessToken) return
+
+  const endpoint = new URL(`https://graph.facebook.com/v25.0/${encodeURIComponent(datasetId)}/events`)
+  endpoint.searchParams.set('access_token', accessToken)
+  const payload = {
+    data: [{
+      event_name: 'Lead',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: eventId,
+      action_source: 'website',
+      event_source_url: pageUrl,
+      user_data: { client_user_agent: userAgent },
+    }],
+    ...(process.env.META_CAPI_TEST_EVENT_CODE ? { test_event_code: process.env.META_CAPI_TEST_EVENT_CODE } : {}),
+  }
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(5000),
+    })
+    if (!response.ok) console.error('[meta-capi] Lead event was rejected:', response.status)
+  } catch {
+    console.error('[meta-capi] Lead event could not be sent')
+  }
+}
+
 const clean = (value: unknown, limit: number) =>
   typeof value === 'string'
     ? value.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, limit)
@@ -72,6 +107,13 @@ export async function POST(request: Request) {
     if (error) {
       console.error('[prototype-lead] Resend rejected the message:', error.message)
       return json({ error: 'email_send_failed' }, 502)
+    }
+    if (body.measurement_consent === true && process.env.META_CAPI_ACCESS_TOKEN && process.env.META_CAPI_DATASET_ID) {
+      const eventId = clean(body.event_id, 36)
+      const userAgent = request.headers.get('user-agent')
+      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(eventId) && userAgent) {
+        await sendMetaLeadEvent({ eventId, userAgent, pageUrl: new URL('/weboldalprototipus/', request.url).href })
+      }
     }
     return json({ ok: true })
   } catch {
