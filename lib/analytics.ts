@@ -40,3 +40,7 @@ export function trackSuccessfulLead() {
   if (typeof window === 'undefined' || !analyticsId || readAnalyticsChoice() !== 'accepted') return
   window.gtag?.('event', 'generate_lead')
 }
+
+export function shouldTrackSuccessfulLead(status: 'idle' | 'success' | 'error', sentId?: string, trackedSentId?: string | null) {
+  return status === 'success' && Boolean(sentId) && trackedSentId !== sentId
+}
