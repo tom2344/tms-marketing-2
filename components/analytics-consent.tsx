@@ -5,6 +5,14 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { analyticsId, metaPixelId, readAnalyticsChoice, saveAnalyticsChoice, type AnalyticsChoice } from '@/lib/analytics'
 
+type MetaPixelFunction = ((...args: unknown[]) => void) & {
+  callMethod?: (...args: unknown[]) => void
+  queue?: unknown[]
+  loaded?: boolean
+  version?: string
+  push?: (...args: unknown[]) => void
+}
+
 let initialized = false
 let pixelInitialized = false
 const choiceChanged = 'kiszely:analytics-choice-changed'
@@ -40,22 +48,38 @@ function startAnalytics() {
 
   const script = document.createElement('script')
   script.async = true
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(analyticsId)
   document.head.appendChild(script)
 }
 
+function createMetaPixelQueue(): MetaPixelFunction {
+  let fbq: MetaPixelFunction
+  fbq = (...args: unknown[]) => {
+    if (fbq.callMethod) fbq.callMethod(...args)
+    else fbq.queue?.push(args)
+  }
+  fbq.queue = []
+  fbq.loaded = true
+  fbq.version = '2.0'
+  fbq.push = fbq
+  return fbq
+}
 
 function startMetaPixel() {
   if (pixelInitialized || !metaPixelId) return
-  const fbq = window.fbq ?? Object.assign(
-    (...args: unknown[]) => { window.fbq?.queue?.push(args) },
-    { queue: [] as unknown[], loaded: true, version: '2.0' },
-  )
+
+  const fbq = window.fbq ?? createMetaPixelQueue()
   window.fbq = fbq
-  const script = document.createElement('script')
-  script.async = true
-  script.src = 'https://connect.facebook.net/en_US/fbevents.js'
-  document.head.appendChild(script)
+  window._fbq = window._fbq ?? fbq
+
+  const pixelScriptUrl = 'https://connect.facebook.net/en_US/fbevents.js'
+  if (!document.querySelector('script[src="' + pixelScriptUrl + '"]')) {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = pixelScriptUrl
+    document.head.appendChild(script)
+  }
+
   fbq('init', metaPixelId)
   pixelInitialized = true
 }
@@ -77,7 +101,7 @@ export function AnalyticsConsent() {
     if (choice !== 'accepted') return
     if (analyticsId) {
       startAnalytics()
-      const page = `${window.location.origin}${window.location.pathname}`
+      const page = window.location.origin + window.location.pathname
       if (lastPage.current !== page) {
         lastPage.current = page
         window.gtag?.('event', 'page_view', { page_location: page, page_title: document.title })
@@ -85,7 +109,7 @@ export function AnalyticsConsent() {
     }
     if (metaPixelId) {
       startMetaPixel()
-      const page = `${window.location.origin}${window.location.pathname}`
+      const page = window.location.origin + window.location.pathname
       if (lastMetaPage.current !== page) {
         lastMetaPage.current = page
         window.fbq?.('track', 'PageView')
