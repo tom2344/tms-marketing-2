@@ -68,9 +68,10 @@ function createMetaPixelQueue(): MetaPixelFunction {
 function startMetaPixel() {
   if (pixelInitialized || !metaPixelId) return
 
-  const fbq = window.fbq ?? createMetaPixelQueue()
-  window.fbq = fbq
-  window._fbq = window._fbq ?? fbq
+  const pixelWindow = window as Window & { _fbq?: MetaPixelFunction }
+  const fbq = (pixelWindow.fbq as MetaPixelFunction | undefined) ?? createMetaPixelQueue()
+  pixelWindow.fbq = fbq
+  pixelWindow._fbq = pixelWindow._fbq ?? fbq
 
   const pixelScriptUrl = 'https://connect.facebook.net/en_US/fbevents.js'
   if (!document.querySelector('script[src="' + pixelScriptUrl + '"]')) {
