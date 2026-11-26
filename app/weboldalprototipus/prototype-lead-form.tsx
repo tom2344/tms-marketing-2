@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState, type FormEvent } from 'react'
 import styles from './page.module.css'
-import { readAnalyticsChoice, trackSuccessfulLead } from '@/lib/analytics'
+import { readMetaConsentChoice, trackSuccessfulLead } from '@/lib/analytics'
 
 export default function PrototypeLeadForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
@@ -14,7 +14,7 @@ export default function PrototypeLeadForm() {
     setStatus('sending')
     const form = event.currentTarget
     const payload: Record<string, unknown> = Object.fromEntries(new FormData(form).entries())
-    const measurementConsent = readAnalyticsChoice() === 'accepted'
+    const measurementConsent = readMetaConsentChoice() === 'accepted'
     const eventId = measurementConsent ? crypto.randomUUID() : ''
     payload.measurement_consent = measurementConsent
     payload.event_id = eventId
