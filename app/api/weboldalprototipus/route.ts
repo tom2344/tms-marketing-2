@@ -3,9 +3,9 @@ import { Resend } from 'resend'
 export const runtime = 'nodejs'
 
 
-type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string }
+type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string; clientIp?: string }
 
-async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent) {
+async function sendMetaLeadEvent({ eventId, userAgent, pageUrl, clientIp }: MetaLeadEvent) {
   const datasetId = process.env.META_CAPI_DATASET_ID
   const accessToken = process.env.META_CAPI_ACCESS_TOKEN
   if (!datasetId || !accessToken) return
@@ -19,7 +19,7 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent)
       event_id: eventId,
       action_source: 'website',
       event_source_url: pageUrl,
-      user_data: { client_user_agent: userAgent },
+      user_data: { client_user_agent: userAgent, ...(clientIp ? { client_ip_address: clientIp } : {}) },
     }],
     ...(process.env.META_CAPI_TEST_EVENT_CODE ? { test_event_code: process.env.META_CAPI_TEST_EVENT_CODE } : {}),
   }
@@ -31,7 +31,26 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent)
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(5000),
     })
-    if (!response.ok) console.error('[meta-capi] Lead event was rejected:', response.status)
+    const result = await response.json().catch(() => null) as {
+      events_received?: unknown
+      error?: { code?: unknown; error_subcode?: unknown; message?: unknown }
+    } | null
+
+    if (!response.ok) {
+      const apiError = result?.error
+      console.error('[meta-capi] Lead event was rejected:', JSON.stringify({
+        status: response.status,
+        code: typeof apiError?.code === 'number' ? apiError.code : undefined,
+        error_subcode: typeof apiError?.error_subcode === 'number' ? apiError.error_subcode : undefined,
+        message: typeof apiError?.message === 'string' ? apiError.message.slice(0, 240) : undefined,
+      }))
+      return
+    }
+
+    console.info('[meta-capi] Lead event accepted:', JSON.stringify({
+      events_received: typeof result?.events_received === 'number' ? result.events_received : undefined,
+      has_client_ip: Boolean(clientIp),
+    }))
   } catch {
     console.error('[meta-capi] Lead event could not be sent')
   }
@@ -112,7 +131,9 @@ export async function POST(request: Request) {
       const eventId = clean(body.event_id, 36)
       const userAgent = request.headers.get('user-agent')
       if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(eventId) && userAgent) {
-        await sendMetaLeadEvent({ eventId, userAgent, pageUrl: new URL('/weboldalprototipus/', request.url).href })
+        const clientIp = (request.headers.get('x-real-ip') ?? request.headers.get('x-forwarded-for')?.split(',')[0] ?? '').trim()
+        const isValidIp = /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}|[0-9a-fA-F:]{3,45})$/.test(clientIp)
+        await sendMetaLeadEvent({ eventId, userAgent, pageUrl: new URL('/weboldalprototipus/', request.url).href, ...(isValidIp ? { clientIp } : {}) })
       }
     }
     return json({ ok: true })
