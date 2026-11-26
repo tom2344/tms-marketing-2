@@ -186,7 +186,7 @@ export function AnalyticsConsent() {
             <input type="checkbox" checked={metaAllowed} onChange={(event) => setMetaAllowed(event.target.checked)} className="mt-1" />
             <span className="text-sm leading-relaxed text-muted-foreground">
               <strong className="block text-foreground">Hirdetési mérés és célzás (Meta)</strong>
-              A Meta Pixel az oldalmegtekintést, a Conversions API a sikeresen elküldött prototípus-jelentkezést méri. A Meta az oldal és a böngésző technikai adatait kapja meg, az űrlap mezőinek tartalmát nem.
+              A Meta Pixel az oldalmegtekintést, a Conversions API a sikeresen elküldött prototípus-jelentkezést méri. A Meta az oldal és a böngésző technikai adatait, valamint az elérhető Meta böngésző- és hirdetéskattintás-azonosítókat kapja meg; az űrlap mezőinek tartalmát nem.
             </span>
           </label>
         )}
