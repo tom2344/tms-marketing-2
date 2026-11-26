@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, type FormEvent } from 'react'
 import styles from './page.module.css'
+import { readMetaConsentChoice, trackSuccessfulLead } from '@/lib/analytics'
 
 export default function PrototypeLeadForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
@@ -12,7 +13,11 @@ export default function PrototypeLeadForm() {
     if (status === 'sending') return
     setStatus('sending')
     const form = event.currentTarget
-    const payload = Object.fromEntries(new FormData(form).entries())
+    const payload: Record<string, unknown> = Object.fromEntries(new FormData(form).entries())
+    const measurementConsent = readMetaConsentChoice() === 'accepted'
+    const eventId = measurementConsent ? crypto.randomUUID() : ''
+    payload.measurement_consent = measurementConsent
+    payload.event_id = eventId
 
     try {
       const response = await fetch('/api/weboldalprototipus/', {
@@ -21,6 +26,7 @@ export default function PrototypeLeadForm() {
         body: JSON.stringify(payload),
       })
       if (!response.ok) throw new Error('submission_failed')
+      if (measurementConsent) trackSuccessfulLead(eventId)
       setStatus('success')
       form.reset()
     } catch {
