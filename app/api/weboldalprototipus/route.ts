@@ -2,6 +2,7 @@ import { Resend } from 'resend'
 
 export const runtime = 'nodejs'
 
+
 type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string }
 
 async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent) {
@@ -56,7 +57,7 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent)
 
 const clean = (value: unknown, limit: number) =>
   typeof value === 'string'
-    ? value.replace(/[\\u0000-\\u001f\\u007f]/g, ' ').trim().slice(0, limit)
+    ? value.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, limit)
     : ''
 
 const json = (body: Record<string, boolean | string>, status = 200) =>
@@ -99,7 +100,7 @@ export async function POST(request: Request) {
     return json({ error: 'not_configured' }, 503)
   }
 
-  const replyTo = contact.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/i)?.[0]
+  const replyTo = contact.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0]
   const text = [
     'Új weboldal-prototípus jelentkezés',
     '',
@@ -110,7 +111,7 @@ export async function POST(request: Request) {
     goal,
     '',
     `Kapcsolat: ${contact}`,
-  ].join('\\n')
+  ].join('\n')
 
   try {
     const resend = new Resend(apiKey)
