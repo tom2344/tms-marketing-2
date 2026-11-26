@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { AnalyticsSettingsButton } from '@/components/analytics-consent'
 import PrototypeLeadForm from './prototype-lead-form'
 import styles from './page.module.css'
 
@@ -49,7 +50,7 @@ export default function WebsitePrototypePage() {
           </ol>
         </div>
       </section>
-      <footer className={styles.footer}><div className={styles.wrap + ' ' + styles.footerInner}><span>© 2026 Kiszely Marketing · Kiszely SRL</span><Link href="/hu/adatkezeles/">Adatkezelési tájékoztató</Link></div></footer>
+      <footer className={styles.footer}><div className={styles.wrap + ' ' + styles.footerInner}><span>© 2026 Kiszely Marketing · Kiszely SRL</span><AnalyticsSettingsButton /><Link href="/hu/adatkezeles/">Adatkezelési tájékoztató</Link></div></footer>
     </main>
   )
 }
