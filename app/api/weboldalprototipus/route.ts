@@ -2,7 +2,6 @@ import { Resend } from 'resend'
 
 export const runtime = 'nodejs'
 
-
 type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string }
 
 async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent) {
@@ -31,7 +30,25 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent)
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(5000),
     })
-    if (!response.ok) console.error('[meta-capi] Lead event was rejected:', response.status)
+    const result = await response.json().catch(() => null) as {
+      events_received?: unknown
+      error?: { code?: unknown; error_subcode?: unknown; message?: unknown }
+    } | null
+
+    if (!response.ok) {
+      const apiError = result?.error
+      console.error('[meta-capi] Lead event was rejected:', JSON.stringify({
+        status: response.status,
+        code: typeof apiError?.code === 'number' ? apiError.code : undefined,
+        error_subcode: typeof apiError?.error_subcode === 'number' ? apiError.error_subcode : undefined,
+        message: typeof apiError?.message === 'string' ? apiError.message.slice(0, 240) : undefined,
+      }))
+      return
+    }
+
+    console.info('[meta-capi] Lead event accepted:', JSON.stringify({
+      events_received: typeof result?.events_received === 'number' ? result.events_received : undefined,
+    }))
   } catch {
     console.error('[meta-capi] Lead event could not be sent')
   }
@@ -39,7 +56,7 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl }: MetaLeadEvent)
 
 const clean = (value: unknown, limit: number) =>
   typeof value === 'string'
-    ? value.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, limit)
+    ? value.replace(/[\\u0000-\\u001f\\u007f]/g, ' ').trim().slice(0, limit)
     : ''
 
 const json = (body: Record<string, boolean | string>, status = 200) =>
@@ -82,7 +99,7 @@ export async function POST(request: Request) {
     return json({ error: 'not_configured' }, 503)
   }
 
-  const replyTo = contact.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0]
+  const replyTo = contact.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/i)?.[0]
   const text = [
     'Új weboldal-prototípus jelentkezés',
     '',
@@ -93,7 +110,7 @@ export async function POST(request: Request) {
     goal,
     '',
     `Kapcsolat: ${contact}`,
-  ].join('\n')
+  ].join('\\n')
 
   try {
     const resend = new Resend(apiKey)
