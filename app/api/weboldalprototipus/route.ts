@@ -3,9 +3,9 @@ import { Resend } from 'resend'
 export const runtime = 'nodejs'
 
 
-type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string; fbp?: string; fbc?: string }
+type MetaLeadEvent = { eventId: string; userAgent: string; pageUrl: string; clientIp?: string }
 
-async function sendMetaLeadEvent({ eventId, userAgent, pageUrl, fbp, fbc }: MetaLeadEvent) {
+async function sendMetaLeadEvent({ eventId, userAgent, pageUrl, clientIp }: MetaLeadEvent) {
   const datasetId = process.env.META_CAPI_DATASET_ID
   const accessToken = process.env.META_CAPI_ACCESS_TOKEN
   if (!datasetId || !accessToken) return
@@ -19,7 +19,7 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl, fbp, fbc }: Meta
       event_id: eventId,
       action_source: 'website',
       event_source_url: pageUrl,
-      user_data: { client_user_agent: userAgent, ...(fbp ? { fbp } : {}), ...(fbc ? { fbc } : {}) },
+      user_data: { client_user_agent: userAgent, ...(clientIp ? { client_ip_address: clientIp } : {}) },
     }],
     ...(process.env.META_CAPI_TEST_EVENT_CODE ? { test_event_code: process.env.META_CAPI_TEST_EVENT_CODE } : {}),
   }
@@ -49,18 +49,11 @@ async function sendMetaLeadEvent({ eventId, userAgent, pageUrl, fbp, fbc }: Meta
 
     console.info('[meta-capi] Lead event accepted:', JSON.stringify({
       events_received: typeof result?.events_received === 'number' ? result.events_received : undefined,
-      has_fbp: Boolean(fbp),
-      has_fbc: Boolean(fbc),
+      has_client_ip: Boolean(clientIp),
     }))
   } catch {
     console.error('[meta-capi] Lead event could not be sent')
   }
-}
-
-function readMetaCookie(request: Request, name: '_fbp' | '_fbc') {
-  const cookieHeader = request.headers.get('cookie') ?? ''
-  const value = cookieHeader.split(';').map((part) => part.trim()).find((part) => part.startsWith(name + '='))?.slice(name.length + 1)
-  return value && /^[A-Za-z0-9._-]{1,512}$/.test(value) ? value : undefined
 }
 
 const clean = (value: unknown, limit: number) =>
@@ -138,7 +131,9 @@ export async function POST(request: Request) {
       const eventId = clean(body.event_id, 36)
       const userAgent = request.headers.get('user-agent')
       if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(eventId) && userAgent) {
-        await sendMetaLeadEvent({ eventId, userAgent, pageUrl: new URL('/weboldalprototipus/', request.url).href, fbp: readMetaCookie(request, '_fbp'), fbc: readMetaCookie(request, '_fbc') })
+        const clientIp = (request.headers.get('x-real-ip') ?? request.headers.get('x-forwarded-for')?.split(',')[0] ?? '').trim()
+        const isValidIp = /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}|[0-9a-fA-F:]{3,45})$/.test(clientIp)
+        await sendMetaLeadEvent({ eventId, userAgent, pageUrl: new URL('/weboldalprototipus/', request.url).href, ...(isValidIp ? { clientIp } : {}) })
       }
     }
     return json({ ok: true })
