@@ -20,6 +20,7 @@ type MetaPixelFunction = NonNullable<Window['fbq']> & {
 
 let analyticsInitialized = false
 let pixelInitialized = false
+let pixelScriptPromise: Promise<void> | null = null
 const choiceChanged = 'kiszely:analytics-choice-changed'
 
 function subscribeToChoice(callback: () => void) {
@@ -70,27 +71,49 @@ function createMetaPixelQueue(): MetaPixelFunction {
   return fbq
 }
 
-function startMetaPixel() {
-  if (pixelInitialized || !metaPixelId) return
+function loadMetaPixelScript(fbq: MetaPixelFunction): Promise<void> {
+  if (fbq.callMethod) return Promise.resolve()
+  if (pixelScriptPromise) return pixelScriptPromise
+
+  const script = document.createElement('script')
+  script.async = true
+  script.src = 'https://connect.facebook.net/en_US/fbevents.js'
+
+  pixelScriptPromise = new Promise<void>((resolve, reject) => {
+    script.addEventListener('load', () => {
+      if (fbq.callMethod) resolve()
+      else {
+        script.remove()
+        pixelScriptPromise = null
+        reject(new Error('Meta Pixel did not initialize'))
+      }
+    }, { once: true })
+    script.addEventListener('error', () => {
+      script.remove()
+      pixelScriptPromise = null
+      reject(new Error('Meta Pixel library failed to load'))
+    }, { once: true })
+  })
+
+  document.head.appendChild(script)
+  return pixelScriptPromise
+}
+
+function startMetaPixel(): Promise<void> {
+  if (!metaPixelId) return Promise.resolve()
 
   const fbq = (window.fbq as MetaPixelFunction | undefined) ?? createMetaPixelQueue()
   window.fbq = fbq
   window._fbq = window._fbq ?? fbq
 
-  // Keep Meta's pixel paused until the visitor has actively opted in.
-  fbq('consent', 'revoke')
-  fbq('init', metaPixelId)
-
-  const pixelScriptUrl = 'https://connect.facebook.net/en_US/fbevents.js'
-  if (!document.querySelector('script[src="' + pixelScriptUrl + '"]')) {
-    const script = document.createElement('script')
-    script.async = true
-    script.src = pixelScriptUrl
-    document.head.appendChild(script)
-  }
-
-  fbq('consent', 'grant')
-  pixelInitialized = true
+  return loadMetaPixelScript(fbq).then(() => {
+    if (readMetaConsentChoice() !== 'accepted') return
+    if (!pixelInitialized) {
+      fbq('init', metaPixelId)
+      pixelInitialized = true
+    }
+    fbq('consent', 'grant')
+  })
 }
 
 export function AnalyticsConsent() {
@@ -129,11 +152,20 @@ export function AnalyticsConsent() {
     }
 
     if (metaPixelId && readMetaConsentChoice() === 'accepted') {
-      startMetaPixel()
-      if (lastMetaPage.current !== page) {
-        lastMetaPage.current = page
-        window.fbq?.('track', 'PageView')
-      }
+      void startMetaPixel().then(() => {
+        if (readMetaConsentChoice() !== 'accepted') {
+          window.fbq?.('consent', 'revoke')
+          lastMetaPage.current = null
+          return
+        }
+        if (page !== window.location.origin + window.location.pathname) return
+        if (lastMetaPage.current !== page) {
+          lastMetaPage.current = page
+          window.fbq?.('track', 'PageView')
+        }
+      }).catch(() => {
+        lastMetaPage.current = null
+      })
     } else {
       lastMetaPage.current = null
       window.fbq?.('consent', 'revoke')
