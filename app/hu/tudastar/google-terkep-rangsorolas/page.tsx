@@ -85,6 +85,7 @@ export default function MapsRankingArticlePage() {
               <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted-foreground">
                 <p>A Cégprofil segít megjelenni a helyi felületeken, a hozzá kapcsolódó weboldal pedig részletesen igazolhatja, milyen szolgáltatást, kinek és mely területen nyújt a vállalkozás. Ha a két felület ellentmond egymásnak, az a felhasználóknak és a keresőnek is bizonytalanságot okoz.</p>
                 <p>A munka ezért auditból, a valós üzleti adatok rendezéséből, a releváns oldalak fejlesztéséből és következetes mérésből áll — nem egy titkos beállításból.</p>
+                <p>Ha partnert keres ehhez a munkához, olvassa el a <Link href="/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/" className="font-semibold text-primary underline">kisvállalkozásoknak szóló marketingpartner-választási útmutatót</Link> is.</p>
               </div>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground"><strong className="text-foreground">Elsődleges forrás:</strong> <a href="https://support.google.com/business/answer/7091?hl=hu" target="_blank" rel="noreferrer" className="text-primary underline">A helyi rangsorolás javítása a Google-on – Google Cégprofil Súgó</a>.</div>
               <Link href="/hu/google-terkep-top-3/" className="button-primary mt-8">Google Térkép Top 3 szolgáltatás</Link>

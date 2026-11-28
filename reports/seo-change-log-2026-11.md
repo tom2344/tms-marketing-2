@@ -11,6 +11,10 @@
 - **Image optimization:** Recompressed the two map-grid WebP source images at the same 1624 × 969 dimensions. `map-green.webp` decreased from 205.8 kB to 175.4 kB and `map-red.webp` from 213.3 kB to 177.6 kB; visual review showed no apparent degradation. The built site served 640 px mobile variants at 43.7 kB and 39.7 kB. A fresh crawler remains pending.
 - **Internal-link follow-up:** Checked local production-build links from all 26 sitemap pages: 26 unique internal destinations, no redirects or broken destinations. The original Screaming Frog redirect warning still needs its source URL from a complete crawl export; no speculative link change was made.
 
+## 2026-11-28
+
+- **Internal links:** Search Console showed the buyer query `hogyan találhatok megbízható seo szakértőket hazai viszonylatban, akik kisvállalkozásoknak dolgoznak?` for `/hu/tudastar/legjobb-marketing-ugynokseg-kisvallalkozasoknak-magyarorszagon/` at average position 8.2, with 6 Hungary impressions and no clicks across the reporting period. Added one contextual link to this guide from `/hu/tudastar/google-terkep-rangsorolas/` and one from `/hu/tudastar/organikus-talalat-vagy-google-terkep/`. No titles, offers, prices, or other site copy changed.
+
 ## Open items (not silently treated as complete)
 
 - Verify `generate_lead` in a safe staging/debug flow or after a genuine, consented enquiry. No production form test was sent.
